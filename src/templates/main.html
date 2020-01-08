@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table id="container">
+    <tr>
+        <td id="left">
+            <table>
+                <tr>
+                    <td id="afe-menu">
+                        <div id="menu>">
+                            <button id="btn-save-and-next" class="afe-action" type="button" title="Gem denne fil, of naviger til den næste i listen">Gem og vis næste</button>
+                            <button id="btn-next" class="afe-action" type="button" title="Naviger til næste fil (uden at gemme)">Vis næste</button>
+                            <button id="btn-save" class="afe-action" type="button" title="Gem denne fil">Gem</button>
+                            <button id="btn-cancel" class="afe-action" type="button" title="Annuller ændringerne (og opfrisk filen)">Annuller</button>
+                            <div id="afe-user"><span class="fas fa-user"/><span id="afe-username">{{user}}</span>
+                                <span><a href="/setup" title="Opsætning af brugeren">Setup</a></span>
+                                <span id="afe-message"></span></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="afe-folders">
+                        <div id="folders"></div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td id="right">
+            <table>
+                <tr>
+                    <td id="afe-image">
+                        <div id="image">
+                            <canvas id="afe-image-canvas" title="Klik på billedet for at åbne dette i fuld størrelse i et andet vindue"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="afe-text">
+                        <div id="text">
+                            <h2>Vælg en XML fil fra folderne for at se indholdet...</h2>
+                        </div> 
+                    </td>
+                </tr>
+            </table>   
+        </td>
+    </tr>
+</table>
+{% endblock %}

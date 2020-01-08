@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="container">
+    <h1>ALTO Fax Edit - Setup</h1>
+    <div id="login-container">
+        <form method="POST">
+            <table>
+                <tr>
+                    <td>Github Personal Access Token <a href="https://github.com/settings/tokens" target="_new">Link til github token setup</a></td>
+                 </tr>
+                 <tr>
+                    <td><input name="token" type="text" size="50" value="{{token}}"></td>
+                 </tr>
+                <tr>
+                    <td><button id="btn-save-token" class="afe-setup-action" type="submit" title="Gem token">Gem</button></td>
+                </tr>
+                <tr><td>
+                    <a href="/">Tilbage til applikationen</a>
+                </td></tr>
+            </table>
+        </form>
+    </div>
+</div>
+{% endblock %}

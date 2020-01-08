@@ -1,0 +1,175 @@
+/*
+    Stylesheet for the ALTO Fax Edit Application
+    Martin B: Nielsen
+    17-12-2019
+*/
+
+/* ------------------------------- */
+/* Setup the main application grid */
+/* ------------------------------- */
+
+table#container {
+    position: fixed;
+}
+
+table {
+    display: block;
+}
+
+table td {
+    vertical-align: top;
+}
+
+div#menu {
+    height: 200px;
+    display: contents;
+}
+
+div#image {
+    min-height: 200px;
+    height: 38vh;
+    overflow: scroll;
+}
+
+div#text {
+    min-height: 200px;
+    height: 53vh;
+    overflow: scroll;
+    width: 100%;
+}
+
+div#folders {
+    overflow: scroll;
+    padding: 3px;
+    height: 88vh;
+}
+
+table td#left {
+    min-width: 315px;
+    border-right: 3px solid lightgray;
+}
+
+table td#afe-image, table td#afe-menu {
+    border-bottom: 3px solid lightgray;
+    padding-bottom: 7px;
+}
+
+/* --------------- */
+/* The menu region */
+/* --------------- */
+button.afe-action {
+    margin-right: 5px;
+    margin-top: 5px;
+    height: 36px;
+}
+
+div#afe-user {
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+div#afe-user span {
+    margin-left: 5px;
+}
+
+span#afe-username {
+    margin-left: 5px;
+}
+
+/* ----------------- */
+/* The Folder region */
+/* ----------------- */
+
+.afe-folder {
+    cursor: pointer;
+}
+
+.afe-folder:hover {
+   background-color:lightblue;;
+}
+
+.afe-folder.current {
+    color: blue;
+    font-weight: bold;
+}
+
+/* ----------------- */
+/* The Image region */
+/* ----------------- */
+
+#image #afe-image-canvas {
+    width: 100%; 
+    height: 100%;
+    overflow: scroll;
+}
+
+/* --------------- */
+/* The Text region */
+/* --------------- */
+
+#text h2 {
+    width: 100vh;
+}
+
+#text .TextLine {
+    width: 100%;
+    vertical-align: middle;
+    cursor: pointer;
+    white-space: nowrap; 
+    min-height: 20px;
+}
+
+span.SP { 
+    display: inline-block; 
+    width: 7px; 
+}
+
+#text span.String:hover {
+    background-color: lightgreen!important;
+}
+
+#text .TextLine:hover {
+    background-color: lightgrey;
+}
+
+#text .TextLine:hover i.afe-remove-textline {
+    visibility: visible;
+}
+
+#text input.afe-edit {
+    font-size: 10pt;
+    height:auto;
+    display:inline-block;  
+    text-align:center;  
+}
+
+#text span.afe-has-changed {
+    color: red;
+}
+
+i.afe-remove-textline {
+    float: right;
+    margin-right: 200px;
+    cursor: pointer;
+    visibility: hidden;
+    color: red;
+}
+
+span[data-subs_type=HypPart1]::after { 
+    content: '-'; 
+}
+
+input[type="text"] {
+    font-size: 14pt;
+}
+
+/* --------------- */
+/* The setup page  */
+/* --------------- */
+
+button.afe-setup-action {
+    margin-right: 5px;
+    margin-top: 5px;
+    height: 36px;
+    width: 200px;
+}
