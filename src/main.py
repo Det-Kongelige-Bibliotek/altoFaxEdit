@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, make_response, url_for, redirect
+from flask import Flask, request, render_template, make_response, jsonify, redirect
 import configparser
 import os
 import datetime
@@ -52,7 +52,7 @@ def config():
             "url": configParser.get('images', 'url')
         }
     }
-    return config
+    return jsonify(config)
 
 #if __name__ == "main":
 #    app.run()
