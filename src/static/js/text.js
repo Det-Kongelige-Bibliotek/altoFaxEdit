@@ -7,10 +7,11 @@ var afe = afe || {};
 afe.text = (function () {
     "use strict";
 
+    const XMLtopNode1 = '<?xml version="1.0" encoding="utf-8"?>';
+    const XMLtopNode2 = '<?xml version="1.0" encoding="UTF-8"?>';
+
     var xml2Html = function(xml) {
         var html='', $xml;
-
-        afe.utils.debug('xml2Html');
 
         var getFontSize = function(fontsize) {
             if (parseInt(fontsize) < 14) {
@@ -54,10 +55,14 @@ afe.text = (function () {
                         ' data-height="'    + $(st).attr('HEIGHT') + '"' +
                         ' data-width="'     + $(st).attr('WIDTH') + '"' +
                         ' data-hpos="'      + $(st).attr('HPOS') + '"' +
-                        ' data-vpos="'      + $(st).attr('VPOS') + '"' +
-                        ' data-subs_type="' + $(st).attr('SUBS_TYPE') + '"' +
-                        ' data-subs_content="' + $(st).attr('SUBS_CONTENT') + 
-                        '">' + ($(st).attr('CONTENT')?$(st).attr('CONTENT'):'') + '</span>';      
+                        ' data-vpos="'      + $(st).attr('VPOS') + '"';
+                        
+                    if ($(st).attr('SUBS_TYPE')) {
+                        html += ' data-subs_type="' + $(st).attr('SUBS_TYPE') + '"' +
+                                ' data-subs_content="' + $(st).attr('SUBS_CONTENT') + '"';
+                    }
+
+                    html += '>' + ($(st).attr('CONTENT')?$(st).attr('CONTENT'):'') + '</span>';      
                 }); 
                 html += '</div>'; 
             }); 
@@ -76,6 +81,11 @@ afe.text = (function () {
      */
     var xml2Text = function($xml) {
         var xmlString = (new XMLSerializer()).serializeToString($xml[0]);
+
+        // Compensate for the XML serialization and newlines
+        xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\n');
+        xmlString = xmlString.replace(XMLtopNode2, XMLtopNode2 + '\n');
+        xmlString = xmlString + '\n';
         return(xmlString);
     }
 
@@ -104,17 +114,16 @@ afe.text = (function () {
         // ----------------------    
         // Handling divided words
         // ----------------------    
-        console.log('Change text', subsType);
-
+  
         if (subsType) {
             // Find the other part of the word
-            if (subsType === 'HypPart1') {
-                partEl = $xml.find('String[ID=STRING' + (parseInt(id.substring(index))+1) + ']');
+            partEl = $xml.find('String[ID=' + afe.utils.getPartId(id, subsType) + ']');
+            if (subsType =='HypPart1') {
+                partContent = value + partEl.attr('CONTENT');
             }
-            else if (subsType === 'HypPart2') {
-                partEl = $xml.find('String[ID=STRING' + (parseInt(id.substring(index))-1) + ']');
+            else {
+                partContent = partEl.attr('CONTENT') + value;
             }
-            partContent = partEl.attr('CONTENT') + value;
  
             // If the word has been removed, then remove the "subs" attributes from both Strings
             if (!value) {
@@ -151,11 +160,25 @@ afe.text = (function () {
         el.empty();
     };    
 
+    /**
+     * 
+     * @param {JQuery element} $xml The XML document
+     * @returns {Object} containing the page size attributes
+     */
+    var getPageSize = function($xml) {
+        var el = $xml.find('Page');
+
+        return({
+            "width": el.attr('WIDTH')
+        });
+    }
+
     // Public functions
     return ({
         xml2Html:               xml2Html,
         xml2Text:               xml2Text,
         changeStringContent:    changeStringContent,
-        removeTextline:         removeTextline
+        removeTextline:         removeTextline,
+        getPageSize:            getPageSize
     });
 }());

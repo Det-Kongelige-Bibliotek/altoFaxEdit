@@ -115,6 +115,19 @@ afe.utils = (function () {
         return null;
     };
 
+    /**
+     * Returns the other part of a divided word (as STRING element name)
+     * @param {String} stringId The STRING<nn> value
+     * @param {String} subsType (HypPart1 | HypPart1)
+     * @returns The part STRING id
+     */
+    var getPartId = function(stringId, subsType) {
+        console.log('getPartId', stringId);
+        var id = parseInt(stringId.substring('STRING'.length));
+        id += (subsType == 'HypPart1')?1:-1;
+        return('STRING' + id);
+    };
+
     // Public functions
     return ({
         debug:              debug,
@@ -124,6 +137,7 @@ afe.utils = (function () {
         b64DecodeUnicode:   b64DecodeUnicode,
         isXMLFilename:      isXMLFilename,
         getConfig:          getConfig,
-        readCookie:         readCookie
+        readCookie:         readCookie,
+        getPartId:          getPartId
     });
 }());

@@ -93,6 +93,21 @@ span#afe-username {
     font-weight: bold;
 }
 
+.afe-folder.changed {
+    color: orange;
+    font-weight: bold;
+}
+
+.afe-folder.saved {
+    color: green;
+    font-weight: bold;
+}
+
+.afe-folder.error {
+    color: red;
+    font-weight: bold;
+}
+
 /* ----------------- */
 /* The Image region */
 /* ----------------- */
@@ -121,7 +136,12 @@ span#afe-username {
 
 span.SP { 
     display: inline-block; 
-    width: 7px; 
+    width: 6px; 
+}
+
+span.String { 
+    padding-left: 4px; 
+    padding-right: 4px; 
 }
 
 #text span.String:hover {
@@ -137,10 +157,10 @@ span.SP {
 }
 
 #text input.afe-edit {
-    font-size: 10pt;
-    height:auto;
-    display:inline-block;  
+    font-size: 14pt;
     text-align:center;  
+    padding:0px;
+    margin:0px;
 }
 
 #text span.afe-has-changed {

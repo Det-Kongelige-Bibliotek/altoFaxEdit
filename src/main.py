@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, make_response, url_for
+from flask import Flask, request, render_template, make_response, url_for, redirect
 import configparser
 import os
 import datetime
@@ -14,7 +14,7 @@ def home():
     user = request.headers.get('X-Remote-User')
     token = request.cookies.get(COOKIE_NAME)
     if token == None:
-        return render_template("setup.html", title='Setup', token='<Angiv venligst token fra github>')
+        return redirect("/setup")
     else:
         return render_template("main.html", title='Edit', user=user, token=token, version=APP_VERSION)
  

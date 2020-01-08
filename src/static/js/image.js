@@ -27,7 +27,7 @@ afe.image = (function () {
     const imageLoadingText = "Henter billede, vent venligst...";
 
     // Saved image data
-    var savedImageData;
+    var savedImage;
 
     /**
      * Set the base URL
@@ -92,12 +92,14 @@ afe.image = (function () {
         imageObj.onload = () => {
             var imgWidth = imageObj.naturalWidth;
             var imgHeight = imageObj.naturalHeight;
+            console.log('IMAGE WIDTH', imgWidth);
             canvas.width = imgWidth;        
             canvas.height = imgHeight;
             context.drawImage(imageObj, 0, 0, imgWidth, imgHeight, 0,0, imgWidth, imgHeight);
             // When the image is loaded, set the region width to 100%
             $(elImageTd).width(imgWidth);
-            savedImageData = context.getImageData(0, 0, imgWidth, imgHeight);
+            savedImage = imageObj;
+ 
             // Call the callback function (if defined)
             if (callback) {
                 callback();
@@ -105,9 +107,16 @@ afe.image = (function () {
         }
     };
 
-    var removeRectangle = function() {
+    /**
+     * Restore to the original image (remove rectangles)
+     */
+    var restoreImage = function() {
         // restore the clean image
-        context.putImageData(savedImageData, 0, 0);
+        var imgWidth = savedImage.naturalWidth;
+        var imgHeight = savedImage.naturalHeight;
+        canvas.width = imgWidth;        
+        canvas.height = imgHeight;
+        context.drawImage(savedImage, 0, 0, imgWidth, imgHeight, 0,0, imgWidth, imgHeight);
     };
 
     /**
@@ -118,7 +127,6 @@ afe.image = (function () {
      * @param {Integer} height 
      */
     var showRectangle = function(x, y, width, height) {
-        removeRectangle();
         context.save();
         context.strokeStyle = "lightgreen";
         context.lineWidth = 10;
@@ -159,7 +167,7 @@ afe.image = (function () {
         loadImage:          loadImage,
         clearImage:         clearImage,
         showRectangle:      showRectangle,
-        removeRectangle:    removeRectangle,
+        restoreImage:       restoreImage,
         getCanvasWidth:     getCanvasWidth,
         getCanvasHeight:    getCanvasHeight    
     });

@@ -20,16 +20,49 @@ afe.app = (function () {
     const folderTop   = '[Tilbage]';
     const commitMessage = 'AltoFaxEdit korrektur';
     const cookieToken   = 'afe-token';
+    const looseDataMessage = "Data er IKKE blevet gemt!. Ønsker du at fortsætte alligevel ?";
 
     // Image buffer constants
     const imageBuf = 400;
     const imagePosBuf = 200;
     const imageRectMargin = 20;
+    const imagePreviewWidth = 2922; // Note: currently this MUST be the same as image width
  
     // Datamodel
     var dataAltoFiles = [];
     var currentFolder = '';
-    var currentFile = -1;
+    var currentFile   = '';
+
+    /**
+     * 
+     * @param {String} status The status of the currently selected file
+     */
+    var setCurrentStatus = function(status) {
+        // Update the datamodel
+        dataAltoFiles[currentFile].status = status;
+
+        // Show the status in the file list
+        var curEl = $(elFolders + ' .afe-folder[data-id="' + currentFile + '"]');
+
+        // Make sure no other files are current
+        if (status == 'current') {
+            $(elFolders + ' .afe-folder').removeClass('current');
+        }
+        curEl.removeClass('current changed saved error');
+        curEl.addClass(status);
+    };
+
+    /**
+     * Return the status of the current file
+     */
+    var getCurrentStatus = function() {
+        if (currentFile) {
+            return(dataAltoFiles[currentFile].status);
+        }
+        else {
+            return(null);
+        }
+    };
 
     /**
      * Update the folders/files in the navigator
@@ -54,7 +87,7 @@ afe.app = (function () {
             }
             folders.forEach(element => {
                 html += '<div data-id="' + element.name + '" class="afe-folder" data-url="' + element.url + '">' + 
-                    element.name + (element.type=="dir"?'\\':'') + '</div>';
+                    element.name + (element.type=="dir"?'/':'') + '</div>';
             });
             $(elFolders).html(html);
            
@@ -80,6 +113,14 @@ afe.app = (function () {
         afe.utils.debug('eventChooseContent', _this);
         afe.utils.showMessage();
    
+        // Check if the file has been change
+        var status = getCurrentStatus();
+        if (status == 'changed' || status == 'error') {
+            if (!confirm(looseDataMessage)) {
+                return;
+            }
+        }
+
         var name = $(_this).text();
         var url = $(_this).data('url');
 
@@ -89,11 +130,8 @@ afe.app = (function () {
             // Click on XML file
             // ------------------
 
-            // TODO: Check if the file is already loaded into the datamodel
-
             // Mark the file as current
-            $(elFolders + ' .afe-folder').removeClass('current');
-            $(_this).addClass('current');
+            currentFile = name;
 
             // Load the first image preview
             //var img = afe.image.getImagePath(currentFolder, name, 0, 0, 3000, 1000);
@@ -109,6 +147,9 @@ afe.app = (function () {
    
                 // Parse XML to HTML, and display the html
                 var ret =  afe.text.xml2Html(xml);
+
+                // Get the page size attributes
+                var page = afe.text.getPageSize(ret.$xml);
     
                 // Strip the Branch name off the URL to form the POST URL
                 var postURL = url.substring(0, url.indexOf('?'));
@@ -122,11 +163,11 @@ afe.app = (function () {
                     "xml" :     xml,            // The Raw XML (Alto file)
                     "$xml" :    ret.$xml,       // The parsed XML as JQuery object
                     "html" :    ret.html,       // The HTML to display
-                    "status" :  "draft"         // The status of the file
+                    "status" :  "draft",         // The status of the file
+                    "page":     page
                 };
 
-                // Set the current file
-                currentFile = name;
+                setCurrentStatus('current');
                 dataAltoFiles[currentFile].currentLine = '';
 
                 // Display the HTML
@@ -155,6 +196,7 @@ afe.app = (function () {
         }
         else if (name === folderTop) {
             // Top chosen, reset region content
+            currentFile = '';
             updateFolders(url);
             afe.image.clearImage();
             $(elText).html('');
@@ -174,8 +216,8 @@ afe.app = (function () {
      var eventSelectLine = function() {
         var _this = this,
             id = $(_this).attr('id'),
-            height=0, width=0, hpos=0, vpos=0;
-
+            height=0, width=0, hpos=0, vpos=0, current;
+            
         afe.utils.debug('eventSelectLine', id);
 
         // No need to relead image if the selected line is already loaded
@@ -184,7 +226,8 @@ afe.app = (function () {
         }
 
         // Save the current line
-        dataAltoFiles[currentFile].currentLine = id;
+        current = dataAltoFiles[currentFile];
+        current.currentLine = id;
 
         // Get the prev and next line (in order to show 3 lines in total)
         var c = parseInt(id.substring(4));
@@ -200,17 +243,21 @@ afe.app = (function () {
         width = $(elText + ' ' + elTextline + '#LINE'  + c).data('width');
         height = $(elText + ' ' + elTextline + '#LINE' + c).data('height');
 
-        // Add a little buffer
+        // Add a little buffer in the preview
         width += imageBuf;
         height += imageBuf;
         hpos -= imagePosBuf;
         vpos -= imagePosBuf;
-    
+     
+        // Always start at horizontal position zero
+        hpos = 0;
+        width = current.page.width;
+
         // Save the current image bounding box in the datamodel
-        dataAltoFiles[currentFile].hpos = hpos;
-        dataAltoFiles[currentFile].vpos = vpos;
-        dataAltoFiles[currentFile].width = width;
-        dataAltoFiles[currentFile].height = height;
+        current.hpos = hpos;
+        current.vpos = vpos;
+        current.width = width;
+        current.height = height;
 
         // Load the image snippet
         var img = afe.image.getImagePath(currentFolder, dataAltoFiles[currentFile].name, hpos, vpos, width, height);    
@@ -231,35 +278,22 @@ afe.app = (function () {
 
             // Remove the line in the XML
             afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
+
+            setCurrentStatus('changed');
         }
 
     };
 
-     /**
-      * Select text event handler (click)
-      */
-     var eventSelectText = function(event, el) {
-        var _this = el?el:this;
-        afe.utils.debug('eventSelectText', _this);
-
-        // Detect line change - if so, set the event in queue (until the image is loaded)
-        // This code is needed because the line click event must be allowed to load the image first 
-        if ($(_this).closest(elTextline).attr('id') != dataAltoFiles[currentFile].currentLine) {
-            dataAltoFiles[currentFile].event = () => {
-                eventSelectText(event, _this);
-            }
-            return;
-        }
-
-        // Reset the callback function
-        dataAltoFiles[currentFile].event = null;
-
+    /**
+     * Function to calculate the rectangle dimensions for a JQuery element (String)
+     * @param {JQuery element} $element The Text String in the DOM
+     */
+    var calcRectangle = function($element) {
         // Get the String bounding box values
-        var id = $(_this).data('id');
-        var hpos = $(_this).data('hpos');
-        var vpos = $(_this).data('vpos');
-        var width = $(_this).data('width');
-        var height = $(_this).data('height');
+        var hpos = $element.data('hpos');
+        var vpos = $element.data('vpos');
+        var width = $element.data('width');
+        var height = $element.data('height');
 
         // calculate the position based on the currently shown image
         var w1 = dataAltoFiles[currentFile].width;
@@ -278,21 +312,60 @@ afe.app = (function () {
         height = Math.round(height * (h2/h1));
 
         // Apply extra margin
-        hpos -= imageRectMargin;
+        hpos -= imageRectMargin/2;
         vpos -= imageRectMargin/2;
-        width  += imageRectMargin*2;
+        width  += imageRectMargin;
         height += imageRectMargin;
 
-        afe.image.showRectangle(hpos, vpos, width, height);
+        return({
+            "hpos": hpos,
+            "vpos": vpos,
+            "width": width,
+            "height": height
+        });
+    };
+    
+
+     /**
+      * Select text event handler (click)
+      */
+     var eventSelectText = function(event, el) {
+        var _this = el?el:this;
+        afe.utils.debug('eventSelectText', _this);
+
+        // Detect line change - if so, set the event in queue (until the image is loaded)
+        // This code is needed because the line click event must be allowed to load the image first 
+        if ($(_this).closest(elTextline).attr('id') != dataAltoFiles[currentFile].currentLine) {
+            dataAltoFiles[currentFile].event = () => {
+                eventSelectText(event, _this);
+            }
+            return;
+        }
+        // Reset the callback function
+        dataAltoFiles[currentFile].event = null;
+
+        // Calculate where to draw the rectangle, clear the image and draw it
+        var dim = calcRectangle($(_this));
+        afe.image.restoreImage();
+        afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+
+        // For divided words, also mark the other part of the word
+        var id = $(_this).attr('id');
+        var subsType = $(_this).data('subs_type');
+        if (subsType) {
+            // The word is divided
+            var $partEl = $(elText + ' span.String#' + afe.utils.getPartId(id, subsType));
+            dim = calcRectangle($partEl);
+            afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+        }
 
         // --------------------
         // Show the edit field
         // --------------------
         var val = $(_this).text();
         // Inject a new text item into the DOM and setup an event handler for the change event
-        var editEl = $(_this).after('<input data-id="' + $(_this).attr('id') + 
-            '" class="afe-edit" type="text" size="' + 
-            (val.length+1) + '" value="' + val + '"/>')
+        var editEl = $(_this).after('<input data-id="' + id + 
+            '" class="afe-edit" type="text" size="' + val.length + '" value="' + val + '"/>')
             .next()
             .focus()
             .blur(eventChangeText)
@@ -352,8 +425,9 @@ afe.app = (function () {
                     partSpan.attr('data-subs_content', part.content);
                 }               
             }
-
-
+       
+            setCurrentStatus('changed');
+       
             // Adding a class here to show that the value has been corrected
             span.addClass('afe-has-changed');
         }
@@ -372,7 +446,7 @@ afe.app = (function () {
         $(_this).remove();
 
         // Remove the rectangle marking on the image
-        afe.image.removeRectangle();
+        afe.image.restoreImage();
     };
 
     /**
@@ -390,6 +464,7 @@ afe.app = (function () {
                 // Save the XML to github
                 afe.utils.showMessage('Gemmer data...');
                 var current = dataAltoFiles[currentFile];
+                afe.utils.debug('save current', current);
                 // First create text XML file from the JQuery XML object
                 current.xml = afe.text.xml2Text(current.$xml);
                 // Then convert the text file to Base64
@@ -397,9 +472,13 @@ afe.app = (function () {
                 // Then commit the Base64 content to github
                 afe.git.setContent(current.postURL, b64, current.sha, commitMessage).then(function(result) {
                     afe.utils.showMessage('Data er gemt');
+                    // Update the datamodel with a new sha
+                    current.sha = result.content.sha;
+                    setCurrentStatus('saved');
                 })
                 .catch(function(error) {
                     // Save has failed
+                    setCurrentStatus('error');
                     afe.utils.showMessage('Data er IKKE gemt');
                     alert('Kunne ikke gemme i Github: ' + error);
                 });
@@ -411,6 +490,12 @@ afe.app = (function () {
  
             case 'btn-cancel':
                 // Restore the original file
+                var status = getCurrentStatus();
+                if (status == 'changed' || status == 'error') {
+                    if (!confirm(looseDataMessage)) {
+                        return;
+                    }
+                }
                 var curr = $(elFolders + ' div[data-id="' + currentFile + '"]');
                 eventChooseContent(event, curr[0]);
                 break;

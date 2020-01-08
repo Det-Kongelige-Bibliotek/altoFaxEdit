@@ -57,7 +57,7 @@ afe.git = (function () {
      * @param {String} message The commit message
      */
     var setContent = function(url, content, sha, message) {
-        afe.utils.debug('Setting content, URL', url);
+        afe.utils.debug('Setting content, URL', url, sha);
 
         var p = new Promise(function(resolve, reject) {
             $.ajax({
