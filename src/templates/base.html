@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <title>{{title}} - The ALTO Fax Edit Application</title>
+  <meta name="description" content="The ALTO Fax Edit Application">
+  <meta name="author" content="Det Kongelige Bibliotek">
+  <link rel="icon" sizes="192x192" href="https://kb.dk/themes/custom/kbdk/assets/favicons/favicon-192.png">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}?v={{version}}">
+  <script src="https://kit.fontawesome.com/2e7febe9ea.js" crossorigin="anonymous"></script>
+</head>
+<body> 
+    {% block content %}{% endblock %}
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/utils.js')}}?v={{version}}"></script>
+  <script src="{{ url_for('static', filename='js/git.js')}}?v={{version}}"></script>
+  <script src="{{ url_for('static', filename='js/text.js')}}?v={{version}}"></script>
+  <script src="{{ url_for('static', filename='js/image.js')}}?v={{version}}"></script>
+  <script src="{{ url_for('static', filename='js/app.js')}}?v={{version}}"></script>
+</body>
+</html>
