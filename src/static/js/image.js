@@ -16,18 +16,35 @@ afe.image = (function () {
     // URI for the full images
     const fullImagePath = '/full/full/0/default.jpg';
     const previewImagePath = '/full/!2000,1000/0/default.jpg';
+    const maxImageWidth = 800;
+    const maxImageHeight = 700;
+
+    // Rectangle attrivbutes
+    const rectDefaults = {
+        "lineWidth" : 3,
+        "strokeStyle" : "green",
+        "globalAlpha": 0.4
+    }
 
     // HTML identifiers
-    const elImageTd = "td#afe-image";   // DOM selector
     const elImageCanvas = "afe-image-canvas";   // DOM selector
-    const canvas = document.getElementById(elImageCanvas);
-    const context = canvas.getContext("2d");
+    const elPreviewCanvas = "afe-preview-canvas";   // DOM selector
+
+    // Array containing canvas and contexts
+    const images = [];
+    images["image"] = {
+        "canvas" :  document.getElementById(elImageCanvas),
+        "context":  document.getElementById(elImageCanvas).getContext("2d"),
+        "savedImage": null
+    };
+    images["preview"] = {
+        "canvas" :  document.getElementById(elPreviewCanvas),
+        "context":  document.getElementById(elPreviewCanvas).getContext("2d"),
+        "savedImage": null
+    };
 
     // text constants
     const imageLoadingText = "Henter billede, vent venligst...";
-
-    // Saved image data
-    var savedImage;
 
     /**
      * Set the base URL
@@ -57,10 +74,10 @@ afe.image = (function () {
         if (left == undefined) {
             ret += folder + '/' + name + previewImagePath;
             // Store the URL for the full image in a data attribute (used for full image popup)
-            $('#' + elImageCanvas).attr('data-full-url', base + '/' + folder + '/' + name + fullImagePath);
+            // $('#' + elImageCanvas).attr('data-full-url', base + '/' + folder + '/' + name + fullImagePath);
         }
         else {
-            ret += folder + '/' + name + '/' + left + ',' + top + ',' + width + ',' + height + '/!2000,1000/0/default.jpg';
+            ret += folder + '/' + name + '/' + left + ',' + top + ',' + width + ',' + height + '/!' + maxImageWidth + ',' + maxImageHeight + '/0/default.jpg';
         }
         return(ret);
     }
@@ -68,7 +85,9 @@ afe.image = (function () {
     /**
      * Clear the image canvas
      */
-    var clearImage = function() {
+    var clearImage = function(image) {
+        var canvas = images[image].canvas;
+        var context = images[image].context;
         context.clearRect(0, 0, canvas.width, canvas.height);
     };
 
@@ -77,29 +96,32 @@ afe.image = (function () {
      * @param {String} imageURL The image URL
      * @param {Function} callback callback function (efter image load)
      */
-    var loadImage = function(imageURL, callback) {
+    var loadImage = function(image, imageURL, callback) {
+        var canvas = images[image].canvas;
+        var context = images[image].context;
+
         // Clean the canvas and write loading message
-        clearImage();
-        canvas.width = 500;        
+        clearImage(image);
+        canvas.width = maxImageWidth;        
         canvas.height = 300;
         context.font = '24px serif';
-        context.fillText(imageLoadingText, 100, 150, 200);
+        context.fillText(imageLoadingText, 100, 150, maxImageWidth);
 
         // Load the image
         const imageObj = new Image();
         imageObj.src = imageURL;
         imageObj.crossOrigin = "Anonymous";
         imageObj.onload = () => {
+            // Settings the width of the canvas
             var imgWidth = imageObj.naturalWidth;
+            imgWidth = maxImageWidth;
             var imgHeight = imageObj.naturalHeight;
-            console.log('IMAGE WIDTH', imgWidth);
             canvas.width = imgWidth;        
             canvas.height = imgHeight;
             context.drawImage(imageObj, 0, 0, imgWidth, imgHeight, 0,0, imgWidth, imgHeight);
             // When the image is loaded, set the region width to 100%
-            $(elImageTd).width(imgWidth);
-            savedImage = imageObj;
- 
+            images[image].savedImage = imageObj;
+          
             // Call the callback function (if defined)
             if (callback) {
                 callback();
@@ -110,7 +132,11 @@ afe.image = (function () {
     /**
      * Restore to the original image (remove rectangles)
      */
-    var restoreImage = function() {
+    var restoreImage = function(image) {
+        var canvas = images[image].canvas;
+        var context = images[image].context;
+        var savedImage = images[image].savedImage;
+        
         // restore the clean image
         var imgWidth = savedImage.naturalWidth;
         var imgHeight = savedImage.naturalHeight;
@@ -126,10 +152,16 @@ afe.image = (function () {
      * @param {Integer} width 
      * @param {Integer} height 
      */
-    var showRectangle = function(x, y, width, height) {
+    var showRectangle = function(image, x, y, width, height) {
+        var context = images[image].context;
+    
+        console.log('showRectangle', image, x, y, width, height);
+
         context.save();
-        context.strokeStyle = "lightgreen";
-        context.lineWidth = 10;
+        context.strokeStyle = rectDefaults.strokeStyle;
+        context.lineWidth = rectDefaults.lineWidth;
+        context.globalAlpha = rectDefaults.globalAlpha;
+        
         context.beginPath();
         context.rect(x, y, width, height);
         context.stroke();
@@ -139,24 +171,45 @@ afe.image = (function () {
     /**
      * Getter for the canvas width
      */
-    var getCanvasWidth = function() {
+    var getCanvasWidth = function(image) {
+        var canvas = images[image].canvas;
+ 
         return(canvas.width);
     };
 
     /**
      * Getter for the canvas height
      */
-    var getCanvasHeight = function() {
+    var getCanvasHeight = function(image) {
+        var canvas = images[image].canvas;
+ 
         return(canvas.height);
+    };
+
+
+    /**
+     * Getter for the image width
+     */
+    var getImageWidth = function(image) {
+        return(images[image].savedImage.naturalWidth);
+    };
+
+    /**
+     * Getter for the image height
+     */
+    var getImageHeight = function(image) {
+        return(images[image].savedImage.naturalHeight);
     };
 
     /**
      * Setup event handlers for events on the image
      */
     var setupEventHandlers = function() {
+        /*
         $('#' + elImageCanvas).click((e) => {
             window.open($(e.currentTarget).data('full-url'), '_blank');
         });
+        */
     };
 
     // Public functions
@@ -169,7 +222,9 @@ afe.image = (function () {
         showRectangle:      showRectangle,
         restoreImage:       restoreImage,
         getCanvasWidth:     getCanvasWidth,
-        getCanvasHeight:    getCanvasHeight    
+        getCanvasHeight:    getCanvasHeight,
+        getImageWidth:      getImageWidth,
+        getImageHeight:     getImageHeight
     });
 }());
 

@@ -20,22 +20,35 @@ table td {
     vertical-align: top;
 }
 
+/* The MAIN page structure / dimensions */
+table td#left {
+    width: 320px;
+}
+
+table td#middle {
+    width: 100%;
+    border-right: 3px solid lightgray;
+}
+
+td#right {
+    max-width: 640px;
+    min-width: 640px;
+}
+
 div#menu {
     height: 200px;
     display: contents;
 }
 
 div#image {
-    min-height: 200px;
-    height: 38vh;
+    height: 200px;
     overflow: scroll;
 }
 
 div#text {
     min-height: 200px;
-    height: 53vh;
     overflow: scroll;
-    width: 100%;
+/*    width: 100%; */
 }
 
 div#folders {
@@ -112,22 +125,21 @@ span#afe-username {
 /* The Image region */
 /* ----------------- */
 
-#image #afe-image-canvas {
-    width: 100%; 
+#image #afe-image-canvas, #afe-preview-canvas {
     height: 100%;
-    overflow: scroll;
+    max-width: 800px;
 }
 
 /* --------------- */
 /* The Text region */
 /* --------------- */
 
-#text h2 {
-    width: 100vh;
+td#afe-text {
+    width: 100vw;
 }
 
 #text .TextLine {
-    width: 100%;
+/*    width: 100%; */
     vertical-align: middle;
     cursor: pointer;
     white-space: nowrap; 
@@ -149,10 +161,10 @@ span.String {
 }
 
 #text .TextLine:hover {
-    background-color: lightgrey;
+    background-color:rgba(211, 211, 211, 0.527);
 }
 
-#text .TextLine:hover i.afe-remove-textline {
+#text .TextLine:hover i.afe-line-action {
     visibility: visible;
 }
 
@@ -161,18 +173,23 @@ span.String {
     text-align:center;  
     padding:0px;
     margin:0px;
+   outline-width: 3px;
+   outline-color: red;
 }
 
 #text span.afe-has-changed {
     color: red;
 }
 
-i.afe-remove-textline {
-    float: right;
-    margin-right: 200px;
+i.afe-line-action {
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
     cursor: pointer;
     visibility: hidden;
     color: red;
+    padding-top: 2px;
+    line-height: 14pt;
 }
 
 span[data-subs_type=HypPart1]::after { 

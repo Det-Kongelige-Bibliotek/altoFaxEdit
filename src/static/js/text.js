@@ -10,6 +10,8 @@ afe.text = (function () {
     const XMLtopNode1 = '<?xml version="1.0" encoding="utf-8"?>';
     const XMLtopNode2 = '<?xml version="1.0" encoding="UTF-8"?>';
 
+    const newTextLinePrefix = 'CUSTOM';
+
     var xml2Html = function(xml) {
         var html='', $xml;
 
@@ -161,6 +163,38 @@ afe.text = (function () {
     };    
 
     /**
+     * Add  a new TextLine element
+     * @param {Jquery Object} $xml The full XML document 
+     * @param {String} id ID of the current textline 
+     * @param {*} where before || after
+     * @returns {String} the new ID
+     */
+    var addTextline = function($xml, id, where) {
+        var el = $xml.find('TextLine[ID=' + id + ']');
+        var max = 0;
+        var newId = '', newTextLine = '';
+
+        // Get next textline ID
+        $xml.find('TextLine[ID^=' + newTextLinePrefix + ']').each(function() {
+            var id = $(this).attr('ID');
+            id = parseInt(id.substring(newTextLinePrefix.length));
+            max = Math.max(id, max);
+        });
+        max++;
+
+        newId = newTextLinePrefix + max;
+        newTextLine = '<TextLine ID="' + newId + '"><String CONTENT=""/></TextLine>';
+
+        if (where === "after") {
+            el.after(newTextLine);
+        }
+        else {
+            el.before(newTextLine);
+        }
+        return(newId);
+    };    
+
+    /**
      * 
      * @param {JQuery element} $xml The XML document
      * @returns {Object} containing the page size attributes
@@ -169,7 +203,8 @@ afe.text = (function () {
         var el = $xml.find('Page');
 
         return({
-            "width": el.attr('WIDTH')
+            "width": el.attr('WIDTH'),
+            "height": el.attr('HEIGHT')
         });
     }
 
@@ -179,6 +214,7 @@ afe.text = (function () {
         xml2Text:               xml2Text,
         changeStringContent:    changeStringContent,
         removeTextline:         removeTextline,
-        getPageSize:            getPageSize
+        getPageSize:            getPageSize,
+        addTextline:            addTextline
     });
 }());

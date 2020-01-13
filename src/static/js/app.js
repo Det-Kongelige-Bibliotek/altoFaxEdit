@@ -12,7 +12,6 @@ afe.app = (function () {
     // HTML identifiers
     const elFolders   = '#folders'; // JQuery selector
     const elText      = '#text';    // JQuery selector
-    const elImage     = '#image';   // JQuery selector
     const elTextline  = 'div.TextLine';
     const elString    = 'span.String';
 
@@ -136,7 +135,8 @@ afe.app = (function () {
             // Load the first image preview
             //var img = afe.image.getImagePath(currentFolder, name, 0, 0, 3000, 1000);
             var imgURL = afe.image.getImagePath(currentFolder, name);
-            afe.image.loadImage(imgURL); // Include callback function to handle line changes
+            afe.image.loadImage("preview", imgURL);
+            afe.image.clearImage("image");
 
             // Get the file from Github
             $(elText).html('');
@@ -181,10 +181,12 @@ afe.app = (function () {
 
                 // Add delete icons and events for each line and add events handler for click
                 $(elText + ' ' + elTextline).each(function() {
-                    $(this).append('<i class="fas fa-trash-alt afe-remove-textline"' +
-                        ' data-id="' + $(this).attr('id') + '" title="Slet hele linien"></i>');
+                    $(this)
+                        .append('<i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>')
+                        .append('<i class="far fa-caret-square-down afe-line-action afe-add-down" title="Tilføj en linie under denne"></i>')
+                        .append('<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i>')
                 });
-                $('i.afe-remove-textline').click(eventDeleteLine);
+                $('i.afe-line-action').click(eventLineAction);
  
                 afe.utils.showSpinner(elText, false);
             })
@@ -198,7 +200,8 @@ afe.app = (function () {
             // Top chosen, reset region content
             currentFile = '';
             updateFolders(url);
-            afe.image.clearImage();
+            afe.image.clearImage("preview");
+            afe.image.clearImage("image");
             $(elText).html('');
         }
         else {
@@ -243,6 +246,12 @@ afe.app = (function () {
         width = $(elText + ' ' + elTextline + '#LINE'  + c).data('width');
         height = $(elText + ' ' + elTextline + '#LINE' + c).data('height');
 
+        // Show rectangle in the preview image (first calculate the ratios)
+        var h = afe.image.getImageHeight("preview") / current.page.height;
+        var w = afe.image.getImageWidth("preview") / current.page.width;
+        afe.image.restoreImage("preview");
+        afe.image.showRectangle("preview", Math.round(hpos*w), Math.round(vpos*h), Math.round(width*w), Math.round(height*h));
+        
         // Add a little buffer in the preview
         width += imageBuf;
         height += imageBuf;
@@ -261,27 +270,49 @@ afe.app = (function () {
 
         // Load the image snippet
         var img = afe.image.getImagePath(currentFolder, dataAltoFiles[currentFile].name, hpos, vpos, width, height);    
-        afe.image.loadImage(img, dataAltoFiles[currentFile].event);
+        afe.image.loadImage("image", img, dataAltoFiles[currentFile].event);
     };
 
     /**
-     * Event handler for delete line (when icon is clicked)
+     * Event handler for line actions (when icon is clicked)
      */
-    var eventDeleteLine = function() {
+    var eventLineAction = function() {
         var _this =this;
-        var id = $(_this).data('id');
-        afe.utils.debug('eventDeleteLine', _this);
+        var id = $(_this).parent().attr('id');
+        var newId = '';
+        afe.utils.debug('eventLineAction', _this);
 
-        if (confirm('Slet linien ' + id + ' ?')) {
-            // Remove the line in the HTML (just the content - not the TextLine)
-            $(elTextline + '#' + id).empty();
-
-            // Remove the line in the XML
-            afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
-
-            setCurrentStatus('changed');
+        var getTextLine = function() {
+            var ret = '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span></div>';
+            console.log('inserting', ret);
+            return(ret);
         }
 
+        if ($(_this).hasClass('afe-remove-textline')) {
+
+            if (confirm('Slet linien ' + id + ' ?')) {
+                // Remove the line in the HTML (just the content - not the TextLine)
+                $(elTextline + '#' + id).empty();
+
+                // Remove the line in the XML
+                afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
+                setCurrentStatus('changed');
+            }
+        }
+        else if ($(_this).hasClass('afe-add-down')) {
+            if (confirm('Tilføj ny linie efter linien ' + id + ' ?')) {
+                newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
+                $(_this).parent().after(getTextLine());
+                setCurrentStatus('changed');
+            }
+        }
+        else if ($(_this).hasClass('afe-add-up')) {
+            if (confirm('Tilføj ny linie før linien ' + id + ' ?')) {
+                newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
+                $(_this).parent().before(getTextLine());
+                setCurrentStatus('changed');
+            }
+        }
     };
 
     /**
@@ -297,9 +328,9 @@ afe.app = (function () {
 
         // calculate the position based on the currently shown image
         var w1 = dataAltoFiles[currentFile].width;
-        var w2 = afe.image.getCanvasWidth();
+        var w2 = afe.image.getCanvasWidth("image");
         var h1 = dataAltoFiles[currentFile].height;
-        var h2 = afe.image.getCanvasHeight();
+        var h2 = afe.image.getCanvasHeight("image");
 
         // Find the x,y position inside the shown image
         hpos -= dataAltoFiles[currentFile].hpos;
@@ -313,9 +344,9 @@ afe.app = (function () {
 
         // Apply extra margin
         hpos -= imageRectMargin/2;
-        vpos -= imageRectMargin/2;
+        vpos -= imageRectMargin/4;
         width  += imageRectMargin;
-        height += imageRectMargin;
+        height += imageRectMargin/2;
 
         return({
             "hpos": hpos,
@@ -346,8 +377,8 @@ afe.app = (function () {
 
         // Calculate where to draw the rectangle, clear the image and draw it
         var dim = calcRectangle($(_this));
-        afe.image.restoreImage();
-        afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+        afe.image.restoreImage("image");
+        afe.image.showRectangle("image", dim.hpos, dim.vpos, dim.width, dim.height);
 
         // For divided words, also mark the other part of the word
         var id = $(_this).attr('id');
@@ -356,7 +387,7 @@ afe.app = (function () {
             // The word is divided
             var $partEl = $(elText + ' span.String#' + afe.utils.getPartId(id, subsType));
             dim = calcRectangle($partEl);
-            afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+            afe.image.showRectangle("image", dim.hpos, dim.vpos, dim.width, dim.height);
         }
 
         // --------------------
@@ -446,7 +477,7 @@ afe.app = (function () {
         $(_this).remove();
 
         // Remove the rectangle marking on the image
-        afe.image.restoreImage();
+        afe.image.restoreImage("image");
     };
 
     /**
@@ -550,7 +581,7 @@ afe.app = (function () {
         $('button.afe-action').click(eventButtonClick);
 
         // Setup image click handler (show full image in popup)
-        afe.image.setupEventHandlers();
+        // afe.image.setupEventHandlers();
     };
 
     // Public functions
