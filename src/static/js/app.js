@@ -489,6 +489,12 @@ afe.app = (function () {
 
         afe.utils.debug('eventButtonClick', button);
 
+        // Fecth next filer (JQuery)
+        var getNext = function() {
+            var next = $(elFolders + ' div[data-id="' + currentFile + '"]').next();
+            return(next);
+        }
+
         switch(button) {
             case 'btn-save': 
             case 'btn-save-and-next': 
@@ -506,6 +512,10 @@ afe.app = (function () {
                     // Update the datamodel with a new sha
                     current.sha = result.content.sha;
                     setCurrentStatus('saved');
+                    var next = getNext();
+                    if (next.length === 1) {
+                        eventChooseContent(event, next[0]);
+                    }
                 })
                 .catch(function(error) {
                     // Save has failed
@@ -517,6 +527,10 @@ afe.app = (function () {
  
             case 'btn-next':
                 // Action handled later
+                var next = getNext();
+                if (next.length === 1) {
+                    eventChooseContent(event, next[0]);
+                }
                 break;
  
             case 'btn-cancel':
@@ -536,15 +550,7 @@ afe.app = (function () {
 
         };
 
-        // Handle navigation to next
-        if (button === 'btn-save-and-next' || button === 'btn-next') {
-            // Navigate to the next file
-            var next = $(elFolders + ' div[data-id="' + currentFile + '"]').next();
-            if (next.length === 1) {
-                eventChooseContent(event, next[0]);
-            }
-        }
-    };
+     };
 
     /**
      * Return the current datamodel
