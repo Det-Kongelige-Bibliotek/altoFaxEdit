@@ -31,7 +31,13 @@ afe.app = (function () {
     var dataAltoFiles = [];
     var currentFolder = '';
     var currentFile   = '';
+    var urlStack = [];
 
+    // TextLine Actions
+    const lineActions = '<i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>' +
+                        '<i class="far fa-caret-square-down afe-line-action afe-add-down" title="Tilføj en linie under denne"></i>' +
+                        '<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i>';
+   
     /**
      * 
      * @param {String} status The status of the currently selected file
@@ -66,11 +72,20 @@ afe.app = (function () {
     /**
      * Update the folders/files in the navigator
      * @param {String} url - link to the next folder level (or undefined for root level)
+     * @param {Boolean} up - Is the folder direction up (user chooses prev folder)
      */
-    var updateFolders = function(url) {
+    var updateFolders = function(url, up) {
         // Clear the folders region
         $(elFolders).html('');
         afe.utils.showSpinner(elFolders, true);
+
+        // Handle the URL Stack
+        if (up) {
+            urlStack.pop();
+        }
+        else {
+            urlStack.push(url); // Save last URL in the stack
+        }
 
         // call github for folders/files
         afe.git.getContent(url).then(function(folders) {
@@ -81,12 +96,13 @@ afe.app = (function () {
             var html = '';
 
             // Handle the root node
-            if (url) {
-                html += '<div class="afe-folder" data-url="">' + folderTop + '</div>';
+            if (urlStack.length > 1) {
+                html += '<div class="afe-folder" data-type="dir" data-id="' + folderTop + 
+                    '" data-url="' + urlStack[urlStack.length-2] + '">' + folderTop + '</div>';
             }
             folders.forEach(element => {
-                html += '<div data-id="' + element.name + '" class="afe-folder" data-url="' + element.url + '">' + 
-                    element.name + (element.type=="dir"?'/':'') + '</div>';
+                html += '<div data-id="' + element.name + '" class="afe-folder" data-url="' + element.url + '" ' +
+                            'data-type="' + element.type + '"> ' + element.name + (element.type=="dir"?'/':'') + '</div>';
             });
             $(elFolders).html(html);
            
@@ -98,7 +114,6 @@ afe.app = (function () {
         .catch(function(error) {
             // Save has failed
             afe.utils.showMessage('Ingen adgang til Github');
-            alert('Fejl: Kunne ikke hente filer fra Github: ' + error);
         });
 
      }
@@ -120,11 +135,13 @@ afe.app = (function () {
             }
         }
 
-        var name = $(_this).text();
+        // Get attributes from the file clicked
+        var name = $(_this).data('id');
         var url = $(_this).data('url');
+        var type = $(_this).data('type');
 
         // Check for folder or xml file
-        if (afe.utils.isXMLFilename(name)) {
+        if (type === 'file' && afe.utils.isXMLFilename(name)) {
             // ------------------
             // Click on XML file
             // ------------------
@@ -181,10 +198,7 @@ afe.app = (function () {
 
                 // Add delete icons and events for each line and add events handler for click
                 $(elText + ' ' + elTextline).each(function() {
-                    $(this)
-                        .append('<i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>')
-                        .append('<i class="far fa-caret-square-down afe-line-action afe-add-down" title="Tilføj en linie under denne"></i>')
-                        .append('<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i>')
+                    $(this).append(lineActions);
                 });
                 $('i.afe-line-action').click(eventLineAction);
  
@@ -197,19 +211,22 @@ afe.app = (function () {
             });
         }
         else if (name === folderTop) {
-            // Top chosen, reset region content
+            // Back to porev folder chosen, reset region content
             currentFile = '';
-            updateFolders(url);
+            updateFolders(url, true);
             afe.image.clearImage("preview");
             afe.image.clearImage("image");
             $(elText).html('');
         }
-        else {
+        else if (type === 'dir') {
             // ---------------------------------
             // Click on folder - show next level
             // ---------------------------------
             currentFolder = name;
             updateFolders(url);
+        }
+        else {
+            alert('Denne type fil er IKKE supporteret');
         }
      }
 
@@ -283,16 +300,29 @@ afe.app = (function () {
         afe.utils.debug('eventLineAction', _this);
 
         var getTextLine = function() {
-            var ret = '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span></div>';
-            console.log('inserting', ret);
+            var ret = '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span>' +
+                lineActions + '</div>';
             return(ret);
+        }
+
+        var applyEventHandlers = function() {
+            $('div.TextLine#' + newId).click(eventSelectLine);
+            $('div.TextLine#' + newId + ' i.afe-line-action').click(eventLineAction);
+            $('div.TextLine#' + newId + ' ' + elString).click(eventSelectText);
         }
 
         if ($(_this).hasClass('afe-remove-textline')) {
 
-            if (confirm('Slet linien ' + id + ' ?')) {
+            if (confirm('Slet den markerede linie ?')) {
                 // Remove the line in the HTML (just the content - not the TextLine)
-                $(elTextline + '#' + id).empty();
+                if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
+                    // For custom inserted TextLines, delete the full element
+                    $(elTextline + '#' + id).remove();
+                }
+                else {
+                    // For original elements, just delete the content
+                    $(elTextline + '#' + id).empty();
+                }
 
                 // Remove the line in the XML
                 afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
@@ -300,16 +330,18 @@ afe.app = (function () {
             }
         }
         else if ($(_this).hasClass('afe-add-down')) {
-            if (confirm('Tilføj ny linie efter linien ' + id + ' ?')) {
+            if (confirm('Tilføj ny linie efter den markerede linie ?')) {
                 newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
-                $(_this).parent().after(getTextLine());
+                $(_this).parent().after(getTextLine()).click(eventLineAction);
+                applyEventHandlers();
                 setCurrentStatus('changed');
             }
         }
         else if ($(_this).hasClass('afe-add-up')) {
-            if (confirm('Tilføj ny linie før linien ' + id + ' ?')) {
+            if (confirm('Tilføj ny linie før den markerede linie ?')) {
                 newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
                 $(_this).parent().before(getTextLine());
+                applyEventHandlers();
                 setCurrentStatus('changed');
             }
         }
@@ -363,7 +395,7 @@ afe.app = (function () {
      var eventSelectText = function(event, el) {
         var _this = el?el:this;
         afe.utils.debug('eventSelectText', _this);
-
+   
         // Detect line change - if so, set the event in queue (until the image is loaded)
         // This code is needed because the line click event must be allowed to load the image first 
         if ($(_this).closest(elTextline).attr('id') != dataAltoFiles[currentFile].currentLine) {
@@ -413,7 +445,8 @@ afe.app = (function () {
     var eventChangeText = function(event) {
         const keyTab = 10, keyEnter = 13, keyEscape = 27;
         var _this = this;
-  
+        afe.utils.debug('eventChangeText', _this);
+   
         // Decoding the event
         if (event.type !== "blur" && event.which !== keyEnter && event.which !== keyTab && event.which !== 27) {
            // User is typing text
@@ -512,9 +545,11 @@ afe.app = (function () {
                     // Update the datamodel with a new sha
                     current.sha = result.content.sha;
                     setCurrentStatus('saved');
-                    var next = getNext();
-                    if (next.length === 1) {
-                        eventChooseContent(event, next[0]);
+                    if (button === 'btn-save-and-next') {
+                        var next = getNext();
+                        if (next.length === 1) {
+                            eventChooseContent(event, next[0]);
+                        }
                     }
                 })
                 .catch(function(error) {
@@ -578,9 +613,10 @@ afe.app = (function () {
             // Persist the configuration
             afe.git.setConfig(config.github.url, config.github.branch, token);
             afe.image.setBasePath(config.images.url);
-
+ 
             // Show the first level of folder from the github repository
-            updateFolders();
+            var theURL = config.github.url + '?ref=' + config.github.branch;
+            updateFolders(theURL);
         });
 
         // Setup button event handler

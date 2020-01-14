@@ -159,7 +159,15 @@ afe.text = (function () {
      */
     var removeTextline = function($xml, id) {
         var el = $xml.find('TextLine[ID=' + id + ']');
-        el.empty();
+
+        if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
+              // Remove the line in the HTML (just the content - not the TextLine)
+            el.remove();
+        }
+        else {
+            // For original elements, just delete the content
+            el.empty();
+        }
     };    
 
     /**
@@ -183,7 +191,7 @@ afe.text = (function () {
         max++;
 
         newId = newTextLinePrefix + max;
-        newTextLine = '<TextLine ID="' + newId + '"><String CONTENT=""/></TextLine>';
+        newTextLine = '<TextLine ID="' + newId + '"><String CONTENT="" ID="STRING' + newId + '"/></TextLine>';
 
         if (where === "after") {
             el.after(newTextLine);
@@ -208,6 +216,14 @@ afe.text = (function () {
         });
     }
 
+    /**
+     * Fetch the constant declare in the module
+     * @returns {String} The prefic for new TextLines
+     */
+    var getNewTextLinePrefix = function() {
+        return(newTextLinePrefix);
+    }
+
     // Public functions
     return ({
         xml2Html:               xml2Html,
@@ -215,6 +231,7 @@ afe.text = (function () {
         changeStringContent:    changeStringContent,
         removeTextline:         removeTextline,
         getPageSize:            getPageSize,
-        addTextline:            addTextline
+        addTextline:            addTextline,
+        getNewTextLinePrefix:   getNewTextLinePrefix
     });
 }());

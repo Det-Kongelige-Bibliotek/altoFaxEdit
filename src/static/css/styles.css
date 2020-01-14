@@ -160,6 +160,11 @@ span.String {
     background-color: lightgreen!important;
 }
 
+/* Empty strings - display a min. width */
+#text span.String:empty {
+    padding-right: 40px;
+}
+
 #text .TextLine:hover {
     background-color:rgba(211, 211, 211, 0.527);
 }

@@ -27,12 +27,10 @@ afe.git = (function () {
      * @param {String} url The URL to the file content
      */
     var getContent = function(url) {
-        var theURL = url?url:gitRoot + '?ref=' + branch;
-        afe.utils.debug('Fetching content, URL', theURL);
-
+  
         var p = new Promise(function(resolve, reject) {
             $.ajax({
-                url: theURL,
+                url: url,
                 type: "GET",
                 headers: {"Authorization": "token " + token},
                 cache: false,
