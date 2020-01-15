@@ -94,6 +94,11 @@ afe.utils = (function () {
         return(p);
     };
 
+    /**
+     * Is the filename an XML file
+     * @param {String} filename The name of the file
+     * @returns {Boolean} true | false
+     */
     var isXMLFilename = function(filename) {
         var isXML = (filename.indexOf('.xml') >= 0);
         return(isXML);

@@ -12,9 +12,9 @@ afe.app = (function () {
     // HTML identifiers
     const elFolders   = '#folders'; // JQuery selector
     const elText      = '#text';    // JQuery selector
-    const elImage     = '#image';   // JQuery selector
     const elTextline  = 'div.TextLine';
     const elString    = 'span.String';
+    const elSpace     = 'span.SP';
 
     // Text constants
     const folderTop   = '[Tilbage]';
@@ -32,7 +32,13 @@ afe.app = (function () {
     var dataAltoFiles = [];
     var currentFolder = '';
     var currentFile   = '';
+    var urlStack = [];
 
+    // TextLine Actions
+    const lineActions = '<i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>' +
+                        '<i class="far fa-caret-square-down afe-line-action afe-add-down" title="Tilføj en linie under denne"></i>' +
+                        '<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i>';
+   
     /**
      * 
      * @param {String} status The status of the currently selected file
@@ -67,11 +73,20 @@ afe.app = (function () {
     /**
      * Update the folders/files in the navigator
      * @param {String} url - link to the next folder level (or undefined for root level)
+     * @param {Boolean} up - Is the folder direction up (user chooses prev folder)
      */
-    var updateFolders = function(url) {
+    var updateFolders = function(url, up) {
         // Clear the folders region
         $(elFolders).html('');
         afe.utils.showSpinner(elFolders, true);
+
+        // Handle the URL Stack
+        if (up) {
+            urlStack.pop();
+        }
+        else {
+            urlStack.push(url); // Save last URL in the stack
+        }
 
         // call github for folders/files
         afe.git.getContent(url).then(function(folders) {
@@ -82,12 +97,13 @@ afe.app = (function () {
             var html = '';
 
             // Handle the root node
-            if (url) {
-                html += '<div class="afe-folder" data-url="">' + folderTop + '</div>';
+            if (urlStack.length > 1) {
+                html += '<div class="afe-folder" data-type="dir" data-id="' + folderTop + 
+                    '" data-url="' + urlStack[urlStack.length-2] + '">' + folderTop + '</div>';
             }
             folders.forEach(element => {
-                html += '<div data-id="' + element.name + '" class="afe-folder" data-url="' + element.url + '">' + 
-                    element.name + (element.type=="dir"?'/':'') + '</div>';
+                html += '<div data-id="' + element.name + '" class="afe-folder" data-url="' + element.url + '" ' +
+                            'data-type="' + element.type + '"> ' + element.name + (element.type=="dir"?'/':'') + '</div>';
             });
             $(elFolders).html(html);
            
@@ -99,10 +115,43 @@ afe.app = (function () {
         .catch(function(error) {
             // Save has failed
             afe.utils.showMessage('Ingen adgang til Github');
-            alert('Fejl: Kunne ikke hente filer fra Github: ' + error);
         });
 
      }
+
+     /**
+      * Generate new XML text and HTML for the jQuery XML object
+      * Reresh the HTML in the text region, and apply event handlers
+      * @param {Boolean} XMLChanged Hast the JQuery XML document changed ?
+      */
+     var refreshCurrentHTML = function(XMLChanged = true) {
+        var current = dataAltoFiles[currentFile];
+
+        // Convert the JQuery XML object to XML text
+        if (XMLChanged) {
+            current.xml = afe.text.xml2Text(current.$xml);
+        }
+
+        // Generate HTML for the XML text
+        var ret =  afe.text.xml2Html(current.xml);
+        current.html = ret.html;
+
+        // Display the HTML
+        $(elText).html(ret.html);
+
+        // Setup event handler for the clicking line
+        $(elText + ' ' + elTextline).click(eventSelectLine);
+
+        // Setup event handler for the clicking text
+        $(elText + ' ' + elString).click(eventSelectText);
+
+            // Add delete icons and events for each line and add events handler for click
+        $(elText + ' ' + elTextline).each(function() {
+            $(this).append(lineActions);
+        });
+
+        $('i.afe-line-action').click(eventLineAction);
+     };
 
      /**
       * Event handler for folder/file click
@@ -121,11 +170,13 @@ afe.app = (function () {
             }
         }
 
-        var name = $(_this).text();
+        // Get attributes from the file clicked
+        var name = $(_this).data('id');
         var url = $(_this).data('url');
+        var type = $(_this).data('type');
 
         // Check for folder or xml file
-        if (afe.utils.isXMLFilename(name)) {
+        if (type === 'file' && afe.utils.isXMLFilename(name)) {
             // ------------------
             // Click on XML file
             // ------------------
@@ -136,7 +187,8 @@ afe.app = (function () {
             // Load the first image preview
             //var img = afe.image.getImagePath(currentFolder, name, 0, 0, 3000, 1000);
             var imgURL = afe.image.getImagePath(currentFolder, name);
-            afe.image.loadImage(imgURL); // Include callback function to handle line changes
+            afe.image.loadImage("preview", imgURL);
+            afe.image.clearImage("image");
 
             // Get the file from Github
             $(elText).html('');
@@ -170,21 +222,7 @@ afe.app = (function () {
                 setCurrentStatus('current');
                 dataAltoFiles[currentFile].currentLine = '';
 
-                // Display the HTML
-                $(elText).html(ret.html);
-                
-                // Setup event handler for the clicking line
-                $(elText + ' ' + elTextline).click(eventSelectLine);
-
-                // Setup event handler for the clicking text
-                $(elText + ' ' + elString).click(eventSelectText);
-
-                // Add delete icons and events for each line and add events handler for click
-                $(elText + ' ' + elTextline).each(function() {
-                    $(this).append('<i class="fas fa-trash-alt afe-remove-textline"' +
-                        ' data-id="' + $(this).attr('id') + '" title="Slet hele linien"></i>');
-                });
-                $('i.afe-remove-textline').click(eventDeleteLine);
+                refreshCurrentHTML(false);
  
                 afe.utils.showSpinner(elText, false);
             })
@@ -195,18 +233,22 @@ afe.app = (function () {
             });
         }
         else if (name === folderTop) {
-            // Top chosen, reset region content
+            // Back to porev folder chosen, reset region content
             currentFile = '';
-            updateFolders(url);
-            afe.image.clearImage();
+            updateFolders(url, true);
+            afe.image.clearImage("preview");
+            afe.image.clearImage("image");
             $(elText).html('');
         }
-        else {
+        else if (type === 'dir') {
             // ---------------------------------
             // Click on folder - show next level
             // ---------------------------------
             currentFolder = name;
             updateFolders(url);
+        }
+        else {
+            alert('Denne type fil er IKKE supporteret');
         }
      }
 
@@ -243,13 +285,20 @@ afe.app = (function () {
         width = $(elText + ' ' + elTextline + '#LINE'  + c).data('width');
         height = $(elText + ' ' + elTextline + '#LINE' + c).data('height');
 
+        // Show rectangle in the preview image (first calculate the ratios)
+        var h = afe.image.getImageHeight("preview") / current.page.height;
+        var w = afe.image.getImageWidth("preview") / current.page.width;
+        afe.image.restoreImage("preview");
+        afe.image.showRectangle("preview", 0, Math.round(vpos*h)-5, afe.image.getImageWidth("preview") , Math.round(height*h)+10);
+        
         // Add a little buffer in the preview
         width += imageBuf;
         height += imageBuf;
         hpos -= imagePosBuf;
         vpos -= imagePosBuf;
-     
-        // Always start at horizontal position zero
+        
+        // Always start at horizontal position from first to last word
+        // var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
         hpos = 0;
         width = current.page.width;
 
@@ -261,27 +310,53 @@ afe.app = (function () {
 
         // Load the image snippet
         var img = afe.image.getImagePath(currentFolder, dataAltoFiles[currentFile].name, hpos, vpos, width, height);    
-        afe.image.loadImage(img, dataAltoFiles[currentFile].event);
+        afe.image.loadImage("image", img, dataAltoFiles[currentFile].event);
     };
 
     /**
-     * Event handler for delete line (when icon is clicked)
+     * Event handler for line actions (when icon is clicked)
      */
-    var eventDeleteLine = function() {
+    var eventLineAction = function() {
         var _this =this;
-        var id = $(_this).data('id');
-        afe.utils.debug('eventDeleteLine', _this);
+        var id = $(_this).parent().attr('id');
+        var newId = '';
+        afe.utils.debug('eventLineAction', _this);
 
-        if (confirm('Slet linien ' + id + ' ?')) {
-            // Remove the line in the HTML (just the content - not the TextLine)
-            $(elTextline + '#' + id).empty();
-
-            // Remove the line in the XML
-            afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
-
-            setCurrentStatus('changed');
+        var getTextLine = function() {
+            var ret = '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span>' +
+                lineActions + '</div>';
+            return(ret);
         }
 
+        var applyEventHandlers = function() {
+            $('div.TextLine#' + newId).click(eventSelectLine);
+            $('div.TextLine#' + newId + ' i.afe-line-action').click(eventLineAction);
+            $('div.TextLine#' + newId + ' ' + elString).click(eventSelectText);
+        }
+
+        if ($(_this).hasClass('afe-remove-textline')) {
+
+            if (confirm('Slet den markerede linie ?')) {
+                // Remove the line in the XML
+                afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
+                refreshCurrentHTML();
+                setCurrentStatus('changed');
+            }
+        }
+        else if ($(_this).hasClass('afe-add-down')) {
+            if (confirm('Tilføj ny linie efter den markerede linie ?')) {
+                afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
+                refreshCurrentHTML();
+               setCurrentStatus('changed');
+            }
+        }
+        else if ($(_this).hasClass('afe-add-up')) {
+            if (confirm('Tilføj ny linie før den markerede linie ?')) {
+                afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
+                refreshCurrentHTML();
+                setCurrentStatus('changed');
+            }
+        }
     };
 
     /**
@@ -297,9 +372,9 @@ afe.app = (function () {
 
         // calculate the position based on the currently shown image
         var w1 = dataAltoFiles[currentFile].width;
-        var w2 = afe.image.getCanvasWidth();
+        var w2 = afe.image.getCanvasWidth("image");
         var h1 = dataAltoFiles[currentFile].height;
-        var h2 = afe.image.getCanvasHeight();
+        var h2 = afe.image.getCanvasHeight("image");
 
         // Find the x,y position inside the shown image
         hpos -= dataAltoFiles[currentFile].hpos;
@@ -313,9 +388,9 @@ afe.app = (function () {
 
         // Apply extra margin
         hpos -= imageRectMargin/2;
-        vpos -= imageRectMargin/2;
+        vpos -= imageRectMargin/4;
         width  += imageRectMargin;
-        height += imageRectMargin;
+        height += imageRectMargin/2;
 
         return({
             "hpos": hpos,
@@ -326,13 +401,73 @@ afe.app = (function () {
     };
     
 
+    /**
+     * Event handler for text merges (left/right icon press)
+     * 
+     * Ved sammenlægning slettes <SP>-elementet mellem de to <String>-elementer,
+     * og det nye sammenlagte <String>-element får disse nye bounding box-værdier:
+     *
+·    * ny HPOS = HPOS for tidligere venstreHPOS
+·    * ny WIDTH = højreHPOS - venstreHPOS + højreWIDTH
+·    * ny VPOS = min(venstreVPOS, højreVPOS)
+·    * ny HEIGHT = max((venstreVPOS + venstreHEIGHT),  (højreVPOS + højreHEIGHT))  - nyVPOS
+     */
+    var eventMergeText = function(event) {
+        var _this = this;
+        var mergeType = event.data.type;
+        var $el, $el1, $el2, $elRemove;
+        var content, hpos, vpos, width, height;
+        var idRemove;
+        afe.utils.debug('eventMergeText', _this);
+
+        $el = $(elString + '#' + event.data.id);
+    
+        if (!confirm('Sammenlæg ord ?')) {
+            return;
+        }
+
+        if (mergeType === "left") {
+            $el1 = $($el.prevAll(elString).get(0));
+            $el2 = $el;
+            $elRemove = $el1;
+        }
+        else {
+            $el1 = $el;
+            $el2 = $($el.nextAll(elString).get(0));
+            $elRemove = $el2;
+        }
+
+        // Store the next text (this will also set the value in the span.String)
+        content = $el1.text() + $el2.text();
+        $('input.afe-edit').val(content);
+
+        // Store the new data attributes on the String element
+        /*
+        ·    * ny HPOS = HPOS for tidligere venstreHPOS
+        ·    * ny WIDTH = højreHPOS - venstreHPOS + højreWIDTH
+        ·    * ny VPOS = min(venstreVPOS, højreVPOS)
+        ·    * ny HEIGHT = max((venstreVPOS + venstreHEIGHT),  (højreVPOS + højreHEIGHT))  - nyVPOS
+        */
+        hpos = $el1.data('hpos');
+        width = $el2.data('hpos') - $el1.data('hpos') + $el2.data('width');
+        vpos = Math.min($el1.data('vpos'), $el2.data('vpos'));
+        height = Math.max(($el1.data('vpos') + $el1.data('height')),  ($el2.data('vpos') + $el2.data('height'))) - vpos;
+   
+        // Persist the change in the XML (note: the HTML refresh is done in the "eventChangeText" function which is triggered when the content is changed)
+        afe.text.mergeStrings(dataAltoFiles[currentFile].$xml, event.data.id, $el1.attr('id'), $el2.attr('id'), content, hpos, vpos, width, height);
+
+        // Mark the file as changed
+        setCurrentStatus('changed');
+    };
+
      /**
       * Select text event handler (click)
       */
      var eventSelectText = function(event, el) {
         var _this = el?el:this;
+        console.log('EVENT', event, event.originalEvent.offsetX);
         afe.utils.debug('eventSelectText', _this);
-
+   
         // Detect line change - if so, set the event in queue (until the image is loaded)
         // This code is needed because the line click event must be allowed to load the image first 
         if ($(_this).closest(elTextline).attr('id') != dataAltoFiles[currentFile].currentLine) {
@@ -346,8 +481,8 @@ afe.app = (function () {
 
         // Calculate where to draw the rectangle, clear the image and draw it
         var dim = calcRectangle($(_this));
-        afe.image.restoreImage();
-        afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+        afe.image.restoreImage("image");
+        afe.image.showRectangle("image", dim.hpos, dim.vpos, dim.width, dim.height);
 
         // For divided words, also mark the other part of the word
         var id = $(_this).attr('id');
@@ -356,7 +491,7 @@ afe.app = (function () {
             // The word is divided
             var $partEl = $(elText + ' span.String#' + afe.utils.getPartId(id, subsType));
             dim = calcRectangle($partEl);
-            afe.image.showRectangle(dim.hpos, dim.vpos, dim.width, dim.height);
+            afe.image.showRectangle("image", dim.hpos, dim.vpos, dim.width, dim.height);
         }
 
         // --------------------
@@ -371,7 +506,18 @@ afe.app = (function () {
             .blur(eventChangeText)
             .keydown(eventChangeText);   // JQuery after() returns the original element, hence the call to next()
 
-        // Hide the span (display item)
+        // Add the word merge icons (but bo for start/end)
+        if ($(_this).prevAll(elString).length > 0) {
+            editEl.before('<i class="far fa-caret-square-left afe-merge-left" title="Sammenlæg med forrige ord"></i>');
+        }
+        if ($(_this).nextAll(elString).length > 0) {
+            editEl.after('<i class="far fa-caret-square-right afe-merge-right" title="Sammenlæg med næste ord"></i>');
+        }
+        // Setup event handlers for the merge buttons
+        $('i.afe-merge-left').on('mousedown', {"id": id, "type":"left"}, eventMergeText);
+        $('i.afe-merge-right').on('mousedown', {"id": id, "type":"right"}, eventMergeText);
+ 
+        // Hide then span element
         $(_this).hide();
 
     };
@@ -382,7 +528,8 @@ afe.app = (function () {
     var eventChangeText = function(event) {
         const keyTab = 10, keyEnter = 13, keyEscape = 27;
         var _this = this;
-  
+        afe.utils.debug('eventChangeText', _this);
+   
         // Decoding the event
         if (event.type !== "blur" && event.which !== keyEnter && event.which !== keyTab && event.which !== 27) {
            // User is typing text
@@ -397,6 +544,9 @@ afe.app = (function () {
         if (event.which === keyEscape) {
             // Reset to the original value from the span
             val = span.text();
+            span.show();
+            $(_this).remove();
+            $('i.afe-merge-left, i.afe-merge-right').remove();
         }
         else if (val != span.text()) {
             // Used for divided words
@@ -407,46 +557,22 @@ afe.app = (function () {
             // Save the text in the XML
             var part = afe.text.changeStringContent(dataAltoFiles[currentFile].$xml, id, val, subsType, subsContent);
 
-            // Handle changes to divided words
-            // If the word has been removed, then remove the data-subs_type and data-subs_content attributes
-            // If the word has changed, then update the data-subs-content for both HypPart1 and HypPart2
-            if (subsType) {
-                var partSpan = $('span#' + part.id);
-                // If the word has been removed, then remove the "subs" attributes from the other part of the String
-                if (!val) {
-                    span.removeAttr('data-subs_type');
-                    span.removeAttr('data-subs_content');
-                    partSpan.removeAttr('data-subs_type');
-                    partSpan.removeAttr('data-subs_content');   
-                }
-                else {
-                    // Otherwise update the SUBS_CONTENT on both Strings
-                    span.attr('data-subs_content', part.content);
-                    partSpan.attr('data-subs_content', part.content);
-                }               
-            }
-       
             setCurrentStatus('changed');
-       
-            // Adding a class here to show that the value has been corrected
-            span.addClass('afe-has-changed');
-        }
+            refreshCurrentHTML();
 
-        // Set the value in the span and display this (or remove it when blanked)
-        if (val) {
-            span
-                .text(val)
-                .show();
+            // Adding a class here to show that the value has been corrected
+            var span = $('span#' + id);
+            span.addClass('afe-has-changed');
+           
         }
         else {
-            span.remove();
+            span.show();
+            $(_this).remove();
+            $('i.afe-merge-left, i.afe-merge-right').remove();
         }
  
-        // Remove the text input item
-        $(_this).remove();
-
         // Remove the rectangle marking on the image
-        afe.image.restoreImage();
+        afe.image.restoreImage("image");
     };
 
     /**
@@ -457,6 +583,12 @@ afe.app = (function () {
         var button = $(_this).attr('id');
 
         afe.utils.debug('eventButtonClick', button);
+
+        // Fecth next filer (JQuery)
+        var getNext = function() {
+            var next = $(elFolders + ' div[data-id="' + currentFile + '"]').next();
+            return(next);
+        }
 
         switch(button) {
             case 'btn-save': 
@@ -475,6 +607,12 @@ afe.app = (function () {
                     // Update the datamodel with a new sha
                     current.sha = result.content.sha;
                     setCurrentStatus('saved');
+                    if (button === 'btn-save-and-next') {
+                        var next = getNext();
+                        if (next.length === 1) {
+                            eventChooseContent(event, next[0]);
+                        }
+                    }
                 })
                 .catch(function(error) {
                     // Save has failed
@@ -486,6 +624,10 @@ afe.app = (function () {
  
             case 'btn-next':
                 // Action handled later
+                var next = getNext();
+                if (next.length === 1) {
+                    eventChooseContent(event, next[0]);
+                }
                 break;
  
             case 'btn-cancel':
@@ -505,15 +647,7 @@ afe.app = (function () {
 
         };
 
-        // Handle navigation to next
-        if (button === 'btn-save-and-next' || button === 'btn-next') {
-            // Navigate to the next file
-            var next = $(elFolders + ' div[data-id="' + currentFile + '"]').next();
-            if (next.length === 1) {
-                eventChooseContent(event, next[0]);
-            }
-        }
-    };
+     };
 
     /**
      * Return the current datamodel
@@ -541,16 +675,15 @@ afe.app = (function () {
             // Persist the configuration
             afe.git.setConfig(config.github.url, config.github.branch, token);
             afe.image.setBasePath(config.images.url);
-
+ 
             // Show the first level of folder from the github repository
-            updateFolders();
+            var theURL = config.github.url + '?ref=' + config.github.branch;
+            updateFolders(theURL);
         });
 
         // Setup button event handler
         $('button.afe-action').click(eventButtonClick);
 
-        // Setup image click handler (show full image in popup)
-        afe.image.setupEventHandlers();
     };
 
     // Public functions
