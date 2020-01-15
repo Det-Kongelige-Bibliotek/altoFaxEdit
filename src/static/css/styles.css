@@ -31,8 +31,9 @@ table td#middle {
 }
 
 td#right {
-    max-width: 640px;
-    min-width: 640px;
+    max-width: 40em;
+    min-width: 40em;
+    width: 40em;
 }
 
 div#menu {
@@ -41,14 +42,15 @@ div#menu {
 }
 
 div#image {
-    height: 200px;
+    min-height: 8em;
     overflow: scroll;
+    text-align: center;
 }
 
 div#text {
     min-height: 200px;
     overflow: scroll;
-/*    width: 100%; */
+    width: 100%;
 }
 
 div#folders {
@@ -126,8 +128,7 @@ span#afe-username {
 /* ----------------- */
 
 #image #afe-image-canvas, #afe-preview-canvas {
-    height: 100%;
-    max-width: 800px;
+ /*   height: 100%; */
 }
 
 /* --------------- */
@@ -179,7 +180,6 @@ span.String {
     padding:0px;
     margin:0px;
    outline-width: 3px;
-   outline-color: red;
 }
 
 #text span.afe-has-changed {

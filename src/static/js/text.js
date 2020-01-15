@@ -166,7 +166,7 @@ afe.text = (function () {
         }
         else {
             // For original elements, just delete the content
-            el.empty();
+            el.empty().append('<String CONTENT="" ID="STRING' + id + '"/>');
         }
     };    
 
@@ -175,7 +175,6 @@ afe.text = (function () {
      * @param {Jquery Object} $xml The full XML document 
      * @param {String} id ID of the current textline 
      * @param {*} where before || after
-     * @returns {String} the new ID
      */
     var addTextline = function($xml, id, where) {
         var el = $xml.find('TextLine[ID=' + id + ']');
@@ -199,7 +198,6 @@ afe.text = (function () {
         else {
             el.before(newTextLine);
         }
-        return(newId);
     };    
 
     /**
@@ -224,6 +222,59 @@ afe.text = (function () {
         return(newTextLinePrefix);
     }
 
+    /**
+     * Merge two String elements in the XML
+     * Logic:
+     *  Ved sammenlægning slettes <SP>-elementet mellem de to <String>-elementer,
+     *  og det nye sammenlagte <String>-element får disse nye bounding box-værdier:
+     * *
+     * @param {JQuery object} $xml The XML content
+     * @param {String} id ID of the element which should persist
+     * @param {String} id1 ID of the leftmost element
+     * @param {String} id2 ID of the rightmost element
+     * @param {String} content The new (merged) content
+     * @param {Integer} hpos The new HPOS
+     * @param {Integer} vpos The new VPOS
+     * @param {Integer} width The new width
+     * @param {Integer} height The new height
+     */
+    var mergeStrings = function($xml, id, id1, id2, content, hpos, vpos, width, height) {
+        var idRemove = (id === id1)?id2:id1;
+
+        //  <SP>-elementet mellem de to <String>-elementer
+        $xml.find('String[ID=' + id1 + ']').next('SP').remove();
+
+        // Det nye sammenlagte <String>-element får disse nye bounding box-værdier:
+        var $el = $xml.find('String[ID=' + id + ']');
+        console.log('$EL', $el);
+        $el.attr('VPOS', vpos);
+        $el.attr('HPOS', hpos);
+        $el.attr('WIDTH', width);
+        $el.attr('HEIGHT', height);
+
+        // Slet den String som er blevet merged
+        $xml.find('String[ID=' + idRemove + ']').remove();
+    };
+
+    /**
+     * Fetch the TextLine dimensions
+     * @param {JQuery object} $xml The XML content
+     * @param {String} id The ID of the TextLine
+     * @returns {Object} containing the hpos and width
+     */
+    var getTextLineDim = function($xml, id) {
+        var $el = $xml.find('TextLine[ID=' + id + ']');
+
+        var $first = $el.find('String').first();
+        var $last = $el.find('String').last();
+
+        return({
+            "hpos" : $first.attr('HPOS'),
+            "width" : $last.attr('HPOS') + $last.attr('WIDTH') - $first.attr('HPOS')
+        });
+
+    };
+
     // Public functions
     return ({
         xml2Html:               xml2Html,
@@ -232,6 +283,8 @@ afe.text = (function () {
         removeTextline:         removeTextline,
         getPageSize:            getPageSize,
         addTextline:            addTextline,
-        getNewTextLinePrefix:   getNewTextLinePrefix
+        getNewTextLinePrefix:   getNewTextLinePrefix,
+        mergeStrings:           mergeStrings,
+        getTextLineDim:         getTextLineDim
     });
 }());

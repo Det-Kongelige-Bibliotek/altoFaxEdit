@@ -14,6 +14,7 @@ afe.app = (function () {
     const elText      = '#text';    // JQuery selector
     const elTextline  = 'div.TextLine';
     const elString    = 'span.String';
+    const elSpace     = 'span.SP';
 
     // Text constants
     const folderTop   = '[Tilbage]';
@@ -119,6 +120,40 @@ afe.app = (function () {
      }
 
      /**
+      * Generate new XML text and HTML for the jQuery XML object
+      * Reresh the HTML in the text region, and apply event handlers
+      * @param {Boolean} XMLChanged Hast the JQuery XML document changed ?
+      */
+     var refreshCurrentHTML = function(XMLChanged = true) {
+        var current = dataAltoFiles[currentFile];
+
+        // Convert the JQuery XML object to XML text
+        if (XMLChanged) {
+            current.xml = afe.text.xml2Text(current.$xml);
+        }
+
+        // Generate HTML for the XML text
+        var ret =  afe.text.xml2Html(current.xml);
+        current.html = ret.html;
+
+        // Display the HTML
+        $(elText).html(ret.html);
+
+        // Setup event handler for the clicking line
+        $(elText + ' ' + elTextline).click(eventSelectLine);
+
+        // Setup event handler for the clicking text
+        $(elText + ' ' + elString).click(eventSelectText);
+
+            // Add delete icons and events for each line and add events handler for click
+        $(elText + ' ' + elTextline).each(function() {
+            $(this).append(lineActions);
+        });
+
+        $('i.afe-line-action').click(eventLineAction);
+     };
+
+     /**
       * Event handler for folder/file click
       */
     var eventChooseContent = function(event, el) {
@@ -187,20 +222,7 @@ afe.app = (function () {
                 setCurrentStatus('current');
                 dataAltoFiles[currentFile].currentLine = '';
 
-                // Display the HTML
-                $(elText).html(ret.html);
-                
-                // Setup event handler for the clicking line
-                $(elText + ' ' + elTextline).click(eventSelectLine);
-
-                // Setup event handler for the clicking text
-                $(elText + ' ' + elString).click(eventSelectText);
-
-                // Add delete icons and events for each line and add events handler for click
-                $(elText + ' ' + elTextline).each(function() {
-                    $(this).append(lineActions);
-                });
-                $('i.afe-line-action').click(eventLineAction);
+                refreshCurrentHTML(false);
  
                 afe.utils.showSpinner(elText, false);
             })
@@ -267,15 +289,16 @@ afe.app = (function () {
         var h = afe.image.getImageHeight("preview") / current.page.height;
         var w = afe.image.getImageWidth("preview") / current.page.width;
         afe.image.restoreImage("preview");
-        afe.image.showRectangle("preview", Math.round(hpos*w), Math.round(vpos*h), Math.round(width*w), Math.round(height*h));
+        afe.image.showRectangle("preview", 0, Math.round(vpos*h)-5, afe.image.getImageWidth("preview") , Math.round(height*h)+10);
         
         // Add a little buffer in the preview
         width += imageBuf;
         height += imageBuf;
         hpos -= imagePosBuf;
         vpos -= imagePosBuf;
-     
-        // Always start at horizontal position zero
+        
+        // Always start at horizontal position from first to last word
+        // var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
         hpos = 0;
         width = current.page.width;
 
@@ -314,34 +337,23 @@ afe.app = (function () {
         if ($(_this).hasClass('afe-remove-textline')) {
 
             if (confirm('Slet den markerede linie ?')) {
-                // Remove the line in the HTML (just the content - not the TextLine)
-                if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
-                    // For custom inserted TextLines, delete the full element
-                    $(elTextline + '#' + id).remove();
-                }
-                else {
-                    // For original elements, just delete the content
-                    $(elTextline + '#' + id).empty();
-                }
-
                 // Remove the line in the XML
                 afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
+                refreshCurrentHTML();
                 setCurrentStatus('changed');
             }
         }
         else if ($(_this).hasClass('afe-add-down')) {
             if (confirm('Tilføj ny linie efter den markerede linie ?')) {
-                newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
-                $(_this).parent().after(getTextLine()).click(eventLineAction);
-                applyEventHandlers();
-                setCurrentStatus('changed');
+                afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
+                refreshCurrentHTML();
+               setCurrentStatus('changed');
             }
         }
         else if ($(_this).hasClass('afe-add-up')) {
             if (confirm('Tilføj ny linie før den markerede linie ?')) {
-                newId = afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
-                $(_this).parent().before(getTextLine());
-                applyEventHandlers();
+                afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
+                refreshCurrentHTML();
                 setCurrentStatus('changed');
             }
         }
@@ -389,11 +401,71 @@ afe.app = (function () {
     };
     
 
+    /**
+     * Event handler for text merges (left/right icon press)
+     * 
+     * Ved sammenlægning slettes <SP>-elementet mellem de to <String>-elementer,
+     * og det nye sammenlagte <String>-element får disse nye bounding box-værdier:
+     *
+·    * ny HPOS = HPOS for tidligere venstreHPOS
+·    * ny WIDTH = højreHPOS - venstreHPOS + højreWIDTH
+·    * ny VPOS = min(venstreVPOS, højreVPOS)
+·    * ny HEIGHT = max((venstreVPOS + venstreHEIGHT),  (højreVPOS + højreHEIGHT))  - nyVPOS
+     */
+    var eventMergeText = function(event) {
+        var _this = this;
+        var mergeType = event.data.type;
+        var $el, $el1, $el2, $elRemove;
+        var content, hpos, vpos, width, height;
+        var idRemove;
+        afe.utils.debug('eventMergeText', _this);
+
+        $el = $(elString + '#' + event.data.id);
+    
+        if (!confirm('Sammenlæg ord ?')) {
+            return;
+        }
+
+        if (mergeType === "left") {
+            $el1 = $($el.prevAll(elString).get(0));
+            $el2 = $el;
+            $elRemove = $el1;
+        }
+        else {
+            $el1 = $el;
+            $el2 = $($el.nextAll(elString).get(0));
+            $elRemove = $el2;
+        }
+
+        // Store the next text (this will also set the value in the span.String)
+        content = $el1.text() + $el2.text();
+        $('input.afe-edit').val(content);
+
+        // Store the new data attributes on the String element
+        /*
+        ·    * ny HPOS = HPOS for tidligere venstreHPOS
+        ·    * ny WIDTH = højreHPOS - venstreHPOS + højreWIDTH
+        ·    * ny VPOS = min(venstreVPOS, højreVPOS)
+        ·    * ny HEIGHT = max((venstreVPOS + venstreHEIGHT),  (højreVPOS + højreHEIGHT))  - nyVPOS
+        */
+        hpos = $el1.data('hpos');
+        width = $el2.data('hpos') - $el1.data('hpos') + $el2.data('width');
+        vpos = Math.min($el1.data('vpos'), $el2.data('vpos'));
+        height = Math.max(($el1.data('vpos') + $el1.data('height')),  ($el2.data('vpos') + $el2.data('height'))) - vpos;
+   
+        // Persist the change in the XML (note: the HTML refresh is done in the "eventChangeText" function which is triggered when the content is changed)
+        afe.text.mergeStrings(dataAltoFiles[currentFile].$xml, event.data.id, $el1.attr('id'), $el2.attr('id'), content, hpos, vpos, width, height);
+
+        // Mark the file as changed
+        setCurrentStatus('changed');
+    };
+
      /**
       * Select text event handler (click)
       */
      var eventSelectText = function(event, el) {
         var _this = el?el:this;
+        console.log('EVENT', event, event.originalEvent.offsetX);
         afe.utils.debug('eventSelectText', _this);
    
         // Detect line change - if so, set the event in queue (until the image is loaded)
@@ -434,7 +506,18 @@ afe.app = (function () {
             .blur(eventChangeText)
             .keydown(eventChangeText);   // JQuery after() returns the original element, hence the call to next()
 
-        // Hide the span (display item)
+        // Add the word merge icons (but bo for start/end)
+        if ($(_this).prevAll(elString).length > 0) {
+            editEl.before('<i class="far fa-caret-square-left afe-merge-left" title="Sammenlæg med forrige ord"></i>');
+        }
+        if ($(_this).nextAll(elString).length > 0) {
+            editEl.after('<i class="far fa-caret-square-right afe-merge-right" title="Sammenlæg med næste ord"></i>');
+        }
+        // Setup event handlers for the merge buttons
+        $('i.afe-merge-left').on('mousedown', {"id": id, "type":"left"}, eventMergeText);
+        $('i.afe-merge-right').on('mousedown', {"id": id, "type":"right"}, eventMergeText);
+ 
+        // Hide then span element
         $(_this).hide();
 
     };
@@ -461,6 +544,9 @@ afe.app = (function () {
         if (event.which === keyEscape) {
             // Reset to the original value from the span
             val = span.text();
+            span.show();
+            $(_this).remove();
+            $('i.afe-merge-left, i.afe-merge-right').remove();
         }
         else if (val != span.text()) {
             // Used for divided words
@@ -471,44 +557,20 @@ afe.app = (function () {
             // Save the text in the XML
             var part = afe.text.changeStringContent(dataAltoFiles[currentFile].$xml, id, val, subsType, subsContent);
 
-            // Handle changes to divided words
-            // If the word has been removed, then remove the data-subs_type and data-subs_content attributes
-            // If the word has changed, then update the data-subs-content for both HypPart1 and HypPart2
-            if (subsType) {
-                var partSpan = $('span#' + part.id);
-                // If the word has been removed, then remove the "subs" attributes from the other part of the String
-                if (!val) {
-                    span.removeAttr('data-subs_type');
-                    span.removeAttr('data-subs_content');
-                    partSpan.removeAttr('data-subs_type');
-                    partSpan.removeAttr('data-subs_content');   
-                }
-                else {
-                    // Otherwise update the SUBS_CONTENT on both Strings
-                    span.attr('data-subs_content', part.content);
-                    partSpan.attr('data-subs_content', part.content);
-                }               
-            }
-       
             setCurrentStatus('changed');
-       
-            // Adding a class here to show that the value has been corrected
-            span.addClass('afe-has-changed');
-        }
+            refreshCurrentHTML();
 
-        // Set the value in the span and display this (or remove it when blanked)
-        if (val) {
-            span
-                .text(val)
-                .show();
+            // Adding a class here to show that the value has been corrected
+            var span = $('span#' + id);
+            span.addClass('afe-has-changed');
+           
         }
         else {
-            span.remove();
+            span.show();
+            $(_this).remove();
+            $('i.afe-merge-left, i.afe-merge-right').remove();
         }
  
-        // Remove the text input item
-        $(_this).remove();
-
         // Remove the rectangle marking on the image
         afe.image.restoreImage("image");
     };
@@ -622,8 +684,6 @@ afe.app = (function () {
         // Setup button event handler
         $('button.afe-action').click(eventButtonClick);
 
-        // Setup image click handler (show full image in popup)
-        // afe.image.setupEventHandlers();
     };
 
     // Public functions

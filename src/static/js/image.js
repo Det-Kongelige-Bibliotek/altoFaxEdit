@@ -16,7 +16,7 @@ afe.image = (function () {
     // URI for the full images
     const fullImagePath = '/full/full/0/default.jpg';
     const previewImagePath = '/full/!2000,1000/0/default.jpg';
-    const maxImageWidth = 800;
+    const maxImageWidth = 600;
     const maxImageHeight = 700;
 
     // Rectangle attrivbutes
@@ -103,18 +103,22 @@ afe.image = (function () {
         // Clean the canvas and write loading message
         clearImage(image);
         canvas.width = maxImageWidth;        
-        canvas.height = 300;
+        //canvas.height = 300;
         context.font = '24px serif';
         context.fillText(imageLoadingText, 100, 150, maxImageWidth);
-
+    
         // Load the image
         const imageObj = new Image();
         imageObj.src = imageURL;
         imageObj.crossOrigin = "Anonymous";
         imageObj.onload = () => {
             // Settings the width of the canvas
-            var imgWidth = imageObj.naturalWidth;
-            imgWidth = maxImageWidth;
+            if (image === "preview") {
+                var imgWidth = imageObj.naturalWidth;
+            }
+            else {
+                imgWidth = maxImageWidth;
+            }
             var imgHeight = imageObj.naturalHeight;
             canvas.width = imgWidth;        
             canvas.height = imgHeight;
