@@ -17,7 +17,7 @@ afe.image = (function () {
     const fullImagePath = '/full/full/0/default.jpg';
     const previewImagePath = '/full/!2000,1000/0/default.jpg';
     const maxImageWidth = 600;
-    const maxImageHeight = 700;
+    const maxImageHeight = 200;
 
     // Rectangle attrivbutes
     const rectDefaults = {
@@ -105,7 +105,7 @@ afe.image = (function () {
         canvas.width = maxImageWidth;        
         //canvas.height = 300;
         context.font = '24px serif';
-        context.fillText(imageLoadingText, 100, 150, maxImageWidth);
+        context.fillText(imageLoadingText, 100, 50, maxImageWidth);
     
         // Load the image
         const imageObj = new Image();

@@ -158,15 +158,20 @@ afe.text = (function () {
      * @param {String} id The String ID
      */
     var removeTextline = function($xml, id) {
-        var el = $xml.find('TextLine[ID=' + id + ']');
+        var $el = $xml.find('TextLine[ID=' + id + ']');
 
         if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
               // Remove the line in the HTML (just the content - not the TextLine)
-            el.remove();
+            $el.remove();
         }
         else {
             // For original elements, just delete the content
-            el.empty().append('<String CONTENT="" ID="STRING' + id + '"/>');
+            $el.empty().append('<String CONTENT="" ID="STRING' + id + '"' +
+            ' HPOS="'   + $el.attr('HPOS')   + '"' +
+            ' VPOS="'   + $el.attr('VPOS')   + '"' +
+            ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+            ' HEIGHT="' + $el.attr('HEIGHT') + '"' +                   
+            '></String>');
         }
     };    
 
@@ -177,7 +182,7 @@ afe.text = (function () {
      * @param {*} where before || after
      */
     var addTextline = function($xml, id, where) {
-        var el = $xml.find('TextLine[ID=' + id + ']');
+        var $el = $xml.find('TextLine[ID=' + id + ']');
         var max = 0;
         var newId = '', newTextLine = '';
 
@@ -190,13 +195,23 @@ afe.text = (function () {
         max++;
 
         newId = newTextLinePrefix + max;
-        newTextLine = '<TextLine ID="' + newId + '"><String CONTENT="" ID="STRING' + newId + '"/></TextLine>';
+        newTextLine = '<TextLine ID="' + newId + '"' +
+            ' HPOS="'   + $el.attr('HPOS')   + '"' +
+            ' VPOS="'   + $el.attr('VPOS')   + '"' +
+            ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+            ' HEIGHT="' + $el.attr('HEIGHT') + '"' +
+            '><String CONTENT="" ID="STRING' + newId + '"' +
+                ' HPOS="'   + $el.attr('HPOS')   + '"' +
+                ' VPOS="'   + $el.attr('VPOS')   + '"' +
+                ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+                ' HEIGHT="' + $el.attr('HEIGHT') + '"' +           
+            '></String></TextLine>';
 
         if (where === "after") {
-            el.after(newTextLine);
+            $el.after(newTextLine);
         }
         else {
-            el.before(newTextLine);
+            $el.before(newTextLine);
         }
     };    
 
@@ -264,13 +279,36 @@ afe.text = (function () {
      */
     var getTextLineDim = function($xml, id) {
         var $el = $xml.find('TextLine[ID=' + id + ']');
+        var $prevTextLine, $nextTextLine;
 
-        var $first = $el.find('String').first();
-        var $last = $el.find('String').last();
+        var getDim = function($this) {
+            var $first = $this.find('String').first();
+            var $last = $this.find('String').last();
+
+            return({
+                "hpos"  : parseInt($first.attr('HPOS')),
+                "width" : parseInt($last.attr('HPOS')) + parseInt($last.attr('WIDTH')) - parseInt($first.attr('HPOS')),
+                "vpos"  : parseInt($first.attr('VPOS')),
+                "height": Math.max(parseInt($first.attr('HEIGHT')), parseInt($last.attr('HEIGHT')))
+            });          
+        };
+
+        // Get the prev and next TextLine
+        $prevTextLine = $el.prev();
+        if ($prevTextLine.length === 0) {
+            
+            $prevTextLine = $el.parent().prevAll('TextBlock').first().find('TextLine').last();
+        }
+
+        $nextTextLine = $el.next();
+        if ($nextTextLine.length === 0) {
+            $nextTextLine = $el.parent().nextAll('TextBlock').first().find('TextLine').first();
+        }
 
         return({
-            "hpos" : $first.attr('HPOS'),
-            "width" : $last.attr('HPOS') + $last.attr('WIDTH') - $first.attr('HPOS')
+            "prev"    : $prevTextLine.length?getDim($prevTextLine):null,
+            "current" : getDim($el),
+            "next"    : $nextTextLine.length?getDim($nextTextLine):null
         });
 
     };

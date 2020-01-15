@@ -42,7 +42,8 @@ div#menu {
 }
 
 div#image {
-    min-height: 8em;
+    min-height: 12em;
+    max-height: 12em;
     overflow: scroll;
     text-align: center;
 }
