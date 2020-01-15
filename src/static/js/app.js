@@ -20,7 +20,7 @@ afe.app = (function () {
     const folderTop   = '[Tilbage]';
     const commitMessage = 'AltoFaxEdit korrektur';
     const cookieToken   = 'afe-token';
-    const looseDataMessage = "Data er IKKE blevet gemt!. Ønsker du at fortsætte alligevel ?";
+    const looseDataMessage = "Data er IKKE blevet gemt!. Ønsker du at fortsætte alligevel?";
 
     // Image buffer constants
     const imageBuf = 400;
@@ -271,29 +271,16 @@ afe.app = (function () {
         current = dataAltoFiles[currentFile];
         current.currentLine = id;
 
-        // Get the prev and next line (in order to show 3 lines in total)
-        var c = parseInt(id.substring(4));
-        var p = c-1;
-        var n = c+1;
-        p = p?p:1;
-        if ($(elText + ' ' + elTextline + '#LINE' + n).length == 0) {
-            n = c;
-        }
-
-        vpos = $(elText + ' ' + elTextline + '#LINE'   + c).data('vpos');
-        hpos = $(elText + ' ' + elTextline + '#LINE'   + c).data('hpos');
-        width = $(elText + ' ' + elTextline + '#LINE'  + c).data('width');
-        height = $(elText + ' ' + elTextline + '#LINE' + c).data('height');
-
+        var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
+   
         // Show rectangle in the preview image (first calculate the ratios)
         var h = afe.image.getImageHeight("preview") / current.page.height;
         var w = afe.image.getImageWidth("preview") / current.page.width;
         afe.image.restoreImage("preview");
-        afe.image.showRectangle("preview", 0, Math.round(vpos*h)-5, afe.image.getImageWidth("preview") , Math.round(height*h)+10);
+        afe.image.showRectangle("preview", 0, Math.round(dim.current.vpos*h)-2, afe.image.getImageWidth("preview") , Math.round(dim.current.height*h)+6);
         
         // Show the line image, 1 line before and 1 line after
         // Show only from the start of the first word, to the end of the last word
-        var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
         hpos = Math.min(dim.prev?dim.prev.hpos:9999, dim.current.hpos, dim.next?dim.next.hpos:9999);
         width = Math.max(dim.prev?(dim.prev.hpos+dim.prev.width-hpos):0, (dim.current.hpos+dim.current.width-hpos), dim.next?(dim.next.hpos+dim.next.width-hpos):0);
         vpos = dim.prev?dim.prev.vpos:dim.current.vpos;
@@ -338,7 +325,7 @@ afe.app = (function () {
 
         if ($(_this).hasClass('afe-remove-textline')) {
 
-            if (confirm('Slet den markerede linie ?')) {
+            if (confirm('Slet den markerede linie?')) {
                 // Remove the line in the XML
                 afe.text.removeTextline(dataAltoFiles[currentFile].$xml, id);
                 refreshCurrentHTML();
@@ -346,14 +333,14 @@ afe.app = (function () {
             }
         }
         else if ($(_this).hasClass('afe-add-down')) {
-            if (confirm('Tilføj ny linie efter den markerede linie ?')) {
+            if (confirm('Tilføj en ny linie under den markerede linie?')) {
                 afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'after');
                 refreshCurrentHTML();
                setCurrentStatus('changed');
             }
         }
         else if ($(_this).hasClass('afe-add-up')) {
-            if (confirm('Tilføj ny linie før den markerede linie ?')) {
+            if (confirm('Tilføj en ny linie over den markerede linie?')) {
                 afe.text.addTextline(dataAltoFiles[currentFile].$xml, id, 'before');
                 refreshCurrentHTML();
                 setCurrentStatus('changed');
@@ -424,7 +411,7 @@ afe.app = (function () {
 
         $el = $(elString + '#' + event.data.id);
     
-        if (!confirm('Sammenlæg ord ?')) {
+        if (!confirm('Sammenlæg to ord?')) {
             return;
         }
 

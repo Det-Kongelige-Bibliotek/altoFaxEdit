@@ -158,15 +158,20 @@ afe.text = (function () {
      * @param {String} id The String ID
      */
     var removeTextline = function($xml, id) {
-        var el = $xml.find('TextLine[ID=' + id + ']');
+        var $el = $xml.find('TextLine[ID=' + id + ']');
 
         if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
               // Remove the line in the HTML (just the content - not the TextLine)
-            el.remove();
+            $el.remove();
         }
         else {
             // For original elements, just delete the content
-            el.empty().append('<String CONTENT="" ID="STRING' + id + '"/>');
+            $el.empty().append('<String CONTENT="" ID="STRING' + id + '"' +
+            ' HPOS="'   + $el.attr('HPOS')   + '"' +
+            ' VPOS="'   + $el.attr('VPOS')   + '"' +
+            ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+            ' HEIGHT="' + $el.attr('HEIGHT') + '"' +                   
+            '></String>');
         }
     };    
 
@@ -177,7 +182,7 @@ afe.text = (function () {
      * @param {*} where before || after
      */
     var addTextline = function($xml, id, where) {
-        var el = $xml.find('TextLine[ID=' + id + ']');
+        var $el = $xml.find('TextLine[ID=' + id + ']');
         var max = 0;
         var newId = '', newTextLine = '';
 
@@ -190,13 +195,23 @@ afe.text = (function () {
         max++;
 
         newId = newTextLinePrefix + max;
-        newTextLine = '<TextLine ID="' + newId + '"><String CONTENT="" ID="STRING' + newId + '"/></TextLine>';
+        newTextLine = '<TextLine ID="' + newId + '"' +
+            ' HPOS="'   + $el.attr('HPOS')   + '"' +
+            ' VPOS="'   + $el.attr('VPOS')   + '"' +
+            ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+            ' HEIGHT="' + $el.attr('HEIGHT') + '"' +
+            '><String CONTENT="" ID="STRING' + newId + '"' +
+                ' HPOS="'   + $el.attr('HPOS')   + '"' +
+                ' VPOS="'   + $el.attr('VPOS')   + '"' +
+                ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
+                ' HEIGHT="' + $el.attr('HEIGHT') + '"' +           
+            '></String></TextLine>';
 
         if (where === "after") {
-            el.after(newTextLine);
+            $el.after(newTextLine);
         }
         else {
-            el.before(newTextLine);
+            $el.before(newTextLine);
         }
     };    
 
@@ -289,8 +304,6 @@ afe.text = (function () {
         if ($nextTextLine.length === 0) {
             $nextTextLine = $el.parent().nextAll('TextBlock').first().find('TextLine').first();
         }
-
-        console.log('prev,curr,next', $prevTextLine.attr('ID'), $el, $nextTextLine.attr('ID'));
 
         return({
             "prev"    : $prevTextLine.length?getDim($prevTextLine):null,
