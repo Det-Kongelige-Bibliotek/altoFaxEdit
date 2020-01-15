@@ -4,7 +4,7 @@ import os
 import datetime
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))   # refers to application_top
-APP_VERSION=1.0
+APP_VERSION=1.2
 COOKIE_NAME = "afe-token"
 COOKIE_EXPIRES_DAYS = 180
 app = Flask(__name__)
