@@ -291,17 +291,19 @@ afe.app = (function () {
         afe.image.restoreImage("preview");
         afe.image.showRectangle("preview", 0, Math.round(vpos*h)-5, afe.image.getImageWidth("preview") , Math.round(height*h)+10);
         
-        // Add a little buffer in the preview
-        width += imageBuf;
-        height += imageBuf;
-        hpos -= imagePosBuf;
-        vpos -= imagePosBuf;
-        
-        // Always start at horizontal position from first to last word
-        // var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
-        hpos = 0;
-        width = current.page.width;
+        // Show the line image, 1 line before and 1 line after
+        // Show only from the start of the first word, to the end of the last word
+        var dim = afe.text.getTextLineDim(dataAltoFiles[currentFile].$xml, id);
+        hpos = Math.min(dim.prev?dim.prev.hpos:9999, dim.current.hpos, dim.next?dim.next.hpos:9999);
+        width = Math.max(dim.prev?(dim.prev.hpos+dim.prev.width-hpos):0, (dim.current.hpos+dim.current.width-hpos), dim.next?(dim.next.hpos+dim.next.width-hpos):0);
+        vpos = dim.prev?dim.prev.vpos:dim.current.vpos;
+        height = dim.next?(dim.next.vpos + dim.next.height - vpos):(dim.current.vpos + dim.current.height - vpos);
 
+        // Add some buffer
+        hpos -= 20;
+        width += 80;
+        vpos -= 40;
+        height += 60;
         // Save the current image bounding box in the datamodel
         current.hpos = hpos;
         current.vpos = vpos;
@@ -387,11 +389,11 @@ afe.app = (function () {
         height = Math.round(height * (h2/h1));
 
         // Apply extra margin
-        hpos -= imageRectMargin/2;
-        vpos -= imageRectMargin/4;
-        width  += imageRectMargin;
-        height += imageRectMargin/2;
-
+        hpos -= imageRectMargin/4;
+        vpos -= imageRectMargin/5;
+        width  += imageRectMargin/2;
+        height += imageRectMargin/3;
+ 
         return({
             "hpos": hpos,
             "vpos": vpos,
