@@ -35,9 +35,9 @@ afe.app = (function () {
     var urlStack = [];
 
     // TextLine Actions
-    const lineActions = '<i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>' +
+    const lineActions = '<div class="afe-line-actions"><i class="far fa-trash-alt afe-line-action afe-remove-textline" title="Slet hele linien"></i>' +
                         '<i class="far fa-caret-square-down afe-line-action afe-add-down" title="Tilføj en linie under denne"></i>' +
-                        '<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i>';
+                        '<i class="far fa-caret-square-up afe-line-action afe-add-up" title="Tilføj en linie over denne"></i></div>';
    
     /**
      * 
@@ -147,7 +147,7 @@ afe.app = (function () {
 
             // Add delete icons and events for each line and add events handler for click
         $(elText + ' ' + elTextline).each(function() {
-            $(this).append(lineActions);
+            $(this).prepend(lineActions);
         });
 
         $('i.afe-line-action').click(eventLineAction);
@@ -281,11 +281,17 @@ afe.app = (function () {
         
         // Show the line image, 1 line before and 1 line after
         // Show only from the start of the first word, to the end of the last word
+        /*
         hpos = Math.min(dim.prev?dim.prev.hpos:9999, dim.current.hpos, dim.next?dim.next.hpos:9999);
         width = Math.max(dim.prev?(dim.prev.hpos+dim.prev.width-hpos):0, (dim.current.hpos+dim.current.width-hpos), dim.next?(dim.next.hpos+dim.next.width-hpos):0);
         vpos = dim.prev?dim.prev.vpos:dim.current.vpos;
         height = dim.next?(dim.next.vpos + dim.next.height - vpos):(dim.current.vpos + dim.current.height - vpos);
-
+        */
+       hpos = Math.min(dim.prev?dim.prev.hpos:9999, dim.current.hpos, dim.next?dim.next.hpos:9999);
+       width = Math.max(dim.prev?(dim.prev.hpos+dim.prev.width-hpos):0, (dim.current.hpos+dim.current.width-hpos), dim.next?(dim.next.hpos+dim.next.width-hpos):0);
+       vpos = dim.current.vpos - dim.current.height;
+       height = dim.current.height * 3;
+      
         // Add some buffer
         hpos -= 20;
         width += 80;
@@ -307,13 +313,12 @@ afe.app = (function () {
      */
     var eventLineAction = function() {
         var _this =this;
-        var id = $(_this).parent().attr('id');
+        var id = $(_this).closest(elTextline).attr('id');
         var newId = '';
         afe.utils.debug('eventLineAction', _this);
 
         var getTextLine = function() {
-            var ret = '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span>' +
-                lineActions + '</div>';
+            var ret = lineActions + '<div id="' + newId + '" class="TextLine"><span id="STRING' + newId + '" class="String"></span></div>';
             return(ret);
         }
 
@@ -454,7 +459,6 @@ afe.app = (function () {
       */
      var eventSelectText = function(event, el) {
         var _this = el?el:this;
-        console.log('EVENT', event, event.originalEvent.offsetX);
         afe.utils.debug('eventSelectText', _this);
    
         // Detect line change - if so, set the event in queue (until the image is loaded)
@@ -505,10 +509,10 @@ afe.app = (function () {
         // Setup event handlers for the merge buttons
         $('i.afe-merge-left').on('mousedown', {"id": id, "type":"left"}, eventMergeText);
         $('i.afe-merge-right').on('mousedown', {"id": id, "type":"right"}, eventMergeText);
- 
+       
         // Hide then span element
         $(_this).hide();
-
+ 
     };
 
     /**
@@ -577,46 +581,53 @@ afe.app = (function () {
         var getNext = function() {
             var next = $(elFolders + ' div[data-id="' + currentFile + '"]').next();
             return(next);
-        }
+        };
+
+        // Move to the next file
+        var nextFile = function() {
+            var next = getNext();
+            if (next.length === 1) {
+                eventChooseContent(event, next[0]);
+            }       
+        };
 
         switch(button) {
             case 'btn-save': 
             case 'btn-save-and-next': 
-                // Save the XML to github
-                afe.utils.showMessage('Gemmer data...');
-                var current = dataAltoFiles[currentFile];
-                afe.utils.debug('save current', current);
-                // First create text XML file from the JQuery XML object
-                current.xml = afe.text.xml2Text(current.$xml);
-                // Then convert the text file to Base64
-                var b64 = afe.utils.b64EncodeUnicode(current.xml);
-                // Then commit the Base64 content to github
-                afe.git.setContent(current.postURL, b64, current.sha, commitMessage).then(function(result) {
-                    afe.utils.showMessage('Data er gemt');
-                    // Update the datamodel with a new sha
-                    current.sha = result.content.sha;
-                    setCurrentStatus('saved');
-                    if (button === 'btn-save-and-next') {
-                        var next = getNext();
-                        if (next.length === 1) {
-                            eventChooseContent(event, next[0]);
+                if (getCurrentStatus() == "changed") {
+                    // Save the XML to github
+                    afe.utils.showMessage('Gemmer data...');
+                    var current = dataAltoFiles[currentFile];
+                    afe.utils.debug('save current', current);
+                    // First create text XML file from the JQuery XML object
+                    current.xml = afe.text.xml2Text(current.$xml);
+                    // Then convert the text file to Base64
+                    var b64 = afe.utils.b64EncodeUnicode(current.xml);
+                    // Then commit the Base64 content to github
+                    afe.git.setContent(current.postURL, b64, current.sha, commitMessage).then(function(result) {
+                        afe.utils.showMessage('Data er gemt');
+                        // Update the datamodel with a new sha
+                        current.sha = result.content.sha;
+                        setCurrentStatus('saved');
+                        if (button === 'btn-save-and-next') {
+                            nextFile();
                         }
-                    }
-                })
-                .catch(function(error) {
-                    // Save has failed
-                    setCurrentStatus('error');
-                    afe.utils.showMessage('Data er IKKE gemt');
-                    alert('Kunne ikke gemme i Github: ' + error);
-                });
+                    })
+                    .catch(function(error) {
+                        // Save has failed
+                        setCurrentStatus('error');
+                        afe.utils.showMessage('Data er IKKE gemt');
+                        alert('Kunne ikke gemme i Github: ' + error);
+                    });
+                }
+                else if (button == 'btn-save-and-next') {
+                    nextFile();
+                }
                 break;
  
             case 'btn-next':
                 // Action handled later
-                var next = getNext();
-                if (next.length === 1) {
-                    eventChooseContent(event, next[0]);
-                }
+                nextFile();
                 break;
  
             case 'btn-cancel':
