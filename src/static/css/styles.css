@@ -26,14 +26,12 @@ table td#left {
 }
 
 table td#middle {
-    width: 100%;
+  /*  width: 100%; */
     border-right: 3px solid lightgray;
 }
 
 td#right {
     max-width: 40em;
-    min-width: 40em;
-    width: 40em;
 }
 
 div#menu {
@@ -52,6 +50,7 @@ div#text {
     min-height: 200px;
     overflow: scroll;
     width: 100%;
+    height: 60vh;
 }
 
 div#folders {
@@ -128,8 +127,16 @@ span#afe-username {
 /* The Image region */
 /* ----------------- */
 
-#image #afe-image-canvas, #afe-preview-canvas {
- /*   height: 100%; */
+#image-preview #afe-preview-canvas {
+    height: 100%;
+}
+
+div#image-preview {
+    height: 100vh;
+}
+
+#image canvas#afe-image-canvas {
+    max-width: 100%;
 }
 
 /* --------------- */
@@ -200,6 +207,10 @@ i.afe-line-action {
 
 span[data-subs_type=HypPart1]::after { 
     content: '-'; 
+    font-family: sans-serif;
+    font-weight: bold;
+    color: blue;
+    background-color: #d8d8ff;
 }
 
 input[type="text"] {

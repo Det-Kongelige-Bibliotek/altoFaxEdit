@@ -166,7 +166,7 @@ afe.text = (function () {
         }
         else {
             // For original elements, just delete the content
-            $el.empty().append('<String CONTENT="" ID="STRING' + id + '"' +
+            $el.empty().append('<String STYLEREFS="STYLE1" CONTENT="" ID="STRING' + id + '"' +
             ' HPOS="'   + $el.attr('HPOS')   + '"' +
             ' VPOS="'   + $el.attr('VPOS')   + '"' +
             ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
@@ -200,7 +200,7 @@ afe.text = (function () {
             ' VPOS="'   + $el.attr('VPOS')   + '"' +
             ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
             ' HEIGHT="' + $el.attr('HEIGHT') + '"' +
-            '><String CONTENT="" ID="STRING' + newId + '"' +
+            '><String STYLEREFS="STYLE1" CONTENT="" ID="STRING' + newId + '"' +
                 ' HPOS="'   + $el.attr('HPOS')   + '"' +
                 ' VPOS="'   + $el.attr('VPOS')   + '"' +
                 ' WIDTH="'  + $el.attr('WIDTH')  + '"' +

@@ -15,9 +15,9 @@ afe.image = (function () {
     var base;
     // URI for the full images
     const fullImagePath = '/full/full/0/default.jpg';
-    const previewImagePath = '/full/!2000,1000/0/default.jpg';
-    const maxImageWidth = 600;
-    const maxImageHeight = 200;
+    const previewImagePath = '/full/!2000,600/0/default.jpg';
+    const maxImageWidth = 800;
+    const maxImageHeight = 800;
 
     // Rectangle attrivbutes
     const rectDefaults = {
@@ -120,7 +120,7 @@ afe.image = (function () {
                 imgWidth = maxImageWidth;
             }
             var imgHeight = imageObj.naturalHeight;
-            canvas.width = imgWidth;        
+            canvas.width = imageObj.naturalWidth;        
             canvas.height = imgHeight;
             context.drawImage(imageObj, 0, 0, imgWidth, imgHeight, 0,0, imgWidth, imgHeight);
             // When the image is loaded, set the region width to 100%
