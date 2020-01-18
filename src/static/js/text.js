@@ -84,9 +84,10 @@ afe.text = (function () {
     var xml2Text = function($xml) {
         var xmlString = (new XMLSerializer()).serializeToString($xml[0]);
 
-        // Compensate for the XML serialization and newlines (always lowecase "utf-8")
-        xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\n');
-        xmlString = xmlString.replace(XMLtopNode2, XMLtopNode1 + '\n');
+        // Compensate for the XML serialization and newlines (always lowecase "utf-8") and NL
+        // xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\n');
+        xmlString = xmlString.replace(XMLtopNode2, XMLtopNode1 + '\x0a');
+        xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\x0a');
         xmlString = xmlString + '\n';
         return(xmlString);
     }
