@@ -154,11 +154,36 @@ afe.text = (function () {
 
     /**
      * Remove the TextLine element
+     * Also handles removal of any divided words
      * @param {Jquery Object} $xml The full XML document 
      * @param {String} id The String ID
      */
     var removeTextline = function($xml, id) {
         var $el = $xml.find('TextLine[ID=' + id + ']');
+
+        // Check if the line contains a divided word - if so: reset the SUBS_TYPE and SUBS_CONTENT attributes for the String
+        $el.find('String').each(function() {
+            var $s = $(this),
+                subsType    = $s.attr('SUBS_TYPE'),
+                subsContent = $s.attr('SUBS_CONTENT'),
+                id          = $s.attr('ID');
+            if (subsType) {
+                // Found a divided word
+                var $partString;
+                if (subsType === 'HypPart1') {
+                    // Remove the HypPart2 from the line below
+                    $partString = $el.next().find('String[SUBS_TYPE="HypPart2"][SUBS_CONTENT="' + subsContent + '"]');
+                }
+                else {
+                     // Remove the HypPart1 from the line above
+                    $partString = $el.prev().find('String[SUBS_TYPE="HypPart1"][SUBS_CONTENT="' + subsContent + '"]');
+                }
+                if ($partString.length) {
+                    $partString.removeAttr('SUBS_TYPE');
+                    $partString.removeAttr('SUBS_CONTENT');
+                }
+            } 
+        });
 
         if (id.indexOf(afe.text.getNewTextLinePrefix()) > -1) {
               // Remove the line in the HTML (just the content - not the TextLine)
