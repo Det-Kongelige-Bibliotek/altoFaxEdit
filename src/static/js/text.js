@@ -286,7 +286,6 @@ afe.text = (function () {
 
         // Det nye sammenlagte <String>-element får disse nye bounding box-værdier:
         var $el = $xml.find('String[ID=' + id + ']');
-        console.log('$EL', $el);
         $el.attr('VPOS', vpos);
         $el.attr('HPOS', hpos);
         $el.attr('WIDTH', width);

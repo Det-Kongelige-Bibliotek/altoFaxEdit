@@ -127,7 +127,6 @@ afe.utils = (function () {
      * @returns The part STRING id
      */
     var getPartId = function(stringId, subsType) {
-        console.log('getPartId', stringId);
         var id = parseInt(stringId.substring('STRING'.length));
         id += (subsType == 'HypPart1')?1:-1;
         return('STRING' + id);
