@@ -159,8 +159,6 @@ afe.image = (function () {
     var showRectangle = function(image, x, y, width, height) {
         var context = images[image].context;
     
-        console.log('showRectangle', image, x, y, width, height);
-
         context.save();
         context.strokeStyle = rectDefaults.strokeStyle;
         context.lineWidth = rectDefaults.lineWidth;

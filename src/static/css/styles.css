@@ -148,7 +148,6 @@ td#afe-text {
 }
 
 #text .TextLine {
-/*    width: 100%; */
     vertical-align: middle;
     cursor: pointer;
     white-space: nowrap; 

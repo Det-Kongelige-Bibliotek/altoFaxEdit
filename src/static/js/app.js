@@ -62,7 +62,7 @@ afe.app = (function () {
      * Return the status of the current file
      */
     var getCurrentStatus = function() {
-        if (currentFile) {
+        if (currentFile && dataAltoFiles[currentFile]) {
             return(dataAltoFiles[currentFile].status);
         }
         else {
@@ -632,12 +632,6 @@ afe.app = (function () {
  
             case 'btn-cancel':
                 // Restore the original file
-                var status = getCurrentStatus();
-                if (status == 'changed' || status == 'error') {
-                    if (!confirm(looseDataMessage)) {
-                        return;
-                    }
-                }
                 var curr = $(elFolders + ' div[data-id="' + currentFile + '"]');
                 eventChooseContent(event, curr[0]);
                 break;
