@@ -7,9 +7,6 @@ var afe = afe || {};
 afe.text = (function () {
     "use strict";
 
-    const XMLtopNode1 = '<?xml version="1.0" encoding="utf-8"?>';
-    const XMLtopNode2 = '<?xml version="1.0" encoding="UTF-8"?>';
-
     const newTextLinePrefix = 'CUSTOM';
 
     var xml2Html = function(xml) {
@@ -85,9 +82,8 @@ afe.text = (function () {
         var xmlString = (new XMLSerializer()).serializeToString($xml[0]);
 
         // Compensate for the XML serialization and newlines (always lowecase "utf-8") and NL
-        // xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\n');
-        xmlString = xmlString.replace(XMLtopNode2, XMLtopNode1 + '\x0a');
-        xmlString = xmlString.replace(XMLtopNode1, XMLtopNode1 + '\x0a');
+        xmlString = xmlString.replace('<?xml version="1.0" encoding="UTF-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
+        xmlString = xmlString.replace('<?xml version="1.0" encoding="utf-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
         xmlString = xmlString + '\n';
         return(xmlString);
     }
