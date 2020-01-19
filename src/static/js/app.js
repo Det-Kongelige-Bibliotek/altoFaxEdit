@@ -1,7 +1,7 @@
 // Det Kongelige Bibliotek
 // The ALTO Fax Edit Application (AFE)
 //
-// This file is the main application files which controld the overall application flow,
+// This file is the main application files which controls the overall application flow,
 // keeps track of "session-state", and setups up event handler.
 //
 
