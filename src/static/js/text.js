@@ -84,6 +84,7 @@ afe.text = (function () {
         // Compensate for the XML serialization and newlines (always lowecase "utf-8") and NL
         xmlString = xmlString.replace('<?xml version="1.0" encoding="UTF-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
         xmlString = xmlString.replace('<?xml version="1.0" encoding="utf-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
+        xmlString = xmlString.replace('<?xml version="1.0" encoding="UTF-8"?>', '<?xml version="1.0" encoding="utf-8"?>');
         xmlString = xmlString + '\n';
         return(xmlString);
     }
