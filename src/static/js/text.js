@@ -85,6 +85,8 @@ afe.text = (function () {
         xmlString = xmlString.replace('<?xml version="1.0" encoding="UTF-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
         xmlString = xmlString.replace('<?xml version="1.0" encoding="utf-8"?><alto', '<?xml version="1.0" encoding="utf-8"?>\x0a<alto');
         xmlString = xmlString.replace('<?xml version="1.0" encoding="UTF-8"?>', '<?xml version="1.0" encoding="utf-8"?>');
+        xmlString = xmlString.replace(/\n[\t]*\n/gm, '\n');         // remove empty lines (onkly tabs)
+        xmlString = xmlString.replace('\n\n', '\n');                // Remove double newlines
         xmlString = xmlString + '\n';
         return(xmlString);
     }
@@ -218,17 +220,17 @@ afe.text = (function () {
         max++;
 
         newId = newTextLinePrefix + max;
-        newTextLine = '<TextLine ID="' + newId + '"' +
+        newTextLine = '\n<TextLine ID="' + newId + '"' +
             ' HPOS="'   + $el.attr('HPOS')   + '"' +
             ' VPOS="'   + $el.attr('VPOS')   + '"' +
             ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
             ' HEIGHT="' + $el.attr('HEIGHT') + '"' +
-            '><String STYLEREFS="STYLE1" CONTENT="" ID="STRING' + newId + '"' +
+            '>\n<String STYLEREFS="STYLE1" CONTENT="" ID="STRING' + newId + '"' +
                 ' HPOS="'   + $el.attr('HPOS')   + '"' +
                 ' VPOS="'   + $el.attr('VPOS')   + '"' +
                 ' WIDTH="'  + $el.attr('WIDTH')  + '"' +
-                ' HEIGHT="' + $el.attr('HEIGHT') + '"' +           
-            '></String></TextLine>';
+                ' HEIGHT="' + $el.attr('HEIGHT') + '"/>\n' +           
+            '</TextLine>\n';
 
         if (where === "after") {
             $el.after(newTextLine);
