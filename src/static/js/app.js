@@ -139,6 +139,12 @@ afe.app = (function () {
         // Display the HTML
         $(elText).html(ret.html);
 
+        // Mark the changed strings
+        current.changedStrings.forEach(function(s) {
+            var span = $('span#' + s);
+            span.addClass('afe-has-changed');    
+        });
+
         // Setup event handler for the clicking line
         $(elText + ' ' + elTextline).click(eventSelectLine);
 
@@ -215,8 +221,9 @@ afe.app = (function () {
                     "xml" :     xml,            // The Raw XML (Alto file)
                     "$xml" :    ret.$xml,       // The parsed XML as JQuery object
                     "html" :    ret.html,       // The HTML to display
-                    "status" :  "draft",         // The status of the file
-                    "page":     page
+                    "status" :  "draft",        // The status of the file
+                    "page":     page,           // The page dimensions
+                    "changedStrings": []        // Array of changed String elements
                 };
 
                 setCurrentStatus('current');
@@ -550,13 +557,10 @@ afe.app = (function () {
             // Save the text in the XML
             var part = afe.text.changeStringContent(dataAltoFiles[currentFile].$xml, id, val, subsType, subsContent);
 
+            // Adding a class here to show that the value has been corrected
+            dataAltoFiles[currentFile].changedStrings.push(id);
             setCurrentStatus('changed');
             refreshCurrentHTML();
-
-            // Adding a class here to show that the value has been corrected
-            var span = $('span#' + id);
-            span.addClass('afe-has-changed');
-           
         }
         else {
             span.show();
