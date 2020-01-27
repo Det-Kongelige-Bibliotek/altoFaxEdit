@@ -111,6 +111,9 @@ afe.app = (function () {
             
             // Setup event handler for the folders/files
              $(elFolders + ' .afe-folder').click(eventChooseContent);
+
+             // Show the last viewed file
+             markLastViewedFile();
         })
         .catch(function(error) {
             // Save has failed
@@ -118,6 +121,16 @@ afe.app = (function () {
         });
 
      }
+
+     /**
+      * Mark a specific file (but applyting a class)
+      */
+    var markLastViewedFile = function(currentFile) {
+        var lastFile = localStorage.getItem("currentFile");
+        
+        $(elFolders + ' .afe-folder').removeClass('afe-last-viewed');
+        $(elFolders + ' .afe-folder[data-id="' + lastFile + '"]').addClass('afe-last-viewed');
+    };
 
      /**
       * Generate new XML text and HTML for the jQuery XML object
@@ -138,6 +151,12 @@ afe.app = (function () {
 
         // Display the HTML
         $(elText).html(ret.html);
+
+        // Mark the changed strings
+        current.changedStrings.forEach(function(s) {
+            var span = $('span#' + s);
+            span.addClass('afe-has-changed');    
+        });
 
         // Setup event handler for the clicking line
         $(elText + ' ' + elTextline).click(eventSelectLine);
@@ -184,6 +203,10 @@ afe.app = (function () {
             // Mark the file as current
             currentFile = name;
 
+            // Save the last viewet file (localstorage)
+            localStorage.setItem("currentFile", currentFile);
+            markLastViewedFile();
+
             // Load the first image preview
             //var img = afe.image.getImagePath(currentFolder, name, 0, 0, 3000, 1000);
             var imgURL = afe.image.getImagePath(currentFolder, name);
@@ -215,8 +238,9 @@ afe.app = (function () {
                     "xml" :     xml,            // The Raw XML (Alto file)
                     "$xml" :    ret.$xml,       // The parsed XML as JQuery object
                     "html" :    ret.html,       // The HTML to display
-                    "status" :  "draft",         // The status of the file
-                    "page":     page
+                    "status" :  "draft",        // The status of the file
+                    "page":     page,           // The page dimensions
+                    "changedStrings": []        // Array of changed String elements
                 };
 
                 setCurrentStatus('current');
@@ -550,13 +574,10 @@ afe.app = (function () {
             // Save the text in the XML
             var part = afe.text.changeStringContent(dataAltoFiles[currentFile].$xml, id, val, subsType, subsContent);
 
+            // Adding a class here to show that the value has been corrected
+            dataAltoFiles[currentFile].changedStrings.push(id);
             setCurrentStatus('changed');
             refreshCurrentHTML();
-
-            // Adding a class here to show that the value has been corrected
-            var span = $('span#' + id);
-            span.addClass('afe-has-changed');
-           
         }
         else {
             span.show();
