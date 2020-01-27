@@ -111,6 +111,9 @@ afe.app = (function () {
             
             // Setup event handler for the folders/files
              $(elFolders + ' .afe-folder').click(eventChooseContent);
+
+             // Show the last viewed file
+             markLastViewedFile();
         })
         .catch(function(error) {
             // Save has failed
@@ -118,6 +121,16 @@ afe.app = (function () {
         });
 
      }
+
+     /**
+      * Mark a specific file (but applyting a class)
+      */
+    var markLastViewedFile = function(currentFile) {
+        var lastFile = localStorage.getItem("currentFile");
+        
+        $(elFolders + ' .afe-folder').removeClass('afe-last-viewed');
+        $(elFolders + ' .afe-folder[data-id="' + lastFile + '"]').addClass('afe-last-viewed');
+    };
 
      /**
       * Generate new XML text and HTML for the jQuery XML object
@@ -189,6 +202,10 @@ afe.app = (function () {
 
             // Mark the file as current
             currentFile = name;
+
+            // Save the last viewet file (localstorage)
+            localStorage.setItem("currentFile", currentFile);
+            markLastViewedFile();
 
             // Load the first image preview
             //var img = afe.image.getImagePath(currentFolder, name, 0, 0, 3000, 1000);
