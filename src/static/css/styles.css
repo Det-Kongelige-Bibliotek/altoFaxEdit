@@ -72,10 +72,18 @@ table td#afe-image, table td#afe-menu {
 /* --------------- */
 /* The menu region */
 /* --------------- */
+div#afe-menu-top {
+    text-align: right;
+    margin-bottom: .3em;
+    font-size: 90%;
+}
+
 button.afe-action {
     margin-right: 5px;
     margin-top: 5px;
     height: 36px;
+    font-size: 12px;
+    padding: 0px 4px;
 }
 
 div#afe-user {
@@ -124,7 +132,7 @@ span#afe-username {
 }
 
 div#folders div.afe-last-viewed::after { 
-    content: '<'; 
+    content: '◄'; 
     font-weight: bold;
     color: blue;
     padding-left: 5px
