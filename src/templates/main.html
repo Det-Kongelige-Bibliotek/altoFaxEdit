@@ -8,13 +8,16 @@
                 <tr>
                     <td id="afe-menu">
                         <div id="menu>">
-                            <button id="btn-save-and-next" class="afe-action" type="button" title="Gem denne fil, of naviger til den næste i listen">Gem og vis næste</button>
-                            <button id="btn-next" class="afe-action" type="button" title="Naviger til næste fil (uden at gemme)">Vis næste</button>
-                            <button id="btn-save" class="afe-action" type="button" title="Gem denne fil">Gem</button>
+							<div id="afe-menu-top"><a href="/static/fraktur_i_Danmark.pdf" title="Åbn i nyt vindue" target="_blank">Læs om fraktur <span class="fas fa-external-link-alt fa-xs"></a></div>
+							<div>
+                            <button id="btn-save-and-next" class="afe-action" type="button" title="Gem denne fil, og åbn den næste i listen">Gem og vis næste</button>
+                            <button id="btn-next" class="afe-action" type="button" title="Åbn næste fil (uden at gemme den nuværende)">Vis næste</button>
+                            <button id="btn-save" class="afe-action" type="button" title="Gem den nuværende fil">Gem</button>
                             <button id="btn-cancel" class="afe-action" type="button" title="Annuller ændringerne (og opfrisk filen)">Annuller</button>
                             <div id="afe-user"><span class="fas fa-user"/><span id="afe-username">{{user}}</span>
                                 <span><a href="/setup" title="Opsætning af brugeren">Setup</a></span>
                                 <span id="afe-message"></span></div>
+							</div>
                         </div>
                     </td>
                 </tr>
@@ -37,7 +40,7 @@
                 <tr>
                     <td id="afe-text">
                         <div id="text">
-                            <h2>Vælg en XML fil fra folderne for at se indholdet...</h2>
+                            <h2>Vælg en XML-fil fra folderne for at se indholdet...</h2>
                         </div> 
                     </td>
                 </tr>

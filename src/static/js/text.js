@@ -58,7 +58,7 @@ afe.text = (function () {
                         
                     if ($(st).attr('SUBS_TYPE')) {
                         html += ' data-subs_type="' + $(st).attr('SUBS_TYPE') + '"' +
-                                ' data-subs_content="' + $(st).attr('SUBS_CONTENT') + '"';
+                                ' data-subs_content="' + $(st).attr('SUBS_CONTENT').replace(/"/g, '&quot;') + '"';
                     }
 
                     html += '>' + ($(st).attr('CONTENT')?$(st).attr('CONTENT'):'') + '</span>';      
@@ -172,11 +172,11 @@ afe.text = (function () {
                 var $partString;
                 if (subsType === 'HypPart1') {
                     // Remove the HypPart2 from the line below
-                    $partString = $el.next().find('String[SUBS_TYPE="HypPart2"][SUBS_CONTENT="' + subsContent + '"]');
+                    $partString = $el.next().find('String[SUBS_TYPE="HypPart2"][SUBS_CONTENT="' + subsContent.replace(/"/g, '\\"') + '"]');
                 }
                 else {
                      // Remove the HypPart1 from the line above
-                    $partString = $el.prev().find('String[SUBS_TYPE="HypPart1"][SUBS_CONTENT="' + subsContent + '"]');
+                    $partString = $el.prev().find('String[SUBS_TYPE="HypPart1"][SUBS_CONTENT="' + subsContent.replace(/"/g, '\\"') + '"]');
                 }
                 if ($partString.length) {
                     $partString.removeAttr('SUBS_TYPE');

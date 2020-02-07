@@ -2,12 +2,12 @@
 
 {% block content %}
 <div id="container">
-    <h1>ALTO Fax Edit - Setup</h1>
+    <h1>ALTO Fax Edit version {{version}} - Setup</h1>
     <div id="login-container">
         <form method="POST">
             <table>
                 <tr>
-                    <td>Github Personal Access Token <a href="https://github.com/settings/tokens" target="_new">Link til github token setup</a></td>
+                    <td>Indsæt "Personal Access Token" fra din Github-konto&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/settings/tokens" target="_new">Link til Github token setup</a></td>
                  </tr>
                  <tr>
                     <td><input name="token" type="text" size="50" value="{{token}}"></td>
@@ -15,7 +15,7 @@
                 <tr>
                     <td><button id="btn-save-token" class="afe-setup-action" type="submit" title="Gem token">Gem</button></td>
                 </tr>
-                <tr><td>
+                <tr><td style="padding-top:2em;">
                     <a href="/">Tilbage til applikationen</a>
                 </td></tr>
             </table>
