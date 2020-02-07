@@ -517,7 +517,7 @@ afe.app = (function () {
         var val = $(_this).text();
         // Inject a new text item into the DOM and setup an event handler for the change event
         var editEl = $(_this).after('<input data-id="' + id + 
-            '" class="afe-edit" type="text" size="' + val.length + '" value="' + val + '"/>')
+            '" class="afe-edit" type="text" size="' + val.length + '" value="' + val.replace(/"/g, '&quot;') + '"/>')
             .next()
             .focus()
             .blur(eventChangeText)
