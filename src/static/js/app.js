@@ -699,6 +699,16 @@ afe.app = (function () {
         // Setup button event handler
         $('button.afe-action').click(eventButtonClick);
 
+		// Set up SELECT change handler
+        $('#docList').change(function() {
+            var _this = this;
+            var url = $(_this).val();
+            afe.utils.debug('#docList change url: ', url);
+            if (url != "0")
+                window.open(url, '_blank');
+            $(_this).val('0');  // reset to placeholder item
+        });
+
     };
 
     // Public functions
