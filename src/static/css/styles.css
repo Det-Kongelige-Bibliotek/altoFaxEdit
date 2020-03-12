@@ -72,9 +72,8 @@ table td#afe-image, table td#afe-menu {
 /* --------------- */
 /* The menu region */
 /* --------------- */
-div#afe-menu-top {
-    text-align: right;
-    margin-bottom: .3em;
+div#afe-menu-documents {
+    margin-top: .6em;
     font-size: 90%;
 }
 
