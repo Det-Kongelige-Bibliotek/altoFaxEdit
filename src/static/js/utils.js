@@ -114,10 +114,28 @@ afe.utils = (function () {
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
             var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            while (c.charAt(0) == ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0)
+                return c.substring(nameEQ.length, c.length);
         }
         return null;
+    };
+
+    /**
+     * Set a cookie
+     * @param {String} name The cookie name
+     * @param {String} value The cookie value
+     * @param {String} expireDays Should be null for session cookie; else a number of days
+     */
+    var setCookie = function(name, value, expireDays) {
+        if (expireDays == null)
+            document.cookie = name + "=" + escape(value) + ""; // session cookie
+        else {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + expireDays);
+            document.cookie = name + "=" + escape(value) + ";expires=" + exdate.toGMTString();
+        }
     };
 
     /**
@@ -142,6 +160,7 @@ afe.utils = (function () {
         isXMLFilename:      isXMLFilename,
         getConfig:          getConfig,
         readCookie:         readCookie,
+        setCookie:          setCookie,
         getPartId:          getPartId
     });
 }());
