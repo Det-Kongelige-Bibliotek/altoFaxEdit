@@ -3,7 +3,7 @@
 <?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/txrRNC.rnc"?>
 <TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
-    <fileDesc>
+    <fileDesc> Denne fil er (vist) kun ændret af Kim, 15:37
       <titleStmt>
         <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
         <title rend="shortForm">Et S&#x00E6;rsyn</title>
