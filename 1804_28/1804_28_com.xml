@@ -2,9 +2,9 @@
 <?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/comXSLT.xsl"?>
 <?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/comRNC.rnc"?>
 <TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
-   <teiHeader> Test branch svend, 15:26, ændret af Jon 15:31
+   <teiHeader> Test branch svend, 15:26, ændret af Jon+Kim 15:48
       <fileDesc>
-         <titleStmt>
+         <titleStmt>Endnu en linje ændret af Kim, 15:36
             <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
             <title rend="shortForm">Et S&#x00E6;rsyn</title>
             <author>Niels W. Bruun</author>
