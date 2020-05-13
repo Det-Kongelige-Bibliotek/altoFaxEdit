@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/comXSLT.xsl"?>
+<?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/comRNC.rnc"?>
+<TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
+            <title rend="shortForm">Et S&#x00E6;rsyn</title>
+            <author>Niels W. Bruun</author>
+             <editor role="editor2">Johnny Kondrup</editor>
+              <editor role="editor1">Else Riisager</editor>
+         </titleStmt>
+         <editionStmt>
+            <edition>
+          <idno type="content">1.2</idno>
+          <idno type="technic">1.5.1</idno>
+        </edition>
+         </editionStmt>
+         <extent>12 KB</extent>
+         
+         <publicationStmt>
+            <availability status="restricted"><p>&#x00A9; Grundtvig Centeret, Aarhus Universitet</p></availability>
+            <publisher>Faculty of Arts, Aarhus University</publisher>
+            <distributor>Grundtvig Centeret, Vartov, K&#x00F8;benhavn</distributor>
+            
+            <date when="2013-01-04">www.grundtvigsv&#x00E6;rker.dk, version 1.2, 1. april 2013</date>
+         </publicationStmt>
+         
+         <notesStmt>
+            <note type="txt" target="1804_28_txt.xml">L&#x00E6;setekst</note>
+            <note xml:id="thisFile" type="com" target="1804_28_com.xml">Punktkommentar</note>
+         </notesStmt>
+         
+         
+         
+         <sourceDesc><p /></sourceDesc>
+      </fileDesc>
+<encodingDesc>
+            <projectDesc>
+               <p>Grundtvig Centeret er oprettet den 1. januar 2009.</p>
+               <p>Grundtvig Centeret arbejder med:</p>
+               <p>1. En digital og kommenteret udgave af Grundtvigs v&#x00E6;rker</p>
+               <p>2. En forskningsindsats p&#x00E5; de felter, hvor Grundtvig s&#x00E6;rligt markerede sig</p>
+               <p>2.a. Teologi og kirke</p>
+               <p>2.b. Demokrati og folkelighed</p>
+               <p>2.c. P&#x00E6;dagogik og folkeoplysning</p>
+               <p>3. Videnudveksling, undervisning og formidling</p>
+            </projectDesc>
+            <editorialDecl xml:id="comGuideLines.xml" n="1.0">
+            <p>Retningslinjer for punktkommentarer til Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="introGuideLines.xml" n="1.0">
+            <p>Retningslinjer for indledninger til Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="msGuideLines.xml" n="1.0">
+            <p>Retningslinjer for transskribering af manuskripter til Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="refGuideLines.xml" n="1.0">
+            <p>Retningslinjer for litteraturhenvisninger til Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="typoGuideLines.xml" n="1.0">
+            <p>Retningslinjer for gengivelse af typografiske hierarkier i Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="txrGuideLines.xml" n="1.0">
+            <p>Retningslinjer for tekstredeg&#x00F8;relser til Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="txtGuideLines.xml" n="1.0">
+            <p>Tekstkritiske retningslinjer for Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+            <editorialDecl xml:id="xmlGuideLines.xml" n="1.0">
+            <p>Retningslinjer for XML-m&#x00E6;rkning af Grundtvigs V&#x00E6;rker</p>
+         </editorialDecl>
+         </encodingDesc>
+<revisionDesc>
+            <change who="KSR" when="2011-03-07" xml:id="KSR">skabelon til kommentarer</change>
+            <change who="NWB" when="2011-04-05" xml:id="NWB">indsat kom i xml</change>
+            <change who="NWB" when="2011-04-12">2 nye kommentarer samt en korrektion</change>
+            <change who="NWB" when="2011-04-13">korrektion af en kommentar</change>
+            <change who="NWB" when="2011-04-18">tilf&#x00F8;jelse af to nye kommentarer</change>
+            <change who="NWB" when="2011-05-05">korrektion af kommentarer</change>
+            <change who="NWB" when="2011-05-06">inds&#x00E6;ttelse af bogstavkoder; forskellige korrektioner</change>
+            <change who="NWB" when="2011-07-13">inds&#x00E6;ttelse af nye kommentarer; forskellige korrektioner</change>
+            <change who="KSR" when="2011-11-25">validering</change>
+            <change who="JEL" when="2011-12-06">indsat personer og titel; invalid</change>
+            <change xml:id="FDS" who="FDS" when="2011-12-06">indsat stednavne.</change>
+            <change who="NHB" when="2011-12-07">gennemset opm&#x00E6;rkning af FDS og JEL</change>
+            <change who="NHB" when="2011-12-08">unicodes indsat samt gennemgang efter tjeklisten</change>
+            <change who="NHB" when="2011-12-09">revision, is&#x00E6;r kontrol ud fra stilarkets transformering</change>
+            <change who="NHB" when="2011-12-09">Rettet teiHeader</change>
+            <change who="VTH" when="2012-01-25">Indsat com23</change>
+            <change who="JMR" when="2012-01-27">&#x00C6;ndring i date-element. Rettet titleStmt</change>
+            <change who="NHB" when="2011-02-20">rettet TEIheader</change>
+            <change who="NHB" when="2011-03-07">rettet &#x00E5;rstal: skrives altid helt ud</change>
+            <change who="KSR" when="2012-03-24">validering til version 1.1</change>
+            <change who="KSR" when="2012-06-21">validering til version 1.1</change>
+            <change who="NHB" when="2012-08-16">&#x00E6;ndret versionsnumre</change>
+            <change who="NHB" when="2012-10-25">valideret</change>
+            <change who="auto" when="2013-12-12">Omorganiseret teiHeader</change>
+            <change who="auto" when="2013-12-19">Omorganiseret teiHeader, 2 test github</change>
+         </revisionDesc>
+   </teiHeader>
+   <text type="com">
+      <body>
+         <note xml:id="com1">
+            <p>Den Store Skolekommission, nedsat i 1789, opn&#x00E5;ede i sit arbejde gennem 25 &#x00E5;r vigtige resultater, bl.a. lovgivning om en l&#x00E6;reruddannelse og skolegang for hhv. land- og bydistrikter.</p>
+         </note>
+         <note xml:id="com2">
+            <p>undv&#x00E6;re.</p>
+         </note>
+         <note xml:id="com3">
+            <p>Eskilstrup.</p>
+            <note type="readMore">
+               <p>Skolen i Eskilstrup var en af de 240 rytterskoler, som <persName key="pe362">Frederik 4.</persName> opf&#x00F8;rte i &#x00E5;rene 1722-1727 p&#x00E5; den del af krongodset, der leverede mandskab, heste og underhold til det kongelige rytteri. Samtidig hermed indf&#x00F8;rtes skolepligt for alle distriktets b&#x00F8;rn fra fem&#x00E5;rsalderen. De blev undervist gratis i kristen b&#x00F8;rnel&#x00E6;rdom og l&#x00E6;sning, mens skrivning og regning kr&#x00E6;vede for&#x00E6;ldrebetaling.</p>
+            </note>
+         </note>
+         <note xml:id="com4">
+            <p>person, der holder skole og er (eneste) l&#x00E6;rer der.</p>
+         </note>
+         <note xml:id="com5">
+            <p>Den blinde skolel&#x00E6;rer hed <persName key="pe426">Michel Larsen Krog</persName>; han ramtes af blindhed ca. 1792. <persName key="pe426">Krog</persName> var oprindelig underofficer og blev 1768 skoleholder i Eskilstrup. I 1783 blev han st&#x00E6;vnet for en provsteret, bl.a. fordi han havde fors&#x00F8;mt skolen og v&#x00E6;ret beruset nogle gange. Se indledningens afsnit &#x201C;Biskop <persName key="pe422">Bloch</persName>&#x201D;.</p>
+         </note>
+         <note xml:id="com6">
+            <p>Tilsynet med skolerne var overladt til den lokale sognepr&#x00E6;st, mens provst, amtmand og biskop havde overtilsynet med pr&#x00E6;stens funktion som skolemyndighed. I perioden 1772-99 var magister <persName key="pe424">Christian R. Humble</persName> sognepr&#x00E6;st i &#x00D8;nslev og Eskilstrup. Hans efterf&#x00F8;lger <persName key="pe423">Peter Dalhoff</persName> var sognepr&#x00E6;st i &#x00E5;rene 1799-1827. Overtilsynet blev varetaget af <persName key="pe422">T&#x00F8;nne Bloch</persName>, biskop over Fyns stift 1786-1803, samt af <persName key="pe425">S&#x00F8;ren Ingemann</persName>, provst 1782-97. Han afl&#x00F8;stes af <persName key="pe174">Didrik Blicher</persName>, provst 1797-1805. Se indledningens afsnit &#x201C;<ref type="docOut" target="1804_28_intro.xml#docIn5">De ansvarlige</ref>&#x201D;.</p>
+         </note>
+         <note xml:id="com7">
+            <p>l&#x00E6;rerl&#x00F8;nnen.</p>
+         </note>
+         <note xml:id="com8">
+            <p>sandsynligt.</p>
+         </note>
+         <note xml:id="com9">
+            <p>bliver.</p>
+         </note>
+         <note xml:id="com10">
+            <p>efter min mening.</p>
+         </note>
+         <note xml:id="com11">
+            <p>Ydermere.</p>
+         </note>
+         <note xml:id="com12">
+            <p>omtalte.</p>
+         </note>
+         <note xml:id="com13">
+            <p>indskrev sig (hos pr&#x00E6;sten) som konfirmand.</p>
+            <note type="readMore">
+               <p>Konfirmation blev indf&#x00F8;rt af <persName key="pe232">Christian 6.</persName> i 1736, hvor man under p&#x00E5;virkning af pietismen s&#x00E5; den personlige omvendelse og bekendelse som handlingens centrale indhold. Ved tilsp&#x00F8;rgsel og overh&#x00F8;ring af konfirmanderne p&#x00E5; konfirmationsdagen sikrede man sig, at de unge mennesker var gode kristne og i besiddelse af de forn&#x00F8;dne kundskaber i den kristne tro.</p>
+            </note>
+         </note>
+         <note xml:id="com15">
+            <p>endnu ikke kunne l&#x00E6;se.</p>
+         </note>
+         <note xml:id="com16">
+            <p>skadevoldende.</p>
+         </note>
+         <note xml:id="com17">
+            <p>dvs. som s&#x00E6;tter udbredelsen af oplysning tilbage.</p>
+         </note>
+         <note xml:id="com18">
+            <p>dvs. pr&#x00E6;st. Se indledningens afsnit &#x201C;<ref type="docOut" target="1804_28_intro.xml#docIn4">Grundtvigs motiver</ref>&#x201D;.</p>
+         </note>
+         <note xml:id="com19">
+            <p>ude af stand til.</p>
+         </note>
+         <note xml:id="com20">
+            <p>dvs. &#x00E6;ndre til undervisning i l&#x00E6;sning. Jf. <rs type="title" key="title553">Johan Grundtvig (1779) <hi rend="italic">Catechismi Forklaring efter Saliggi&#x00F8;relsens Orden.</hi>
+</rs> K&#x00F8;benhavn, s. a4: &#x201C;Dern&#x00E6;st foruds&#x00E6;tter jeg, at, f&#x00F8;rend de Unge antages af en Pr&#x00E6;st til Beredelse til Confirmation, have de allerede faaet af Under-L&#x00E6;rerne den almindelige Ord-Forstand eller bogstavelige Kundskab, som og den allernaadigste Forordning om Confirmationen tilholder; ligesom da L&#x00E6;rlingernes Alder og med Alderen voxende Begreb er forski&#x00E6;llig; saa b&#x00F8;r og Pr&#x00E6;stens Underviisning stige h&#x00F8;yere, og indfatte en videre Omfang end Skoleholdernes.&#x201D;</p>
+         </note>
+         <note xml:id="com21">
+            <p>Her havde Grundtvigs far <persName key="pe164">J.O. Grundtvig</persName> sin pr&#x00E6;steg&#x00E5;rd.</p>
+         </note>
+         <note xml:id="com22">
+            <p>den 5. dennes, dvs. den 5. januar.</p>
+         </note>
+         <note xml:id="com23">
+            <p>person, som har best&#x00E5;et teologisk embedseksamen.</p>
+         </note>
+      </body>
+</text>
+</TEI>

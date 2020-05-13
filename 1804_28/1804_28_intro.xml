@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/introEditXSLT.xsl"?><?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/introRNC.rnc"?>
+<TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
+        <title rend="shortForm">Et S&#x00E6;rsyn</title>
+        <title rend="part">Mere om det skoleholderl&#x00F8;se Sogn paa Falster</title>
+        <title rend="shortForm">Mere om det skoleholderl&#x00F8;se Sogn</title>
+        <title rend="part">Bekjendtgj&#x00F8;relse</title>
+        <title rend="shortForm">Bekjendtgj&#x00F8;relse</title>
+        <!--<title rend="shortForm">Om det skoleholderl&#x00F8;se sogn</title>!-->
+        <author>Niels W. Bruun</author>
+        <editor role="editor2">Johnny Kondrup</editor>
+        <editor role="editor1">Vibeke A. Pedersen</editor>        
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <idno type="content">1.2</idno>
+          <idno type="technic">1.5.1</idno>
+        </edition>
+      </editionStmt>
+      <extent>34 KB</extent>      
+      <publicationStmt>
+        <availability status="restricted"><p>&#x00A9; Grundtvig Centeret, Aarhus Universitet</p></availability>
+        <publisher>Faculty of Arts, University of Aarhus</publisher>
+        <distributor>Grundtvig Centeret, Vartov</distributor>
+        <authority></authority>        
+        <date when="2013-01-04">www.grundtvigsv&#x00E6;rker.dk, version 1.2, 1. april 2013</date>
+      </publicationStmt>      
+      <notesStmt>
+        <note type="txt" target="1804_28_txt.xml">L&#x00E6;setekst</note>
+        <note type="txt" target="1804_29_txt.xml">L&#x00E6;setekst</note>
+        <note type="txt" target="1804_34_txt.xml">L&#x00E6;setekst</note>
+        <note type="intro" target="1804_28_intro.xml" xml:id="thisFile">Indledning</note>
+      </notesStmt>      
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Grundtvig Centeret er oprettet den 1. januar 2009.</p>
+        <p>Grundtvig Centeret arbejder med:</p>
+        <p>1. En digital og kommenteret udgave af Grundtvigs v&#x00E6;rker</p>
+        <p>2. En forskningsindsats p&#x00E5; de felter, hvor Grundtvig s&#x00E6;rligt markerede sig</p>
+        <p>2.a. Teologi og kirke</p>
+        <p>2.b. Demokrati og folkelighed</p>
+        <p>2.c. P&#x00E6;dagogik og folkeoplysning</p>
+        <p>3. Videnudveksling, undervisning og formidling</p>
+      </projectDesc>
+      <editorialDecl xml:id="comGuideLines.xml" n="1.0">
+        <p>Retningslinjer for punktkommentarer til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="introGuideLines.xml" n="1.0">
+        <p>Retningslinjer for indledninger til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="msGuideLines.xml" n="1.0">
+        <p>Retningslinjer for transskribering af manuskripter til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="refGuideLines.xml" n="1.0">
+        <p>Retningslinjer for litteraturhenvisninger til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="typoGuideLines.xml" n="1.0">
+        <p>Retningslinjer for gengivelse af typografiske hierarkier i Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="txrGuideLines.xml" n="1.0">
+        <p>Retningslinjer for tekstredeg&#x00F8;relser til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="txtGuideLines.xml" n="1.0">
+        <p>Tekstkritiske retningslinjer for Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="xmlGuideLines.xml" n="1.0">
+        <p>Retningslinjer for XML-m&#x00E6;rkning af Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+    </encodingDesc>
+    <revisionDesc>
+      <change xml:id="KSR" who="KSR" when="2011-07-01">WP2XML</change>
+      <change who="KSR" when="2011-11-25">validering</change>
+      <change who="JEL" when="2011-12-06">indsat personer og titler; invalid</change>
+      <change xml:id="FDS" who="FDS" when="2011-12-06">opm&#x00E6;rket stednavne; rettelse af 'sogn' til 'Sogn' i proprier</change>
+      <change who="NHB" when="2011-12-07">begyndt at gennemse opm&#x00E6;rkning af FDS og JEL. Rettet fra "Sogn" tilbage til "sogn" i proprier.</change>
+      <change who="NHB" when="2011-12-07">videre opm&#x00E6;rkning</change>
+      <change who="NHB" when="2011-12-08">unicodes indsat samt gennemgang efter tjeklisten</change>
+      <change who="NHB" when="2011-12-09">revision, is&#x00E6;r kontrol ud fra stilarkets transformering</change>
+      <change who="NHB" when="2011-12-12">tilf&#x00F8;jet contributor efter oplysning fra NWB. Rettet teiHeader</change>
+      <change who="NHB" when="2012-01-19">Rettet titleStmt</change>
+      <change who="VTH" when="2012-01-26">Rettet litteraturliste</change>
+      <change who="ELR" when="2012-01-27">&#x00C6;ndring i date-element; &#x00E6;ndring af f&#x00F8;rste underrubrik; valideret</change>
+      <change who="NHB" when="2011-03-07">rettet &#x00E5;rstal: skrives altid helt ud</change>
+      <change who="KSR" when="2012-04-24">validering til version 1.1</change>
+      <change who="NHB" when="2012-06-14">indf&#x00F8;jet id'er i head, tilpasset links</change>
+      <change who="KSR" when="2012-06-21">validering til version 1.1</change>
+      <change who="NHB" when="2012-08-16">&#x00E6;ndret versionsnumre. Indsat citattegn ved rend quote-afsnit, dog tilpasset s&#x00E5; der kun er to tegn ved det lange blokcitat fra visitatsbogen</change>
+      <change who="NHB" when="2012-08-16">oprettet 29_intro og 34_intro fra 28_intro. Tilpasset teiHeader i 29_txt og 34_txt</change>
+      <change who="NHB" when="2012-11-19">persName fjernet fra litList</change>
+      <change who="NHB" when="2013-01-31">invalid ved div type litList</change>
+      <change who="NHB" when="2013-04-28">ny overskrift</change>
+      <change who="auto" when="2013-12-12">Omorganiseret teiHeader</change>
+      <change who="auto" when="2013-12-19">Omorganiseret teiHeader, 2</change>
+      <change who="KSR" when="2014-01-13">validering teiHeader + diverse</change>
+      <change xml:id="JT"  who="JT" when="2014-10-27">stylet det lange citat af Tønnesens visitatsbog</change>
+      <change who="KSR" when="2016-04-12">validering teiHeader 1.8</change>
+    </revisionDesc>
+  </teiHeader>
+  <text type="intro">
+    <body>
+      <div>
+        <head xml:id="docIn1">Artiklerne om det skoleholderl&#x00F8;se sogn</head>
+        <p rend="noIndent">I slutningen af november 1803 aflagde Grundtvig bes&#x00F8;g hos sin bror <persName key="pe178">Otto</persName>, der var sognepr&#x00E6;st i Torkilstrup p&#x00E5; Falster. Her blev han bekendt med, at det n&#x00E6;rliggende sogn Eskilstrup i ti &#x00E5;r havde v&#x00E6;ret uden skoleundervisning. Den lokale skoleholder <persName key="pe426">Michel Larsen Krog</persName> havde p&#x00E5; grund af blindhed m&#x00E5;ttet opgive at undervise, men ikke desto mindre havde han f&#x00E5;et lov til at beholde sit embede, fordi han ikke kunne undv&#x00E6;re sin l&#x00E6;rerl&#x00F8;n, som det hed. Ikke nok med det: tre &#x00E5;r efter skoleholderens d&#x00F8;d i 1801 var stillingen stadig ubesat.</p>
+        <p rend="noIndent">I midten af januar 1804 fik Grundtvig under overskriften &#x201C;<rs type="title" key="title534">Et S&#x00E6;rsyn i det nittende Aarhundrede</rs>&#x201D; optaget en artikel i det k&#x00F8;benhavnske ugeskrift <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> hvor han skildrede de kritisable skoleforhold i &#x201C;et vist Sogn paa Falster&#x201D; og deres alvorlige konsekvenser for ungdommen og den kristne forkyndelse. Senere samme m&#x00E5;ned indrykkede han i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> en kort notits, som pr&#x00E6;ciserede, at sognets navn var Eskilstrup.</p>
+        <p rend="noIndent">Det k&#x00F8;benhavnske ugeskrift <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> s&#x00E5; det som sin opgave at p&#x00E5;tale &#x201C;Uordener&#x201D; af enhver slags og overalt i Danmark, lige fra mangelfulde rendestensbr&#x00E6;tter, ubehagelige lugte i gaderne til klager over myndighedssvigt eller bureaukrati. Bladet l&#x00E6;stes omhyggeligt b&#x00E5;de af borgere og myndigheder, og ethvert indl&#x00E6;g var derfor sikret betydelig opm&#x00E6;rksomhed. Se ogs&#x00E5; tekstredeg&#x00F8;relsens <ref type="docOut" target="1804_28_txr.xml#docIn9">afsnit 2.1.4</ref> om <hi rend="italic">
+<rs type="title" key="title533">Politivennens</rs>
+</hi> indhold.</p>
+      </div>
+      <div>
+        <head xml:id="docIn2">Biskop Birchs brev</head>
+        <p rend="noIndent">I sin omarbejdede dagbog for 1802 &#x2013; en slags selvbiografi, som han daterede i maj 1804 &#x2013; skriver Grundtvig om sagen. Han omtaler sig selv i tredje person og skriver, at dette &#x201C;Skrit fandt &#x2013; saavidt han veed &#x2013; de Sagkyndiges Bifald, men skaffede ham &#x2013; da han midt i Ianuar atter var paa Falster et Brev fra den nysudn&#x00E6;vnte Biskop <persName key="pe429">Birch</persName>, som gandske misbilligede hans Opf&#x00F8;rsel [...]&#x201D; (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 68. Interne varianter er her som i de &#x00F8;vrige citater udeladt. Opl&#x00F8;ste nasalstreger gengives med kursiv). I dagbogen har Grundtvig desuden afskrevet biskoppens brev, dateret 5. februar 1804 (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 68 f.).</p>
+        <p rend="noIndent">I brevet udtalte biskoppen sin irriterede &#x201C;Forundring&#x201D; over offentligg&#x00F8;relsen af aff&#x00E6;ren, som han dog ogs&#x00E5; &#x00E5;benhjertigt betegnede som &#x201C;en h&#x00F8;ist utilgivelig Fors&#x00F8;m<hi rend="italic">m</hi>else&#x201D;, der omg&#x00E5;ende skulle r&#x00E5;des bod p&#x00E5;. Han bebrejdede Grundtvig, at han ikke i et privat brev havde gjort ham opm&#x00E6;rksom p&#x00E5; sagen, da offentlig omtale efter biskoppens mening f&#x00F8;rst burde ske, n&#x00E5;r alle andre veje havde vist sig ufarbare. Samtidig bad han Grundtvig fort&#x00E6;lle, hvad de lokale myndigheder hidtil havde foretaget sig i sagen.</p>
+      </div>
+      <div>
+        <head xml:id="docIn3">Grundtvigs svarbrev</head>
+        <p rend="noIndent">I den omarbejdede dagbog &#x2013; alts&#x00E5; i maj 1804 &#x2013; udtrykte Grundtvig sin forundring over biskoppens brev: &#x201C;Grundtvig fandt Indholden af dette Brev underlig som manglende lokal Kundskab, der burde v&#x00E6;re den Pr&#x00E6;misse hvoraf Konklusjonen om dette Skridt var rigtigt eller ei skulde udledes &#x2013; men Ieg undrer mig ei saa meget over Brevets Indhold som Brevet selv, da Ieg ei seer Grunden, hvi man skulde henvende sig til Anmelderen naar man ingen Beskyldning vilde fremf&#x00F8;re for Usandhed&#x201D; (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 69). I dagbogen bringer Grundtvig ogs&#x00E5; en afskrift af sit svarbrev, dateret 23.2.1804, til biskop <persName key="pe429">Birch</persName>. Han forklarer her f&#x00F8;rst, hvorfor han ikke havde henvendt sig direkte til biskoppen:</p>
+        <p rend="quote">&#x201C;Da Ieg skrev min Anmeldelse til Indrykkelse i <rs type="title" key="title533">Politivennen</rs>, var Deres Udn&#x00E6;vnelse til Biskop i Laaland ikke offentlig bekjendtgjort eller, var den det end, havde den dog ikke naaet min Afkrog. Kun Rygtet n&#x00E6;vnede &#x2013; blant Andres &#x2013; ogsaa Deres Navn, og under saadanne Omst&#x00E6;ndigheder, haaber Jeg det indlysende for D: H: at Ieg ikke &#x2013; end ei med mindste Skin af Rimelighed &#x2013; kunde henvende mig til Dem som saadan &#x2013; Dog n&#x00E6;gter Ieg ikke, at om Ieg end havde havt den fuldkomneste Vished om at D: H: var bestemt Bispestolen vilde Ieg neppe vovet at uleilige Dem med et privat Brev &#x2013;&#x201D;</p>
+        <p rend="noIndent">Grundtvig r&#x00F8;ber ogs&#x00E5;, hvad der var hans tanke bag henvendelsen til offentligheden: </p>
+        <p rend="quote">&#x201C;At Ieg til min Anmeldelse valgte det Mellemrum da Falster manglede en h&#x00F8;ieste geistlig &#x00D8;vrighed, forekom mig hensigtspassende, da den vordende Biskop &#x2013; Hvo han end var &#x2013; derved kunde &#x2013; hvis han vilde &#x2013; anlediges til, at vende sit Blik paa en Gjenstand, der syntes at fordre ilende Virksomhed &#x2013;&#x201D;</p>
+        <p rend="noIndent">Grundtvig anf&#x00F8;rte endvidere, at biskoppens velkendte interesse for &#x201C;sand Oplysnings Fremme&#x201D; var en garanti for, at problemet ville blive l&#x00F8;st. En udf&#x00F8;rlig redeg&#x00F8;relse for, hvad der tidligere var sket i sagen, m&#x00E5;tte det imidlertid p&#x00E5;hvile de lokale myndigheder at afgive og ikke ham, Grundtvig, som ikke havde detaljeret kendskab til sagens gang, &#x201C;da det var mig nok at vide Bestr&#x00E6;belserne for at faae Eskilstrup Skole besat, virkelig havde existeret, og ei hidtil havt nogen synlig Virkning.&#x201D;</p>
+        <p rend="noIndent">Efter afskriften bem&#x00E6;rkede Grundtvig i maj 1804 t&#x00F8;rt: </p>
+        <p rend="quote">&#x201C;Saaledes troede G: at have fulgt Biskopen Skrit for Skrit, saavidt hans Agtelse for ham tillod &#x2013; Endnu har nok Skolen ei faaet nogen L&#x00E6;rer &#x2013; Naar Ieg faaer fat paa hin <rs type="title" key="title533">Politiven</rs> skal Ieg afskrive Anmeldelsen &#x2013;&#x201D; (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 71).</p>
+        <p rend="noIndent">I juni 1804 henvendte Grundtvig sig s&#x00E5; igen til <hi rend="italic">
+<rs type="title" key="title533">Politivennens</rs>
+</hi> l&#x00E6;sere, denne gang for at fort&#x00E6;lle, at Eskilstrup sogn nu omsider havde f&#x00E5;et en skolel&#x00E6;rer. Der var if&#x00F8;lge artiklen grund til at tro, at den nyudn&#x00E6;vnte biskop <persName key="pe429">Birch</persName> havde gjort sin indflydelse g&#x00E6;ldende.</p>
+      </div>
+      <div>
+        <head xml:id="docIn4">Grundtvigs motiver</head>
+        <p rend="noIndent">N&#x00E5;r Grundtvig tog denne sag op og bragte den offentligt frem, skyldtes det en retf&#x00E6;rdig harme over, at omsorgen for en enkeltperson og hans l&#x00F8;nindkomst var sket p&#x00E5; bekostning af den sociale forpligtelse over for et helt sogns opvoksende ungdom. Samtidig viser Grundtvigs tale om &#x201C;Oplysningen&#x201D; og dens &#x201C;Fremskriden&#x201D; og hans karakteristik af Eskilstrups sognepr&#x00E6;st som &#x201C;Stedets oplyste Religionsl&#x00E6;rer&#x201D;, at han her var under p&#x00E5;virkning af filantropinismen. Det var en p&#x00E6;dagogisk retning, der opstod i slutningen af oplysningstiden og fik navn efter <persName key="pe235">Johann Bernhard Basedows</persName> ber&#x00F8;mte kostskole i Dessau, <hi rend="italic">Philantropinum,</hi> grundlagt 1774. Filantropinismen ans&#x00E5; undervisning af den brede befolknings b&#x00F8;rn som en vej til menneskelig og samfundsm&#x00E6;ssig udvikling og fremgang. M&#x00E5;let var at danne
+          gode, fornuftige, oplyste og lykkelige mennesker. Filantropinismen &#x00F8;nskede at fjerne b&#x00E5;de udenadsl&#x00E6;re og korporlig afstraffelse fra skolen. Al l&#x00E6;ren skulle ske med lyst og s&#x00E5; vidt muligt i legens form.</p>
+      </div>
+      <div>
+        <head xml:id="docIn5">De ansvarlige</head>
+        <p rend="noIndent">Ansvaret for, at Eskilstrup sogn i 10 &#x00E5;r havde v&#x00E6;ret uden fungerende skoleholder og at stillingen efter hans d&#x00F8;d i flere &#x00E5;r stod ubesat, skal placeres hos tilsynet med skolen. Dette blev for de kongelige rytterskolers vedkommende varetaget af den lokale sognepr&#x00E6;st, mens provsten havde overtilsynet sammen med amtmanden, der dog ikke synes at have v&#x00E6;re inddraget i denne sag. Biskoppen udgjorde f&#x00F8;rst tredje led i kontrolsystemet. Af det ovenfor anf&#x00F8;rte brev til biskop <persName key="pe429">Birch</persName> fremg&#x00E5;r, at &#x201C;Sagen er berettet, saavel til Sl. Biskop <persName key="pe422">Bloch</persName> som til det danske Kanselli&#x201D;, hvilket viser, at &#x201C;Bestr&#x00E6;belserne for at faae Eskilstrup Skole besat, virkelig havde existeret&#x201D;. Det kan derfor antages, at sognepr&#x00E6;sten <persName key="pe424">Kristian Humble</persName> (1772-1799) og efterf&#x00F8;lgeren <persName key="pe423">Peder Dalhoff</persName> (1799-1827) samt provsterne <persName key="pe425">S&#x00F8;ren Ingemann</persName> (1782-1797) og <persName key="pe174">Didrik Blicher</persName> (1797-1805) virkelig har s&#x00F8;gt at g&#x00F8;re opm&#x00E6;rksom p&#x00E5; tingenes s&#x00F8;rgelige tilstand. Det har ikke v&#x00E6;ret muligt at finde indberetninger fra de lokale tilsynsf&#x00F8;rende til Danske Kancelli eller til biskop <persName key="pe422">T&#x00F8;nne Bloch</persName>, der i 1786 var blevet udn&#x00E6;vnt til biskop over Fyns Stift, hvorunder dengang ogs&#x00E5; Lolland, Falster, Als og &#x00C6;r&#x00F8; h&#x00F8;rte. Men Visitatsprotokollen for Fyns Stift, 1732-1803, afgiver vidnesbyrd om, hvad <persName key="pe422">Bloch</persName>, der beskrives som en nidk&#x00E6;r og utr&#x00E6;ttelig visitator, f&#x00F8;rte til bogs de seks gange, han visiterede Eskilstrup sogn. Her f&#x00F8;lger i transskription biskoppens bem&#x00E6;rkninger:</p>
+        
+        <div>
+        <head xml:id="docIn6">Af <persName key="pe422">T&#x00F8;nne Blochs</persName> Visitatsbog</head>
+       
+       <div>
+        <head xml:id="docIn7">Første visitats 15. juli 1786</head>
+        <p rend="quote">L&#x00F8;verdagen den 15de Julii visiterede &#x00D8;nslev- og Eskildstrup- Meenigheder i &#x00D8;nslev-Kirke, med Kirken Meenighederne, og dens Ungdom overmaade vel tilfreds. Sognepr&#x00E6;sten ConsistorialRaad Mag: <persName key="pe424">Christian Reutzer <note type="sic"/>Humble</persName> pr&#x00E6;dikede ypperligen over <rs type="bible" key="Sl 87,5">Psalm. 87,5</rs>. Degnen <persName key="pe431">Listrup</persName> catechiserede gandske vel. Der var ingen Klage.</p>
+        
+       </div>
+         
+         <div>
+         <head xml:id="docIn8">Anden visitats 29. juni 1789</head>
+        <p rend="quote">Mandagen den 29 Junii visiterede 2den gang &#x00D8;nslev- og Eskildstrup- Meenigheder i Annexkirken Eskildstrup, med Kirken, Meenighederne, og deres Ungdom overmaade vel forn&#x00F8;yet. Sognepr&#x00E6;sten ConsistorialRaad Mag: <persName key="pe424">Christian Reutzer <note type="sic"/> Humble</persName> catecheserede meget ordentligen. Degnen <persName key="pe431">Hans Listrup</persName> meget vel. Skoleholder <persName key="pe428">Bech</persName> i Clodschou ligeledes: og Skoleholder <persName key="pe426">Krog</persName> i Eschildstrup ligesaa. Ungdommen bel&#x00F8;b, af &#x00D8;nslev-Sogn Confirm. 70, Skoleb&#x00F8;rn 26 = 96: af Eskildstrup Sogn Confirm. 70, Skoleb&#x00F8;rn 22 = 92; i Alt 188. Der var ingen Klage.</p>
+       </div>
+        <div>
+        <head xml:id="docIn9">Tredje visitats 7. juli 1792</head>
+        <p rend="quote">L&#x00F8;verdagen den 7de Julii visiterede 3die gang &#x00D8;nslev- og Eskildstrup- Meenigheder i &#x00D8;nslev Kirke, med Kirken meget vel, med Meenighederne nogenledes, med Deres Ungdom ret vel forn&#x00F8;yet. Sognepr&#x00E6;sten ConsistorialRaad Mag. <persName key="pe424">Christian Reitzer Humble</persName> catecheserede ganske vel. SogneDegnen <persName key="pe431">Hans Listrup</persName> ret vel. Skoleholderen <persName key="pe428">Bech</persName> i Clodskou var d&#x00F8;d, og Skoleholderen <persName key="pe426">Krog</persName> i Eskildstrup syg. Den voxne Ungdom bel&#x00F8;b i &#x00D8;nslev-Sogn 80 Pers. i Eskildstrup S. 61 = 141 Pers. Lister paa Skoleb&#x00F8;rnene udeblev, men SkoleUngdommen i begge Skoler angaves pro Tempore 50 b&#x00F8;rn; i alt 191 Pers. Der var ingen Klage. Pr&#x00E6;stegaarden f&#x00F8;rst nu faaet en Lade.</p>
+          </div>
+          
+          <div>
+        <head xml:id="docIn10">Fjerde visitats 4. juli 1795</head>
+        <p rend="quote">L&#x00F8;verdagen den 4 Julii visiterede 4de gang &#x00D8;nslev- og Eskildstrup- Meenigheder i &#x00D8;nslev-Kirke, med Kirken, Meenighederne, og Deres Ungdom. vel forn&#x00F8;yet. Sognepr&#x00E6;sten ConsistorialRaad Mag: <persName key="pe424">Christian Reitzer Humble</persName> var saasom i Marts Maaned ved en Provsteret d&#x00F8;mt fra sit Embedet <note type="sic"></note> suspenderet, og Sognepr&#x00E6;sten i Tingsted Hr. <persName key="pe432">Christen Wolff</persName> imidlertid constitueret. Substitutus for det endnu uden min Skyld vacante SogneDegneKald (med hvis Parcellering RenteKamer, SkoleCommission, og Cancellie i 2 Aar have havt travlt) Skoleholderen i Clodskou, <persName key="pe430">Lassen</persName>, catecheserede nogenledes: Eskildstrup-Skoleholder <persName key="pe426">Michel Larsen Krog</persName>, gammel og sengeliggende. Den Confirm. Ungdom af begge Ki&#x00F8;n bel&#x00F8;b i &#x00D8;nslev S. 81, i Eskildstrup S. 59 = 140. SkoleUngdommen til
+          Clodskou S. 75, til Eskildstrup S. 16 = 91. i Alt 230. Der var ingen Klage. Pr&#x00E6;stegaarden efter Omst&#x00E6;ndighederne nogenledes.</p>
+            
+          </div>
+            <div>
+        <head xml:id="docIn11">Femte visitats 24. juni 1798</head>
+        <p rend="quote">Dom. 3. p. Trin den 24de Junii visiterede 5te gang &#x00D8;nslev- og Eskildstrup- Meenigheder i Eskildstrup Kirke, med Kirken, Meenighederne, og Deres Ungdom overmaade vel forn&#x00F8;yet. Sognepr&#x00E6;sten ConsistorialRaad Mag: <persName key="pe424">Christian Reitzer Humble</persName> pr&#x00E6;dikede over Dagens Evangelio. Substitutus for det endnu, formedelst udebleven Resolution, vacante Degnekald Clodschou Skoleholder <persName key="pe430">J. Lassen</persName>, catecheserede ikke ilde. Eskildstrup Skoleholder gl og blind. Den confirmerede Ungdom af begge Ki&#x00F8;n bel&#x00F8;b i &#x00D8;nslev-Sogn 80, i Eskildstrup Sogn 69 = 179; SkoleUngdommen til Clodskou Skole 73, til Eskildstrup Skole havde den blinde Skoleholder ingen Liste forfattet, men angav Antallet til circa 50 = 123; i Alt 302. Der klagedes over Eskildstrup Skolegangs yderste Mangel formedelst den blinde Skoleholder. Pr&#x00E6;stegaarden begyndt at vedligeholdis.</p>
+            </div>
+             
+             <div>
+        <head xml:id="docIn12">Sjette visitats 8. juli 1801</head>
+        <p rend="quote">Onsdagen den 8 Julii visiterede 6te gang &#x00D8;nslev- og Eskildstrup- Meenigheder i &#x00D8;nslev- Kirke, med Meenighederne og Deres Ungdom overmaade vel forn&#x00F8;yet. Sognepr&#x00E6;sten Hr. <persName key="pe423">Peter Dalhoff</persName> catecheserede ret vel. SogneDegneKaldet staaer formedelst Rentekamerets og Cancelliets udeblevne retslige Resolutioner, endnu vacant paa 8de Aar. Clodskov-Skoleholder <persName key="pe430">J. Lassen</persName>, der imidlertid har forrettet, catecheserede kun maadeligen. Den confirmerede Ungdom af begge Ki&#x00F8;n bel&#x00F8;b, i &#x00D8;nslev-Sogn 73, i Eskildstrup S. 65 = 138; Clodskov-Skoleb. 70. (Eskildstrup har endnu ingen Skoleholder faaet) &#x2013; i alt 210. Der var ingen Klage. Der bygges paa den forfaldne Pr&#x00E6;stegaard i &#x00D8;nslev.&#x201D;</p>
+               </div>
+      </div>
+      </div>
+        
+      <div>
+        <head xml:id="docIn13">Eskilstrup skole 1789-1804</head>
+        <div>
+          <head xml:id="docIn14">Biskop <persName key="pe422">Bloch</persName>
+</head>
+          <p rend="noIndent">Skoleholder <persName key="pe426">Krog</persName> i Eskilstrup omtales f&#x00F8;rste gang ved biskoppens anden visitats i 1789, hvor han roses for sin gode kateketiske religionsundervisning. Ved den tredje visitats i 1792 er han syg og har tilmed undladt at udarbejde den obligatoriske fortegnelse til biskoppen over eleverne i Eskilstrup skole. Det kan ikke udelukkes, at skoleholderen allerede da var blind, og at det er forklaringen p&#x00E5; den udeblevne liste.</p>
+          <p rend="noIndent">Ved visitatsen i 1795 betegnes <persName key="pe426">Krog</persName>, der var f&#x00F8;dt ca. 1712 (<rs type="title" key="title554">Larsen 1960</rs>, s. 366), som &#x201C;gammel og sengeliggende&#x201D; og i 1798 endelig som &#x201C;gl og blind&#x201D;. Biskoppen noterer videre, at &#x201C;til Eskildstrup Skole havde den blinde Skoleholder ingen Liste forfattet, men angav Antallet [af elever] til circa 50&#x201D;. Skoleholder <persName key="pe426">Krog</persName> var alts&#x00E5; tydeligvis ude af stand til at bestride sit embede, og i Eskilstrup var t&#x00E5;lmodigheden sluppet op. S&#x00E5; da biskoppen, s&#x00E5;dan som han var forpligtet til, i kirken ved sin femte visitats begyndte &#x201C;lydelig at tilsp&#x00F8;rge Provsten, Pr&#x00E6;sten, Degnen og den ganske Menighed&#x201D; (<rs type="title" key="title555">N&#x00F8;rr 1981</rs>, s. 28), om de havde noget at uds&#x00E6;tte p&#x00E5; skoleholderen, modtog han, tilsyneladende for
+            f&#x00F8;rste gang, en klage: &#x201C;Der klagedes over Eskildstrup Skolegangs yderste Mangel formedelst den blinde Skoleholder&#x201D;.</p>
+          <p rend="noIndent">Man kunne have forventet, at biskoppen p&#x00E5; denne alvorlige baggrund omg&#x00E5;ende havde grebet ind og ansat en skolel&#x00E6;rer. S&#x00E5;ledes kom det ikke til at g&#x00E5;. En gennemgang af bispeembedets kopibog viser, at <persName key="pe422">T&#x00F8;nne Bloch</persName> efter sin hjemkomst fra visitatsrejsen i 1798 ikke har foretaget sig nogetsomhelst i sagen. At d&#x00F8;mme efter Grundtvigs f&#x00F8;rste indl&#x00E6;g i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> har forklaringen p&#x00E5; biskoppens passivitet v&#x00E6;ret medlidenhed med den gamle og blinde skoleholder, der, hvis han var blevet afskediget, ville have endt sine dage p&#x00E5; fattigg&#x00E5;rden. I stedet kunne han nu som biskoppens proteg&#x00E9; opretholde sin l&#x00E6;rerl&#x00F8;n og fortsat blive boende i rytterskolen i Eskilstrup.</p>
+          <p rend="noIndent">Skoleholder <persName key="pe426">Krog</persName> var d&#x00F8;d i februar 1801, 89 &#x00E5;r gammel, da biskop <persName key="pe422">Bloch</persName> den 8. juli for sjette og sidste gang visiterede &#x00D8;nslev og Eskilstrup. Bispen erkl&#x00E6;rede sig &#x201C;med Meenighederne og Deres Ungdom overmaade vel forn&#x00F8;yet&#x201D; og konstaterede i en parentes, at &#x201C;(Eskildstrup har endnu ingen Skoleholder faaet)&#x201D;, for s&#x00E5; at afslutte med den i visitatsprotokollen ofte forekommende formular: &#x201C;Der var ingen Klage.&#x201D; N&#x00E5;r bispen ikke denne gang modtog en klage over skoleforholdene i Eskilstrup, kan det vel skyldes alles forventning og tro p&#x00E5;, at han nu, hvor skoleholderen var d&#x00F8;d, omsider m&#x00E5;tte handle. En fornyet klage kunne derfor komme p&#x00E5; tv&#x00E6;rs og virke provokerende p&#x00E5; den egenvillige og hidsige <persName key="pe422">Bloch</persName>. Biskoppens kopibog afsl&#x00F8;rer
+            imidlertid, at han heller ikke her tog skridt til ans&#x00E6;ttelse af en ny skoleholder. Skuffelsen og frustrationen m&#x00E5; have v&#x00E6;ret betydelig, da det med tiden blev klart for sognepr&#x00E6;sten i Eskilstrup, <persName key="pe423">Peder Dalhoff</persName>, og provst <persName key="pe174">Didrik Blicher</persName>, at biskoppen intet havde foretaget sig. Ogs&#x00E5; deres senere henvendelser b&#x00E5;de til ham og til Danske Kancelli skulle vise sig frugtesl&#x00F8;se.</p>
+        </div>
+        <div>
+          <head xml:id="docIn15">Biskop Birch</head>
+          <p rend="noIndent">Den 5. september 1803 d&#x00F8;de <persName key="pe422">T&#x00F8;nne Bloch</persName>, og den allerede tidligere trufne beslutning, at Lolland og Falster ved f&#x00F8;rste forefaldende vakance af bispeembedet over Fyns Stift skulle have sin egen biskop, kunne nu s&#x00E6;ttes i v&#x00E6;rk. Til biskop over det nye Lolland-Falster Stift havde Danske Kancelli opstillet fire mulige kandidater, men udn&#x00E6;vnte den 30. december 1803 dr.theol. og provst ved domkirken i Roskilde <persName key="pe429">Andreas Birch</persName>. Han var blevet varmt anbefalet af Sj&#x00E6;llands biskop <persName key="pe39">N.E. Balle</persName>. Bestallingen forel&#x00E5; den 6. januar 1804.</p>
+          <p rend="noIndent">Meddelelsen om biskop <persName key="pe422">Blochs</persName> d&#x00F8;d har formentlig i Eskilstrup fremkaldt h&#x00E5;bet om, at der forestod lysere tider for skolen, m&#x00E5;ske dog sammen med en vis frygt for, at efterf&#x00F8;lgeren skuffende ville videref&#x00F8;re sin forg&#x00E6;ngers afvisning af det skoleholderl&#x00F8;se sogn. Det kan forklare beslutningen om at v&#x00E6;lge netop &#x201C;det Mellemrum, da Falster manglede en h&#x00F8;ieste geistlig &#x00D8;vrighed&#x201D; til at g&#x00E5; i aktion, et tidspunkt, som kunne legitimere, at man ikke l&#x00E6;ngere gik kommandovejen. I stedet skulle sagen, der kr&#x00E6;vede &#x201C;ilende Virksomhed&#x201D;, procederes i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> blandt hvis l&#x00E6;sere man kunne forvente ogs&#x00E5; at finde den nyudn&#x00E6;vnte biskop, som ville komme under pres. I planen var det utvivlsomt forudset, at offentligg&#x00F8;relse af skandalen kun
+            ville v&#x00E6;kke ringe begejstring hos biskoppen. Det kunne ogs&#x00E5; t&#x00E6;nkes at belaste det fremtidige forhold til de lokale pr&#x00E6;ster, s&#x00E5;fremt de tr&#x00E5;dte frem som medunderskrivere af artiklen &#x201C;<rs type="title" key="title534">Et S&#x00E6;rsyn i det nittende Aarhundrede&#x201D;</rs>. </p>
+          <p rend="noIndent">Er det p&#x00E5; den ene side ut&#x00E6;nkeligt, at den tyve&#x00E5;rige Grundtvig har handlet p&#x00E5; egen h&#x00E5;nd uden den lokale gejstligheds indforst&#x00E5;else, s&#x00E5; kan hans ankomst til Torkilstrup sent p&#x00E5; &#x00E5;ret og aktionens sene iv&#x00E6;rks&#x00E6;ttelse m&#x00E5;ske p&#x00E5; den anden side tages som udtryk for, at Grundtvig ikke blot har fungeret som pennef&#x00F8;rer, men var initiativtager til den aktion, der tvang myndighederne til handling. Skoleholder <persName key="pe426">Krogs</persName> efterf&#x00F8;lger blev seminarist <persName key="pe427">Ahrent Carsten T&#x00FC;cksen</persName>, der i &#x00E5;rene 1805-17 fungerede som l&#x00E6;rer ved Eskilstrup skole.</p>
+          <p rend="noIndent">Grundtvigs tre sm&#x00E5;artikler i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> om det skoleholderl&#x00F8;se sogn blev med hans egne ord &#x201C;det f&#x00F8;rste trykte hvorunder hans Navn kom til at staae&#x201D; (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 67). Men mere end det er de ogs&#x00E5; den f&#x00F8;rste offentlige tilkendegivelse af hans interesse og virke for folkeoplysning og &#x201C;B&#x00F8;nders Opklaring&#x201D; (<hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> 1, s. 105).</p>
+        </div>
+      </div>
+      
+      <div type="litList">
+        <head xml:id="docIn16">Anvendt litteratur</head>
+        <div>
+          <head xml:id="docIn17">Trykt</head>
+          <list type="litList">
+            <item>Barfod, Immanuel (1851-1854) <hi rend="italic">
+              <rs type="title" key="title556">Den Falsterske Gejstligheds Personalhistorie</rs>
+            </hi> 1-2, bind 2: <hi rend="italic">N&#x00F8;rre-Herred.</hi> Nyk&#x00F8;bing Falster</item>
+            <item>Bugge, K.E. (1965) <hi rend="italic">
+              <rs type="title" key="title445">Skolen for livet: Studier over N.F.S. Grundtvigs p&#x00E6;dagogiske tanker</rs>.</hi> K&#x00F8;benhavn</item>
+            <item>
+              <hi rend="italic">
+                <rs type="title" key="title556">Dansk Biografisk Leksikon</rs>
+              </hi> (1979-1984) 3. udgave udg. af Sven Cedergreen Bech. K&#x00F8;benhavn</item>
+            <item>Grundtvig, Nicolai Frederik Severin (1979) <hi rend="italic">
+              <rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+            </hi> udg. af Gustav Albeck 1-2. K&#x00F8;benhavn</item>
+            <item>Hjelholt, Holger (1934-1935) <hi rend="italic">
+              <rs type="title" key="title558">Falsters Historie</rs>
+            </hi>1-2, bind 2 (1935): <hi rend="italic">Fra Enev&#x00E6;ldens Indf&#x00F8;relse til Udgangen af det 18. Aarhundrede.</hi> K&#x00F8;benhavn</item>
+            <item>Larsen, Alfred (1960) <hi rend="italic">
+              <rs type="title" key="title554">Lolland-Falsters degne og skoleholdere</rs>.</hi> K&#x00F8;benhavn</item>
+            <item>Larsen, Joakim (1893-1916) <hi rend="italic">
+              <rs type="title" key="title559">Bidrag til den danske Folkeskoles Historie</rs>
+            </hi>1-3, bind 2 (1893): <hi rend="italic">1784-1818.</hi> K&#x00F8;benhavn</item>
+            <item>Nielsen, Henning (2008) &#x201C;<rs type="title" key="title560">Grundtvig og det engang skoleholderl&#x00F8;se sogn p&#x00E5; Falster&#x201D;</rs> i <hi rend="italic">Vartovbogen 2007/8,</hi> s. 135-141</item>
+            <item>N&#x00F8;rr, Erik (1981) <hi rend="italic">
+              <rs type="title" key="title555">Pr&#x00E6;st og Administrator: Sognepr&#x00E6;stens funktioner i lokalforvaltningen p&#x00E5; landet fra 1800 til 1841.</rs>
+            </hi> K&#x00F8;benhavn</item>
+            <item>Plum, N.M. (1955) &#x201C;<rs type="title" key="title562">Lolland-Falsters stifts oprettelse og f&#x00F8;rste biskopper</rs>&#x201D; i Halfdan H&#x00F8;gsbro, H.L. Houmand, T. Lunn &amp; S. Klitgaard S&#x00F8;rensen udg. <hi rend="italic">
+              <rs type="title" key="title563">Lolland-Falsters Stift i 150 &#x00E5;r</rs>,</hi> K&#x00F8;benhavn s. 41-119</item>
+          </list>
+        </div>
+        <div>
+          <head xml:id="docIn18">Utrykt</head>
+          <list type="litList">
+            <item>Den omarbejdede dagbog 1802. Fasc. 496.1 i Grundtvigarkivet p&#x00E5; Det Kongelige Bibliotek</item>
+            <item>Dagbogsblade februar - 31. december 1804. Fasc. 497.1 i Grundtvigarkivet p&#x00E5; Det Kongelige Bibliotek</item>
+            <item>Fyens Stift, Bispeembedet: Indberetninger om skolev&#x00E6;senet (1680-1849): Almueskolen 1800 m.m. Landsarkivet for Fyn</item>
+            <item>Fyens Stift, Bispeembedet: Kopibog 1790-1805. Landsarkivet for Fyn</item>
+            <item>Fyens Stift, Bispeembedet: Visitatsprotokol 1732-1803. Landsarkivet for Fyn</item>
+            <item>Danske Kancelli, 1. Departement: Beretninger: biskopper om kirke- og skolevisitatser (1800-1831). Rigsarkivet</item>
+            <item>Danske Kancelli, 1. Departement: Ekstraktprotokoller 1800-1805. Rigsarkivet</item>
+            <item>Danske Kancelli: Fortegnelse over sagernes behandling (1670-1819). Rigsarkivet</item>
+            <item>Danske Kancelli: Suppliker 1792-1799. Rigsarkivet</item>
+            <item>Lolland-Falsters Stift: Stiftsbreve 1804-1806. Landsarkivet for Sj&#x00E6;lland</item>
+            <item>Lolland-Falsters Stiftamt: Indkomne Breve: Biskopperne 1783-1811. Landsarkivet for Sj&#x00E6;lland</item>
+            <item>Lolland-Falsters Stiftamt: Indkomne Breve: Falsterland 1784-1804. Landsarkivet for Sj&#x00E6;lland</item>
+          </list>
+        </div>
+      </div>
+    </body>
+</text>
+</TEI>

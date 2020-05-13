@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/txrXSLT.xsl"?>
+<?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/txrRNC.rnc"?>
+<TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
+        <title rend="shortForm">Et S&#x00E6;rsyn</title>
+        <author>Niels W. Bruun</author>
+        <editor role="editor2">Johnny Kondrup</editor>
+        <editor role="editor1">Henrik Yde</editor>
+      </titleStmt>
+      <editionStmt>
+        <edition>
+          <idno type="content">1.10</idno>
+          <idno type="technic">1.5.1</idno>
+        </edition>
+      </editionStmt>
+      <extent>26 KB</extent>
+      
+      <publicationStmt>
+        <availability status="restricted"><p>&#x00A9; Grundtvig Centeret, Aarhus Universitet</p></availability>
+        <publisher>Faculty of Arts, Aarhus University</publisher>
+        <distributor>Grundtvig Centeret, Vartov, K&#x00F8;benhavn</distributor>
+        <authority></authority>
+        
+        <date when="2013-01-04">www.grundtvigsv&#x00E6;rker.dk, version 1.2, 1. april 2013</date>
+      </publicationStmt>
+      
+      <notesStmt>
+        <note type="txt" target="1804_28_txt.xml">L&#x00E6;setekst</note>
+        <note type="txr" target="1804_28_txr.xml" xml:id="thisFile">Tekstredeg&#x00F8;relse</note>
+      </notesStmt>
+      
+      <sourceDesc>
+        <p />
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <projectDesc>
+        <p>Grundtvig Centeret er oprettet den 1. januar 2009.</p>
+        <p>Grundtvig Centeret arbejder med:</p>
+        <p>1. En digital og kommenteret udgave af Grundtvigs v&#x00E6;rker</p>
+        <p>2. En forskningsindsats p&#x00E5; de felter, hvor Grundtvig s&#x00E6;rligt markerede sig</p>
+        <p>2.a. Teologi og kirke</p>
+        <p>2.b. Demokrati og folkelighed</p>
+        <p>2.c. P&#x00E6;dagogik og folkeoplysning</p>
+        <p>3. Videnudveksling, undervisning og formidling</p>
+      </projectDesc>
+      <editorialDecl xml:id="comGuideLines.xml" n="1.0">
+        <p>Retningslinjer for punktkommentarer til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="introGuideLines.xml" n="1.0">
+        <p>Retningslinjer for indledninger til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="msGuideLines.xml" n="1.0">
+        <p>Retningslinjer for transskribering af manuskripter til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="refGuideLines.xml" n="1.0">
+        <p>Retningslinjer for litteraturhenvisninger til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="typoGuideLines.xml" n="1.0">
+        <p>Retningslinjer for gengivelse af typografiske hierarkier i Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="txrGuideLines.xml" n="1.0">
+        <p>Retningslinjer for tekstredeg&#x00F8;relser til Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="txtGuideLines.xml" n="1.0">
+        <p>Tekstkritiske retningslinjer for Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+      <editorialDecl xml:id="xmlGuideLines.xml" n="1.0">
+        <p>Retningslinjer for XML-m&#x00E6;rkning af Grundtvigs V&#x00E6;rker</p>
+      </editorialDecl>
+    </encodingDesc>
+    <revisionDesc>
+      <change xml:id="KSR" who="KSR" when="2011-11-04">wpd2TEI</change>
+      <change who="KSR" when="2011-11-25">validering</change>
+      <change xml:id="JEL" who="JEL" when="2011-12-06">indsat person- og titelhenvisninger; invalid</change>
+      <change xml:id="FDS" who="FDS" when="2011-12-06">Indf&#x00F8;rt enkelte titler og personer. Rettet indtil flere instanser af <!-- &#x005B;CDATA&#x005B;&#x2001C/D;&#x005D;&#x005D;--> til <!-- &#x005B;CDATA&#x005B;&#x201C;&#x005D;&#x005D; -->. Endvidere &#x2018;Bibliogragien&#x2019; &gt; &#x2018;Bibliografien&#x2019; i litteraturlisten.</change>
+      <change xml:id="NHB" who="NHB" when="2011-12-07">gennemset tilf&#x00F8;jelser af JEL og FDS. Valideret mod skema. Indf&#x00F8;jet unicodes for da. bogstaver (&#x00E6;&#x00F8;&#x00E5;)</change>
+      <change who="NHB" when="2011-12-08">unicodes indsat samt gennemgang efter tjeklisten</change>
+      <change who="NHB" when="2011-12-09">Rettet teiHeader</change>
+      <change who="NHB" when="2012-01-19">Rettet titleStmt</change>
+      <change who="VTH" when="2012-01-26">Rettet litteraturliste</change>
+      <change who="ELR" when="2012-01-27">&#x00C6;ndring i date-element; valideret</change>
+      <change who="NHB" when="2011-02-20">rettet TEIheader</change>
+      <change who="NHB" when="2011-03-07">rettet &#x00E5;rstal: skrives altid helt ud</change>
+      <change who="KSR" when="2012-04-24">validering til vers. 1.1</change>
+      <change who="KSR" when="2012-05-02">docin</change>
+      <change who="NHB" when="2012-06-21">validering til version 1.1</change>
+      <change who="NHB" when="2012-07-02">tjekket for textualCriticism - ingen rettelser, derfor er afsnittet ikke tilf&#x00F8;jet</change>
+      <change who="NHB" when="2012-08-16">textualCriticism fjernet - igen</change>
+      <change who="NHB" when="2012-10-25">valideret</change>
+      <change who="NHB" when="2012-11-19">persName fjernet fra litList</change>
+      <change who="VTH" when="2013-09-26">Retter tabeller</change>
+      <change who="auto" when="2013-12-12">Omorganiseret teiHeader</change>
+      <change who="auto" when="2013-12-19">Omorganiseret teiHeader, 2</change>
+      <change who="JT" when="2017-03-28">rettet forkert overskrift i docIn20, nyt idno type="content" test </change>
+    </revisionDesc>
+  </teiHeader>
+  <text type="txr">
+    <body>
+      <div>
+        <head xml:id="docIn1">Oversigt over tryk og manuskripter</head>
+        <div>
+          <head xml:id="docIn2">Manuskripter</head>
+          <p rend="noIndent">Der findes ikke bevaret mss. til denne tekst.</p>
+        </div>
+        <div>
+          <head xml:id="docIn3">Tryk</head>
+          <table>
+            <row>
+              <cell>1804</cell>
+              <cell>
+<hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> nr. 299 (<hi rend="italic">
+<rs type="title" key="title35">Bibliografien</rs>
+</hi> nr. 28).</cell>
+            </row>
+          </table>
+        </div>
+      </div>
+      <div>
+        <head xml:id="docIn4">Bibliografisk beskrivelse</head>
+        <div>
+          <head xml:id="docIn5">
+<hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi>
+</head>
+          <div>
+            <head xml:id="docIn6">Titel</head>
+            <p rend="noIndent">
+<p rend="noIndent">Ugeskriftets titel var <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>.</hi> Skrivem&#x00E5;den <hi rend="italic">
+<rs type="title" key="title533">Politievennen</rs>
+</hi> anvendes ogs&#x00E5; i bladhovedet, men <hi rend="italic"><rs type="title" key="title533">Politivennen</rs></hi> synes p&#x00E5; dette tidspunkt at have v&#x00E6;ret den foretrukne form. Undertitlen &#x201C;Et ugentligt Almuesblad&#x201D; findes p&#x00E5; det titelblad, der sammen med en indholdsfortegnelse blev leveret for hvert 13. nummer. I bladets sidste levem&#x00E5;neder (8. august 1845-2. januar 1846) var navnet &#x00E6;ndret til <hi rend="italic">
+<rs type="title" key="title533">Corvetten Politivennen</rs>.</hi>
+</p>
+</p>
+          </div>
+          <div>
+            <head xml:id="docIn7">Redakt&#x00F8;rer</head>
+            <table rend="printDesc">
+              <row>
+                <cell>Periode</cell>
+                <cell>Redakt&#x00F8;r</cell>
+              </row>
+              <row>
+                <cell>1798-1804</cell>
+                <cell>
+<persName key="pe421">K.H. Seidelin</persName>
+</cell>
+              </row>
+              <row>
+                <cell>1804 (1. april-30. september)</cell>
+                <cell>
+<persName key="pe420">J.J.A. Sch&#x00F8;nberg</persName>
+</cell>
+              </row>
+              <row>
+                <cell>1804-11</cell>
+                <cell>
+<persName key="pe421">K.H. Seidelin</persName>
+</cell>
+              </row>
+            </table>
+            <p rend="noIndent">Bladets &#x00F8;vrige redakt&#x00F8;rer skal ikke anf&#x00F8;res her, da de er uden betydning for Grundtvigs forfatterskab.</p>
+          </div>
+          <div>
+            <head xml:id="docIn8">Trykker og trykkeri</head>
+            <p rend="noIndent">
+<hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> blev udgivet og trykt af <persName key="pe421">K.H. Seidelin</persName>, der i bladhovedet pr&#x00E6;senterer sig som &#x201D;Bogtrykker og Skrivtst&#x00F8;ber&#x201D;. Han havde i 1797 oprettet et bogtrykkeri i K&#x00F8;benhavn, hvorfra han udsendte <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> og <hi rend="italic">
+<rs type="title" key="title564">Dagen</rs>.</hi> I 1799 etablerede <persName key="pe421">Seidelin</persName> et skriftst&#x00F8;beri, som ikke blot kunne levere den dengang almindelige frakturskrift, men ogs&#x00E5; antikva. Fra hans trykkeri udgik en del af Videnskabernes Selskabs skrifter, og som forl&#x00E6;gger havde han forbindelse med oppositionsskribenter som <persName key="pe97">P.A. Heiberg</persName> og <persName key="pe417">Malthe Conrad Bruun</persName>. <persName key="pe421">Seidelins</persName> journalistiske virke bragte ham
+              p&#x00E5; kant med myndighederne, og i 1805 kom det s&#x00E5; vidt, at han blev frad&#x00F8;mt sit bogtrykkerprivilegium.</p>
+          </div>
+          <div>
+            <head xml:id="docIn9">Indhold</head>
+            <p rend="noIndent">
+<hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> betyder &#x2018;loyal tilh&#x00E6;nger af lov og ret&#x2019; eller &#x2018;ven af politiet&#x2019;. Ideen med ugeskriftet fremg&#x00E5;r af den programerkl&#x00E6;ring, som under overskriften &#x201C;Anmeldelse&#x201D; [bekendtg&#x00F8;relse] bragtes i f&#x00F8;rste nummer af bladet, <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> nr. 1, 1798, s. 1-3. Det hedder heri bl.a.: &#x201C;I en Tid da man hvert &#x00D8;jeblik h&#x00F8;rer Klage paa Klage over Uordener, som man troer at et Lands, en Stads Politi burde afhielpe, som man andensteds og tildels her tilforn finde h&#x00E6;vede, Uordener, som snart bryde paa Sundheden og Sikkerheden, snart paa Borgernes Velf&#x00E6;rd, Smag, Moralitet &#x2013; [...] paa en saadan Tid troer et Selskab af Borgere, der forene Agt for de staaende Indretninger med Nidkj&#x00E6;rhed for disses Overholdelse, Dr&#x00F8;vtelse, Forbedring,
+              Fuldkommelse, at gavne ved at udgive, under Navn af <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> et Ugeblad, hvori Unders&#x00F8;gelser af det Rette og Sande i almindelige og enkelte Politianliggender, Underretninger om Fremmedes Indretninger, Forslag til Forbedringer, Angivelser af Politisynder m.m. (af Politiets M&#x00E6;nd og imod Politi) her i Kj&#x00F8;benhavn forenes med Efterretninger om Politiets Forbedringer og Mangler i Provindserne. [...]</p>
+            <p rend="noIndent">Ligesom vi af Politiets M&#x00E6;nd vente os Tak for, paa saa borgerlig en Maade, at forskaffe dem Efterretninger, som enten vilde koste dem megen M&#x00F8;je selv at indhente, eller kun ved de for frie Borgere saa hadev&#x00E6;rdige hemmelige Angivelser erholdes &#x2013; for Vink og Forslag, som de enten uforandrede kunne bruge, eller ved egen T&#x00E6;nksomhed forbedre; saa haabe vi paa den anden Side, at selv de Borgere, hvis Overtr&#x00E6;delser Bladet l&#x00E6;gger for Dagen, ville lade vore Hensigter vederfares Ret, og finde, at den Mand, der standser sin Medborger paa en uret Vei, der hindrer ham fra at skade, skeer det endog ved et f&#x00F8;leligt Tag, er hans sande Ven.</p>
+            <p rend="noIndent">Maatte vore Bestr&#x00E6;belser vinde den Deeltagelse Maalet synes at burde sikre os! Maatte vore Medborgere kappes om at v&#x00E6;re vore Medarbejdere! O da kan det Politiblad, der i 1798 var, synes os, en tr&#x00E6;ngende Forn&#x00F8;denhed, snart tage Afskeed fra sunde, s&#x00E6;delige, sikre, almeent&#x00E6;nkende, almeenvirkende Borgere!&#x201D;</p>
+            <p rend="noIndent">
+<hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> s&#x00E5; det alts&#x00E5; som sin opgave at p&#x00E5;tale &#x201C;Uordener&#x201D; af enhver slags og overalt i Danmark, fx mangelfulde rendestensbr&#x00E6;tter, ubehagelige lugte i gaderne, glammende eller bidske hunde samt uartige gadedrenge. Intet var for sm&#x00E5;t. Hertil kom s&#x00E5; klager over myndighedssvigt eller bureaukrati. Mange af indl&#x00E6;ggene i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> har un&#x00E6;gteligt spidsborgerlighedens pr&#x00E6;g, men det skal retf&#x00E6;rdigvis understreges, at en hel del bidrag er n&#x00F8;gtent debatterende og indeholder fornuftige forslag og overvejelser eller har et klart oplysende sigte. Andre igen b&#x00E6;res af ligefrem ideale motiver. Det g&#x00E6;lder fx Grundtvigs <rs type="title" key="title533">&#x201C;Et S&#x00E6;rsyn i det nittende Aarhundrede&#x201D;</rs> eller regensianeren <persName key="pe418">P. Hansens</persName> indl&#x00E6;g <rs type="title" key="title565">&#x201C;&#x00D8;nske for Beboerne af den Helsing&#x00F8;rske Daarekiste&#x201D;</rs> (<hi rend="italic">
+<rs type="title" key="title553">Politivennen</rs>
+</hi> nr. 344, 1804, s. 5465 ff.), hvor artiklens forfatter skildrer de psykiatriske patienters elendige forhold p&#x00E5; Helsing&#x00F8;r hospital og opfordrer til reformer.</p>
+            <p rend="noIndent">Bladets artikler var skrevet af l&#x00E6;serne eller af redakt&#x00F8;ren <persName key="pe421">K.H. Seidelin</persName>, der i bladhovedet meddeler, at han &#x201C;er Forfatter af alle Stykker, hvorunder Bogstaverne <persName key="pe421">K.H.S.</persName>, eller intet Navn findes.&#x201D; At l&#x00E6;sernes medvirken l&#x00E5; <persName key="pe421">Seidelin</persName> meget p&#x00E5; sinde, fremg&#x00E5;r af en meddelelse i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> nr. 299, 1804, s. 4764, hvor han fremh&#x00E6;ver: &#x201C;Mundtlige Bidrag modtages ogsaa. For dem, som ikke have &#x00D8;velse i at f&#x00F8;re i Pennen, tilbyder man sig at ordne deres Bidrag. Bidrag fra Provindserne indsendes portofrie.&#x201D; Samme notits, som ogs&#x00E5; oplyser, at bidrag kun optages, &#x201C;naar Materien angaaer Politi, og naar Foredraget er anst&#x00E6;ndigt og tydeligt&#x201D;, findes i andre numre af <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>.</hi>
+</p>
+            <p rend="noIndent">
+<hi rend="italic">
+<rs type="title" key="title533">Politivennens</rs>
+</hi> udgiver var fra 14. august 1802 underlagt censur. I &#x00E5;rene 1799-1848 blev enev&#x00E6;ldens indskr&#x00E6;nkede trykkefrihed h&#x00E5;ndh&#x00E6;vet af &#x201C;Politikammeret&#x201D;, dvs. politiretten (politikammerretten), der var en enmandsbetjent domstol, bestyret af K&#x00F8;benhavns politimester. Censurdatoen &#x2013; her &#x201C;den 14 Januari 1804&#x201D; &#x2013; var sammen med tilladelsen &#x201C;Maae trykkes&#x201D; ofte anf&#x00F8;rt p&#x00E5; det trykte. Censurp&#x00E5;tegningen er underskrevet af <persName key="pe419">Hans Haagen</persName>, der i perioden 1800-09 var politimester i K&#x00F8;benhavn.</p>
+          </div>
+        </div>
+        <div>
+          <head xml:id="docIn10">Udgivelseshistorie</head>
+          <div>
+            <head xml:id="docIn11">Udgivelsesperiode og oplag</head>
+            <p rend="noIndent">Ugeskriftet <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> som udkom i &#x00E5;rene 1798-1811 og 1816-1846, var grundlagt af <persName key="pe421">Klaus Henrik Seidelin</persName>. Oplagets st&#x00F8;rrelse kendes ikke, men bladet har utvivlsomt haft mange l&#x00E6;sere, bl.a. de offentlige myndigheder. Det fort&#x00E6;lles, at <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> var &#x201C;det eneste danske Blad, som <persName key="pe96">Frederik VI</persName> altid l&#x00E6;ste med Opm&#x00E6;rksomhed&#x201D; (<rs type="title" key="title566">Werlauff 1954</rs>, s. 151).</p>
+          </div>
+          <div>
+            <head xml:id="docIn12">Hyppighed</head>
+            <p rend="noIndent">I undertitlen p&#x00E5; det titelblad, der blev leveret for hvert 13. nummer, blev <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> betegnet som &#x201C;Et ugentligt Almuesblad&#x201D;, og det udkom fortrinsvis om l&#x00F8;rdagen.</p>
+          </div>
+          <div>
+            <head xml:id="docIn13">Opbygning</head>
+            <p rend="noIndent">Ugeskriftet var ordnet i hefter a 13 numre, hvortil der blev efterleveret et omslag a 2 blade. Den f&#x00F8;rste side bestod af et titelblad, som indeholdt undertitlen &#x201C;Et ugentligt Almuesblad&#x201D; og angav heftenummer, trykkested, udgiver og &#x00E5;r; de &#x00F8;vrige 3 sider rummede en indholdsfortegnelse over de p&#x00E5;g&#x00E6;ldende numre.</p>
+          </div>
+          <div>
+            <head xml:id="docIn14">Omfang</head>
+            <p rend="noIndent">Et nummer best&#x00E5;r normalt af 16 sider (1 ark).</p>
+          </div>
+          <div>
+            <head xml:id="docIn15">Pris</head>
+            <p rend="noIndent">Et nummer af <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> kostede i 1804 fire skilling i l&#x00F8;ssalg eller abonnement.</p>
+          </div>
+        </div>
+        <div>
+          <head xml:id="docIn16">Format, papirkvalitet og typografi</head>
+          <div>
+            <head xml:id="docIn17">Format og paginering</head>
+            <p rend="noIndent">Bladet er i lille oktav med fortl&#x00F8;bende paginering. Arknummerering findes ikke.</p>
+            <p rend="noIndent">M&#x00E5;lene for et indbundet og besk&#x00E5;ret eksemplar er ca. 16,5 cm &#x00D7; 10,5 cm. Et ubesk&#x00E5;ret eksemplar kendes ikke.</p>
+            <p rend="noIndent">Kustoder forekommer ikke.</p>
+          </div>
+          <div>
+            <head xml:id="docIn18">Papir</head>
+            <p rend="noIndent">Groft, tarveligt trykpapir med tydelige k&#x00E6;delinjer. Det er undertiden brunplettet. Vandm&#x00E6;rke ses ikke.</p>
+          </div>
+          <div>
+            <head xml:id="docIn19">Typografi</head>
+            <p rend="noIndent"> Bladet er enspaltet og kolumnen m&#x00E5;ler 11,8 cm &#x00D7; 7 cm. Overskrifter er sat med st&#x00F8;rre skriftgrad og undertiden spatieret. Ved l&#x00E6;ngere artikler er der af pladsm&#x00E6;ssige grunde ofte anvendt en mindre skriftgrad. Fodnoter er indvist med asterisk og sat med mindre skriftgrad.</p>
+            <p rend="noIndent"> Skriftsnittet er fraktur. Antikva bruges ved latinsk tekst.</p>
+            <p rend="noIndent"> Bladhovedet, som er sat med vekslende skriftgrader og optager den f&#x00F8;rste halve side af hvert nummer, har denne tekst:</p>
+            <p rend="noIndent">
+<rs type="title" key="title533">Politivennen</rs>. / [prydstreg] / No. 299. / [skillestreg] / Maae trykkes. / Kj&#x00F8;benhavns Politikammer den 14 Januari 1804. / <hi rend="italic">
+<persName key="pe419">Haagen</persName>.</hi> / [skillestreg] / Samlet, forlagt og trykt af Bogtrykker og Skrivtst&#x00F8;ber <hi rend="italic">
+<persName key="pe421">K. H. Seidelin</persName>,</hi> som er Forfatter af alle Stykker, hvorunder Bogstaverne <persName key="pe421">K. H. S.</persName>, eller intet Navn findes. / [prydstreg]</p>
+          </div>
+        </div>
+        <div>
+          <head xml:id="docIn20">&#x201C;Et S&#x00E6;rsyn i det nittende Aarhundrede&#x201D;, <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> januar 1804</head>
+          <div>
+            <head xml:id="docIn21">Lokalisering</head>
+            <p rend="noIndent">Grundtvigs indl&#x00E6;g er dateret 5. januar 1804.</p>
+            <p rend="noIndent">Grundtvigs bidrag st&#x00E5;r p&#x00E5; s. 4753-4755 i <hi rend="italic">Politivennen</hi> nr. 299, januar 1804.</p>
+            <p rend="noIndent">Nummeret, der b&#x00E6;rer censurdatoen 14. januar, indeholder f&#x00F8;lgende artikler:</p>
+            <list type="simple">
+              <item>Et S&#x00E6;rsyn i det nittende Aarhundrede, af Nic. Fred. Sev. Grundtvig.</item>
+              <item>Statistisk &#x00D8;nske i Hensigt til Helsing&#x00F8;r, af anonym.</item>
+              <item>Om Ligenes Opgravning paa Assistenskirkegaarden, af anonym.</item>
+              <item>B&#x00F8;n til Helsing&#x00F8;rs &#x00D8;vrighed og Foresatte, af anonym.</item>
+              <item>Bekjendtg&#x00F8;relser, af <persName key="pe421">K.H. Seidelin</persName>.</item>
+              <item>Dagens Torvepriser.</item>
+              <item>Uordener, af anonym.</item>
+              <item>Til L&#x00E6;seren, af <persName key="pe421">K.H. Seidelin</persName>.</item>  
+            </list>
+          </div>
+          
+          <div>
+            <head xml:id="docIn22">Afvigelser</head>
+            <p rend="noIndent"> Grundtvigs bidrag afviger ikke typografisk fra artiklerne i <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> i &#x00F8;vrigt.</p>
+          </div>
+          <div>
+            <head xml:id="docIn23">Intern varians</head>
+            <p rend="noIndent"> F&#x00F8;lgende to eksemplarer er blevet kollationeret og beskrives nedenfor:</p>
+            <p rend="noIndent"> Det Kongelige Biblioteks eksemplar (kat. nr. K 595 <hi rend="raised">o</hi>)</p>
+            <p rend="noIndent"> Det Kongelige Biblioteks eksemplar (kat. nr. 60, - 36 <hi rend="raised">o</hi>)</p>
+            <p rend="noIndent"> Ved kollationen blev det konstateret, at enkelte typer var l&#x00E6;deret eller delvis fyldt ud med sv&#x00E6;rte. Intern varians forekom ikke.</p>
+            <p rend="noIndent"> Som tekstgrundlag er anvendt Det Kongelige Biblioteks eksemplar (kat. nr. K 595 8<hi rend="raised">o</hi>).</p>
+            <p rend="noIndent"> Faksimilerne i GV stammer herfra.</p>
+          </div>
+        </div>
+        <div>
+          <head xml:id="docIn24">De kollationerede eksemplarer</head>
+          <div>
+            <head xml:id="docIn25">Beskrivelse af Det Kongelige Biblioteks eksemplar (kat. nr. K 595 8<hi rend="raised">o</hi>)</head>
+            <p rend="noIndent">Eksemplaret er indbundet i et gr&#x00E5;meleret papirbind, der indeholder <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>
+</hi> nr. 298-323, 1804. Eksemplaret er besk&#x00E5;ret og en side m&#x00E5;ler ca. 16,5 cm &#x00D7; 10,5 cm.</p>
+          </div>
+          <div>
+            <head xml:id="docIn26">Beskrivelse af Det Kongelige Biblioteks eksemplar (kat. nr. 60, - 36 8<hi rend="raised">o</hi>)</head>
+            <p rend="noIndent"> Eksemplaret er indbundet i et halvbind af brunt l&#x00E6;der, der indeholder <hi rend="italic">
+<rs type="title" key="title533">Politivennen</rs>,</hi> nr. 287-312, 1804. Eksemplaret er besk&#x00E5;ret, og en side m&#x00E5;ler ca. 16,2 cm. &#x00D7; 9,8 cm. If&#x00F8;lge en forgyldt p&#x00E5;skrift nedf&#x00E6;ldet i forpermen har bogen tilh&#x00F8;rt &#x201C;Det Kong. Milit. Selsk. paa Giethuuset&#x201D;. Gjethuset (st&#x00F8;behuset), opf&#x00F8;rt 1672, l&#x00E5; ud til Kgs. Nytorv og var oprindelig et kanonst&#x00F8;beri. Bygningen husede fra 1773 artillerikadetakademiet og i &#x00E5;rene 1830-1866 den milit&#x00E6;re h&#x00F8;jskole.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <head xml:id="docIn39">Tekstkritik</head>
+        <list type="textualCriticismZero"></list>
+      </div>
+      <div type="litList">
+        <head xml:id="docIn27">Anvendt litteratur</head>
+        <list type="litList">
+          <item>
+            <hi rend="italic">
+<rs type="title" key="title556">Dansk Biografisk Leksikon</rs>
+</hi> (1979-1984) 3. udgave udg. af Sven Cedergreen Bech</item>
+          <item>
+<hi rend="italic">
+<rs type="title" key="title35">Bibliografien</rs>,</hi> se Johansen, Steen (1948-1954)</item>
+          <item>Grundtvig, N.F.S. (1979) <hi rend="italic">
+<rs type="title" key="title3">Dag- og Udtogsb&#x00F8;ger</rs>
+</hi> udg. af Gustav Albeck 1-2. K&#x00F8;benhavn</item>
+          <item>Johansen, Steen (1948-1954) <hi rend="italic">
+<rs type="title" key="title35">Bibliografi over N.F.S. Grundtvigs skrifter</rs>
+</hi> bind 1 (1948). K&#x00F8;benhavn</item>
+          <item> S&#x00F8;llinge, Jette D. &amp; Niels Thomsen (1988-91) <hi rend="italic">
+<rs type="title" key="title1">De danske aviser 1634-1989</rs>
+</hi> 1-3, bind 1 (1988): <hi rend="italic">1634-1848.</hi> K&#x00F8;benhavn</item>
+          <item>Werlauff, E.C. (1954) <hi rend="italic">
+<rs type="title" key="title566">Af min Ungdomstid. Danske, is&#x00E6;r kj&#x00F8;benhavnske, Tilstande og Stemninger ved og efter Overgangen til det nittende Aarhundrede. E.C. Werlauff&#x2018;s efterladte Optegnelser</rs>
+</hi> udg. af Hans Degen. K&#x00F8;benhavn</item>
+        </list>
+      </div>
+    </body>
+</text>
+</TEI>

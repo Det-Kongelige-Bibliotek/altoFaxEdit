@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/varXSLT.xsl"?>
+<?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/varRNC.rnc"?>
+<TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
+                <title rend="shortForm">Et S&#x00E6;rsyn</title>
+                <author>Nicolai Frederik Severin Grundtvig</author>
+                <editor role="philologist">Niels W. Bruun</editor>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+          <idno type="content">1.2</idno>
+          <idno type="technic">1.5.1</idno>
+        </edition>
+            </editionStmt>
+            <extent>6 KB</extent>
+            
+            <publicationStmt>
+                <availability status="restricted"><p>&#x00A9; Grundtvig Centeret, Aarhus Universitet</p></availability>
+                <publisher>Faculty of Arts, Aarhus University</publisher>
+                <distributor>Grundtvig Centeret, Vartov, K&#x00F8;benhavn</distributor>
+                <authority></authority>
+                
+                <date when="2013-01-04">www.grundtvigsv&#x00E6;rker.dk, version 1.2, 1. april 2013</date>
+            </publicationStmt>
+            
+            <notesStmt>
+                <note type="txt" target="1804_28_txt.xml">L&#x00E6;setekst</note>
+                <note xml:id="thisFile" type="unknownVar">Variant</note>
+<!--Problem med @type for "thisFile" -->
+            </notesStmt>
+            
+            <sourceDesc>
+                <p />
+            </sourceDesc>
+        </fileDesc>
+        <encodingDesc>
+            <projectDesc>
+                <p>Grundtvig Centeret er oprettet den 1. januar 2009.</p>
+                <p>Grundtvig Centeret arbejder med:</p>
+                <p>1. En digital og kommenteret udgave af Grundtvigs v&#x00E6;rker</p>
+                <p>2. En forskningsindsats p&#x00E5; de felter, hvor Grundtvig s&#x00E6;rligt markerede sig</p>
+                <p>2.a. Teologi og kirke</p>
+                <p>2.b. Demokrati og folkelighed</p>
+                <p>2.c. P&#x00E6;dagogik og folkeoplysning</p>
+                <p>3. Videnudveksling, undervisning og formidling</p>
+            </projectDesc>
+            <editorialDecl xml:id="comGuideLines.xml" n="1.0">
+                <p>Retningslinjer for punktkommentarer til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="introGuideLines.xml" n="1.0">
+                <p>Retningslinjer for indledninger til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="msGuideLines.xml" n="1.0">
+                <p>Retningslinjer for transskribering af manuskripter til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="refGuideLines.xml" n="1.0">
+                <p>Retningslinjer for litteraturhenvisninger til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="typoGuideLines.xml" n="1.0">
+                <p>Retningslinjer for gengivelse af typografiske hierarkier i Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="txrGuideLines.xml" n="1.0">
+                <p>Retningslinjer for tekstredeg&#x00F8;relser til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="txtGuideLines.xml" n="1.0">
+                <p>Tekstkritiske retningslinjer for Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="xmlGuideLines.xml" n="1.0">
+                <p>Retningslinjer for XML-m&#x00E6;rkning af Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+        </encodingDesc>
+        <revisionDesc>
+            <change xml:id="KSR" who="KSR" when="2012-01-24">dummy</change>
+            <change xml:id="NHB" who="NHB" when="2012-01-27">udfyldt</change>
+            <change who="NHB" when="2011-02-20">rettet TEIheader</change>
+            <change who="NHB" when="2011-06-14">validering efter 1.1-skema</change>
+            <change who="NHB" when="2012-06-21">validering til version 1.1</change>
+            <change who="NHB" when="2012-08-16">rettet idno</change>
+            <change who="NHB" when="2012-08-22">indsat unknownVar i teiHead</change>
+            <change who="NHB" when="2012-10-25">valideret</change>
+            <change who="auto" when="2013-12-12">Omorganiseret teiHeader</change>
+            <change who="auto" when="2013-12-19">Omorganiseret teiHeader, 2</change>
+
+            <change who="JT" when="2019-08-26">forsøg på github-konflikt</change>
+            <change who="JT" when="2019-08-26">3. FORSØG test nok en test</change>
+
+
+        </revisionDesc>
+    </teiHeader>
+    <text type="var">
+        <body>
+            <!--
+            <div>
+                <p rend="center">Der kendes ikke varianter til dette v&#x00E6;rk.</p>
+            </div>-->
+        </body>
+</text>
+</TEI>

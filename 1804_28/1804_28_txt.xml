@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="https://prometheus.statsbiblioteket.dk/gvData/xslt/txtXSLT.xsl"?>
+<?xml-model type="application/relax-ng-compact-syntax" href="https://prometheus.statsbiblioteket.dk/gvData/rnc/txtRNC.rnc"?>
+<TEI xmlns:TEI="http://www.tei-c.org/ns/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title rend="part">Et S&#x00E6;rsyn i det nittende Aarhundrede</title>
+                <title rend="shortForm">Et S&#x00E6;rsyn</title>
+                <author>Nicolai Frederik Severin Grundtvig</author>
+                <editor role="philologist">Niels W. Bruun</editor>
+            </titleStmt>
+            <editionStmt>
+                <edition>
+                    <idno type="firstUpload">1.2</idno>
+          <idno type="content">1.10</idno>
+          <idno type="technic">1.5.1</idno>
+        </edition>
+            </editionStmt>
+            <extent>11 KB</extent>
+            <publicationStmt>
+                <availability status="restricted"><p>&#x00A9; Grundtvig Centeret, Aarhus Universitet</p></availability>
+                <publisher>Faculty of Arts, Aarhus University</publisher>
+                <distributor>Grundtvig Centeret, Vartov, K&#x00F8;benhavn</distributor>                
+                <date when="2013-01-04">www.grundtvigsv&#x00E6;rker.dk, version 1.2, 1. april 2013</date>
+            </publicationStmt>
+            <seriesStmt>
+                <idno type="date">1804-01-01</idno>
+            </seriesStmt>
+            <notesStmt>
+                <note xml:id="thisFile" type="txt" target="1804_28_txt.xml">L&#x00E6;setekst</note>
+                <note type="com" target="1804_28_com.xml">Punktkommentar</note>
+                <note type="intro" target="1804_28_intro.xml">Indledning</note>
+                <note type="txr" target="1804_28_txr.xml">Tekstredeg&#x00F8;relse</note>
+                <note type="unknownVar">Variant</note>
+            </notesStmt>
+            <sourceDesc>
+                <bibl>
+                    <title type="main">Politivennen. No. 299.</title>
+                    <title type="part">Et S&#x00E6;rsyn i det nittende Aarhundrede.</title>
+                    <author> Nic. Fred. Sev. Grundtvig. <note>Kandidat i Theologien.</note>
+                    </author>
+                    <pubPlace>K&#x00F8;benhavn</pubPlace>
+                    <publisher>
+                        <note>Samlet, forlagt og trykt af K. H. Seidelin.</note>
+                        <note>Bogtrykker og Skrivtst&#x00F8;ber.</note>
+                    </publisher>
+                    <date>1804.</date>
+                </bibl>
+                <listWit xml:id="emendation">
+                    <witness xml:id="A" n="28">
+                        <desc>F&#x00F8;rstetrykket</desc>
+                        <num>1804</num>
+                    </witness>
+                </listWit>
+            </sourceDesc>
+        </fileDesc>        
+        <profileDesc>
+            <textClass>
+                <classCode scheme="http://grundtvigsværker.dk/genre.xml">
+                    <term>prosa</term>
+                    <term>artikler</term>
+                </classCode>
+                <keywords scheme="http://grundtvigsværker.dk/emneord.xml">
+                    <term>skolen</term>
+                    <term>politik</term>
+                </keywords>
+            </textClass>
+        </profileDesc>        
+        <encodingDesc>
+            <projectDesc>
+                <p>Grundtvig Centeret er oprettet den 1. januar 2009.</p>
+                <p>Grundtvig Centeret arbejder med:</p>
+                <p>1. En digital og kommenteret udgave af Grundtvigs v&#x00E6;rker</p>
+                <p>2. En forskningsindsats p&#x00E5; de felter, hvor Grundtvig s&#x00E6;rligt markerede sig</p>
+                <p>2.a. Teologi og kirke</p>
+                <p>2.b. Demokrati og folkelighed</p>
+                <p>2.c. P&#x00E6;dagogik og folkeoplysning</p>
+                <p>3. Videnudveksling, undervisning og formidling</p>
+            </projectDesc>
+            <editorialDecl xml:id="comGuideLines.xml" n="1.0">
+                <p>Retningslinjer for punktkommentarer til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="introGuideLines.xml" n="1.0">
+                <p>Retningslinjer for indledninger til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="msGuideLines.xml" n="1.0">
+                <p>Retningslinjer for transskribering af manuskripter til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="refGuideLines.xml" n="1.0">
+                <p>Retningslinjer for litteraturhenvisninger til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="typoGuideLines.xml" n="1.0">
+                <p>Retningslinjer for gengivelse af typografiske hierarkier i Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="txrGuideLines.xml" n="1.0">
+                <p>Retningslinjer for tekstredeg&#x00F8;relser til Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="txtGuideLines.xml" n="1.0">
+                <p>Tekstkritiske retningslinjer for Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+            <editorialDecl xml:id="xmlGuideLines.xml" n="1.0">
+                <p>Retningslinjer for XML-m&#x00E6;rkning af Grundtvigs V&#x00E6;rker</p>
+            </editorialDecl>
+        </encodingDesc>
+        <revisionDesc>
+            <change xml:id="KSR" who="KSR" when="2011-04-11">XML-fil fra KB</change>
+            <change xml:id="NWB" who="NWB" when="2011-04-12">indrykning fra bagkant; inds&#x00E6;ttelse af et sidetal samt korrektion af scanningsfejl</change>
+            <change who="NWB" when="2011-04-18">inds&#x00E6;ttelse af to noter</change>
+            <change who="NWB" when="2011-05-05">titelbladets tekst fjernet; korrektion af koder</change>
+            <change who="NWB" when="2011-05-06">et sidetal indsat</change>
+            <change who="NWB" when="2011-07-13">nyt lemma indsat; andre korrektioner</change>
+            <change who="KSR" when="2011-10-25">&#x00E6;ndret lemmata + validering</change>
+            <change who="KSR" when="2011-11-25">validering</change>
+            <change who="JEL" when="2011-12-06">indsat person- og titelhenvisninger; invalid</change>
+            <change xml:id="FDS" who="FDS" when="2011-12-06">Indf&#x00F8;rt stednavne; valid (i hvert fald &lt;div&gt;</change>
+            <change who="NHB" when="2011-12-08">unicodes indsat samt gennemgang efter tjeklisten</change>
+            <change who="NHB" when="2011-12-09">revision, is&#x00E6;r kontrol ud fra stilarkets transformering. &#x00C6;ndring (i samr&#x00E5;d med JK) af hierarkiet i tekstens tre sidste linjer</change>
+            <change who="NHB" when="2011-12-09">Rettet teiHeader</change>
+            <change who="NHB" when="2012-01-19">Rettet titleStmt</change>
+            <change who="JMR" when="2012-01-27">&#x00C6;ndring i date-element</change>
+            <change who="NHB" when="2011-02-20">rettet TEIheader</change>
+            <change who="KSR" when="2012-04-24">validering; rettet i teiHeader</change>
+            <change who="NHB" when="2012-06-21">validering til version 1.1</change>
+            <change who="NHB" when="2012-08-08">indsat gardin-overskrift i kantede parenteser "[]"</change>
+            <change who="NHB" when="2012-10-25">valideret. US fjernet fra sigelliste. Ingen af artiklerne findes der</change>
+            <change xml:id="JT" who="JT" when="2013-10-04">rettet henvisning til fax002 (s. 4754), hvor der stod 003 (s. 4755). Dvs. 003 optr&#x00E5;dte to gange</change>
+            <change who="auto" when="2013-12-12">Omorganiseret teiHeader</change>
+            <change who="auto" when="2013-12-19">Omorganiseret teiHeader, 2</change>
+            <change who="KSR" when="2014-09-26">validering</change>
+            <change who="KSR" when="2015-10-27">genre, emneord</change>
+            <change who="KN" xml:id="KN" when="2016-09-21">Manglende punktum s. 4754 (efter "neppe retf&#x00E6;rdigt") er indsat. Bruger John Thomsen fandt og gjorde os opmærksom på fejlen.</change>
+            <change who="JT" when="2017-03-28">ændret idno type="content" fra 1.9 til 1.10, pga. rettelse i txr</change>
+        </revisionDesc>
+    </teiHeader>
+    <text type="txt">
+        <body>
+            <div type="[Tekst]">
+                
+                <pb type="text" facs="1804_28_fax001.jpg" rend="supp" n="4753" ed="A"/>
+                
+                <head rend="2">Et S&#x00E6;rsyn i det nittende Aarhundrede.</head>
+                
+                <p rend="noIndent"> <hi rend="initial">N</hi>eppe skulde man troe, at der paa en Tid, da der dog ikke blot skrives meget, men ogsaa gi&#x00F8;res meget til <seg n="com1" type="com">Skolev&#x00E6;senets Bedste</seg> &#x2013; kan gives en Bye &#x2013; end sige et Sogn &#x2013; i Danmark, hvor man i en R&#x00E6;kke af Aar, har maattet <seg type="com" n="com2">savne</seg> al Sko<pb type="text" facs="1804_28_fax002.jpg" n="4754" ed="A"/>leundervisning, og dog er det Tilf&#x00E6;ldet. &#x2013; I <seg type="com" n="com3">et vist Sogn</seg> paa <placeName key="fak170">Falster</placeName>, har i de sidste 10 Aar ingen <seg type="com" n="com4">Skoleholder</seg> v&#x00E6;ret, thi saal&#x00E6;nge er det siden, den sidste derv&#x00E6;rende <seg type="com" n="com5">blev blind</seg>, og oph&#x00F8;rte at forrette Embedet. <seg type="com" n="com6">Vedkommende</seg> v&#x00E6;grede sig ved at inds&#x00E6;tte en ny &#x2013; som man siger &#x2013; paa Grund af, at den Gamle ej kunde undv&#x00E6;re <seg type="com" n="com7">Skolel&#x00F8;nnen</seg>. Dog, det er ikke <seg type="com" n="com8">troeligt</seg>, thi ski&#x00F8;ndt en saadan Handling kan synes at tilh&#x00F8;re et f&#x00F8;lsomt Hjerte, b&#x00E6;rer den dog neppe Pr&#x00E6;g af Fornuftens Stempel, og Medlidenhed med eet Individ, paa et helt Sogns Ungdoms Bekostning, <seg type="com" n="com9">vorder</seg> &#x2013; <seg type="com" n="com10">efter mine Tanker</seg> &#x2013; neppe retf&#x00E6;rdigt. &#x2013; <seg type="com" n="com11">End mere</seg>, det er 3 Aar siden, <seg type="com" n="com12">bemeldte</seg> Gamle d&#x00F8;de, og endnu er ingen ny &#x2013; uagtet alle Opfordringer &#x2013; indsat. &#x2013; Hvad Under? om i et saadant Sogn, det Tilf&#x00E6;lde har indtruffet, at en, der <seg type="com" n="com13">antegnede sig til Konfirmation</seg>, <seg type="com" n="com15">ej endnu kjendte Bogstaver</seg>; &#x2013; thi var der end &#x2013; som man maae formode, ski&#x00F8;ndt man ej indseer det &#x2013; de meest gyldige Grunde til denne <pb type="text" facs="1804_28_fax003.jpg" ed="A" n="4755"/> <seg type="com" n="com16">skadebringende</seg> Ops&#x00E6;ttelse, bliver det dog stedse s&#x00F8;rgeligt, at Oplysningen maa taale et saa voldsomt <seg type="com" n="com17">tilbagevirkende</seg> St&#x00F8;d, paa Steder, hvor den saameget kunde beh&#x00F8;ve uafbrudt Fremskriden. &#x2013; Hvor nedslaaende maae det ikke v&#x00E6;re for Stedets oplyste <seg type="com" n="com18">Religionsl&#x00E6;rer</seg>, at see sine Bestr&#x00E6;belser tabe saameget af den tilsigtede Nytte? da en stor Deel af hans Menighed er <seg type="com" n="com19">uskikket</seg> til at modtage hans Undervisning, den han ikke kan <seg type="com" n="com20">nedstemme til Skoleholderens f&#x00F8;rste Funktioner</seg>.</p>
+                
+                <p rend="right"> <hi rend="size-1"> <placeName key="fak171"> <seg type="com" n="com21">Udbye</seg> Pr&#x00E6;stegaard</placeName> ved <placeName key="fak172">Pr&#x00E6;st&#x00F8;</placeName> <seg type="com" n="com22">d. 5 d.</seg> 1804.</hi> </p>
+                
+                <p rend="right"> <hi rend="italic">Nic. Fred. Sev. Grundtvig.</hi> </p>
+                
+                <p rend="firstIndentRight"> <hi rend="size-1"> <seg type="com" n="com23">Kandidat i Theologien</seg>.</hi> </p>
+            </div>
+        </body>
+</text>
+</TEI>
