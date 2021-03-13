@@ -14,8 +14,9 @@ afe.image = (function () {
     // Base path for the image server
     var base;
     // URI for the full images
-    const fullImagePath = '/full/full/0/default.jpg';
-    const previewImagePath = '/full/!2000,600/0/default.jpg';
+    const cacheUpdateFlag = '&x=1';
+    const fullImagePath = '/full/full/0/default.jpg' + cacheUpdateFlag;
+    const previewImagePath = '/full/!2000,600/0/default.jpg' + cacheUpdateFlag;
     const maxImageWidth = 800;
     const maxImageHeight = 800;
 

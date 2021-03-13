@@ -20,6 +20,7 @@ afe.app = (function () {
     const folderTop   = '[Tilbage]';
     const commitMessage = 'AltoFaxEdit korrektur';
     const cookieToken   = 'afe-token';
+    const cookieMessage = 'afe-message';
     const looseDataMessage = "Data er IKKE blevet gemt!. Ønsker du at fortsætte alligevel?";
 
     // Image buffer constants
@@ -665,11 +666,42 @@ afe.app = (function () {
      };
 
     /**
+     * Hash of string as 32 bit integer
+     */
+    var stringToHash = function(string) {
+        var hash = 0; 
+
+        if (string == null)
+            return hash; 
+
+        for (var i = 0; i < string.length; i++) { 
+            var chr = string.charCodeAt(i); 
+            hash = ((hash << 5) - hash) + chr; 
+            hash = hash & hash; 
+        }
+
+        return hash; 
+    };
+
+    /**
+     * Show message if different from last shown message in this browser
+     */
+    var showMessageIfNew = function(message) {
+        var oldHash = afe.utils.readCookie(cookieMessage);
+        var hash = "_" + stringToHash(message);
+        if (oldHash == null || oldHash != hash) {
+            alert('Bemærk: ' + message);
+            afe.utils.setCookie(cookieMessage, hash, 365);
+        }
+    };
+
+    /**
      * Return the current datamodel
      */
     var getModel = function() {
         return(dataAltoFiles);
-    }
+    };
+
     /**
       * Initialize the application
     */
@@ -709,6 +741,8 @@ afe.app = (function () {
             $(_this).val('0');  // reset to placeholder item
         });
 
+        if ($('#afe-menu') != null)  // for edit page only
+            showMessageIfNew('Vejledning til Trykkefrihedens Skrifter pr. 16-04-2020 er nu tilgængelig i applikationen. Nogle interne stier er desuden ændret. Genopfrisk websiden hvis du oplever problemer med billeder.');
     };
 
     // Public functions

@@ -15,11 +15,11 @@
                 <tr>
                     <td><button id="btn-save-token" class="afe-setup-action" type="submit" title="Gem token">Gem</button></td>
                 </tr>
-                <tr><td style="padding-top:2em;">
-                    <a href="/">Tilbage til applikationen</a>
-                </td></tr>
             </table>
         </form>
     </div>
+
+	<p style="padding-top:2em;"><a href="/">Tilbage til applikationen</a></p>
+	<p style="padding-top:2em;"><a href="{{ url_for('static', filename='Brugervejledning_AltoFaxEdit.pdf')}}?v={{version}}" target="_blank">Åbn Brugervejledning til AltoFaxEdit</a></p>
 </div>
 {% endblock %}

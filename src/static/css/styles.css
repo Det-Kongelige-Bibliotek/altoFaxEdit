@@ -58,6 +58,9 @@ div#folders {
     padding: 3px;
     height: 88vh;
 }
+div#folders div.afe-folder:last-child {
+    padding-bottom: 4em;
+}
 
 table td#left {
     min-width: 315px;

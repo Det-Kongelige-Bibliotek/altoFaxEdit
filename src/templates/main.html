@@ -17,9 +17,9 @@
                             <div id="afe-menu-documents">
                             <select id="docList">
                             <option value="0" disabled="disabled" selected="selected">Åbn vejledning...</option>
-                            <option value="/static/Brugervejledning_AltoFaxEdit.pdf">Brugervejledning til AltoFaxEdit</option>
-                            <option value="/static/fraktur_i_Danmark.pdf">Læs om fraktur</option>
-                            <option value="/static/Vejledning_korrektur_Trykkefrihedens_Skrifter.pdf">Vejledning til Trykkefrihedens Skrifter</option>
+                            <option value="{{ url_for('static', filename='Brugervejledning_AltoFaxEdit.pdf')}}?v={{version}}">Brugervejledning til AltoFaxEdit</option>
+                            <option value="{{ url_for('static', filename='fraktur_i_Danmark.pdf')}}?v={{version}}">Læs om fraktur</option>
+                            <option value="{{ url_for('static', filename='Vejledning_korrektur_Trykkefrihedens_Skrifter.pdf')}}?v={{version}}">Vejledning til Trykkefrihedens Skrifter</option>
                             </select>
                             </div>
                             <div id="afe-user"><span class="fas fa-user"/><span id="afe-username" title="Login-navn">{{user}}</span>
